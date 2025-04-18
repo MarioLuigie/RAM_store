@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "RAM_fashionstore",
+  title: "RAM_fashionStore",
   description: "RAM. Interpret as you wish.",
 };
 

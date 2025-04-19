@@ -46,7 +46,7 @@ export default function Menu() {
 			{/* MOBILE MENU */}
 			<nav className="md:hidden flex">
 				<Sheet>
-					<SheetTrigger className="align-middle">
+					<SheetTrigger className="align-middle cursor-pointer">
 						<EllipsisVertical />
 					</SheetTrigger>
 					<SheetContent className="flex flex-col items-start">

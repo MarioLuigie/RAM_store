@@ -1,8 +1,9 @@
+import { Button } from '@/components/ui/button'
 
 export default function Page() {
   return (
-    <div className="text-9xl bg-amber-300">
-      MAIN
+    <div className="flex justify-center items-center">
+      <Button>CLICK</Button>
     </div>
   );
 }

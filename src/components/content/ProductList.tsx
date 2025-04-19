@@ -1,4 +1,7 @@
+// lib
 import { Product } from '@/lib/types/products'
+// components
+import ProductCard from '@/components/content/ProductCard'
 
 export default function ProductList({ data }: { data: Product[] }) {
 	const numberOfProducts = data.length
@@ -7,7 +10,9 @@ export default function ProductList({ data }: { data: Product[] }) {
 			{numberOfProducts > 0 ? (
 				<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
 					{data.map((product: Product, i) => (
-						<div key={i} className='bg-slate-300'>{product.name}</div>
+						<div key={i}>
+							<ProductCard />
+						</div>
 					))}
 				</div>
 			) : (

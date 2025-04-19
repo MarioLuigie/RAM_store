@@ -12,8 +12,8 @@ export default function NotFoundPage() {
 				<Logo />
 
 				<div className="mt-6 p-6 rounded-lg shadow-md text-center">
-					<h1 className="text-3xl font-bold mb-4">Not Found</h1>
-					<p className="text-[#383638]">
+					<h1 className="text-4xl font-bold mb-4">Not Found</h1>
+					<p className="text-[#383638] text-lg">
 						Could not find requested resource
 					</p>
 					<Button variant="outline" className="mt-6">

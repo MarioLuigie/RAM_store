@@ -7,14 +7,17 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
+import { Product } from '@/lib/types/products'
+import Link from 'next/link'
+import Image from 'next/image'
 
-export default function ProductCard() {
+export default function ProductCard({ product }: { product: Product }) {
 	return (
 		<div>
 			<Card>
 				<CardHeader>
-					<CardTitle>Card Title</CardTitle>
-					<CardDescription>Card Description</CardDescription>
+					<CardTitle>{product.name}</CardTitle>
+					<CardDescription>{product.description}</CardDescription>
 				</CardHeader>
 				<CardContent>
 					<p>Card Content</p>

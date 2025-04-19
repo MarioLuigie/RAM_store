@@ -6,6 +6,7 @@ import { useTheme } from 'next-themes'
 import { APP_NAME } from '@/lib/constants'
 import { ICONS } from '@/lib/constants/icons'
 import { ROUTES } from '@/lib/constants/paths'
+import { Theme } from '@/lib/constants/enums'
 // components
 import Link from 'next/link'
 import Image from 'next/image'
@@ -17,9 +18,9 @@ export default function Logo() {
 	useEffect(() => setMounted(true), [])
 	if (!mounted) return null
 
-	const currentTheme = theme === 'system' ? systemTheme : theme
+	const currentTheme = theme === Theme.SYSTEM ? systemTheme : theme
 	const logoSrc =
-		currentTheme === 'dark' ? ICONS.LOGO_DARK.path : ICONS.LOGO_LIGHT.path
+		currentTheme === Theme.DARK ? ICONS.LOGO_DARK.path : ICONS.LOGO_LIGHT.path
 
 	return (
 		<div className="flex-start">

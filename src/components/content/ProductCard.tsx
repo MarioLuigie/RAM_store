@@ -21,6 +21,13 @@ export default function ProductCard({ product }: { product: Product }) {
 				</CardHeader>
 				<CardContent>
 					<p>Card Content</p>
+					<Image
+						src={product.images[0]}
+						alt={product.name}
+						width={300}
+						height={300}
+						priority
+					/>
 				</CardContent>
 				<CardFooter>
 					<p>Card Footer</p>

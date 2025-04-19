@@ -18,9 +18,6 @@ export default function ProductCard({ product }: { product: Product }) {
 				<CardHeader>
 					<CardTitle>{product.name}</CardTitle>
 					<CardDescription>{product.description}</CardDescription>
-				</CardHeader>
-				<CardContent>
-					<p>Card Content</p>
 					<Image
 						src={product.images[0]}
 						alt={product.name}
@@ -28,6 +25,22 @@ export default function ProductCard({ product }: { product: Product }) {
 						height={300}
 						priority
 					/>
+				</CardHeader>
+				<CardContent className="p-4 grid gap-4">
+					{/* PRODUCT NAME */}
+					<p className="text-xs">{product.brand}</p>
+					{/* LINK TO PRODUCT SITE */}
+					<Link href={`/product/${product.slug}`}>
+						<h2 className="font-medium">{product.name}</h2>
+					</Link>
+					{/* PRODUCT RATING */}
+					<div className="flex-between gap-4">{product.rating} Stars</div>
+					{/* PRODUCT PRICE */}
+					{product.stock > 0 ? (
+						<p className='font-bold'>{product.price}</p>
+					) : (
+						<p className="text-destructive">Out of stock</p>
+					)}
 				</CardContent>
 				<CardFooter>
 					<p>Card Footer</p>

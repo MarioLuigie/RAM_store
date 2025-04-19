@@ -1,6 +1,9 @@
 export const ROUTES = {
   HOME: '/',
-  ABOUT: '/about',
-	OFFER: '/offer',
-	CONTACT: '/contact',
+  CART: '/cart',
+  SIGN_IN: '/sign-in'
+}
+
+export const ICONS_PATH = {
+  LOGO: '/assets/icons/logo.svg'
 }

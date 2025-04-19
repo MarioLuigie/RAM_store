@@ -1,12 +1,12 @@
 // modules
-import { ShoppingCart, UserIcon } from 'lucide-react'
-//lib
-import { APP_NAME, MENU_ITEMS } from '@/lib/constants'
-import { ROUTES } from '@/lib/constantS/paths'
+// import { ShoppingCart, UserIcon } from 'lucide-react'
+// //lib
+// import { APP_NAME, MENU_ITEMS } from '@/lib/constants'
+import { ROUTES } from '@/lib/constants/paths'
 // components
-import Image from 'next/image'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+// import Image from 'next/image'
+// import { Button } from '@/components/ui/button'
 
 export default function Header() {
 

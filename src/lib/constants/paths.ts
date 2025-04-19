@@ -5,5 +5,6 @@ export const ROUTES = {
 }
 
 export const ICONS_PATH = {
-  LOGO: '/assets/icons/logo.svg'
+  LOGO_LIGHT: '/assets/icons/logo-light-mode.svg',
+  LOGO_DARK: '/assets/icons/logo-dark-mode.svg'
 }

@@ -12,8 +12,8 @@ export default function Logo() {
     <div className="flex-start">
     <Link href={ROUTES.HOME} className="flex-start">
       <Image
-        src={ICONS.LOGO.path}
-        alt={ICONS.LOGO.alt}
+        src={ICONS.LOGO_LIGHT.path}
+        alt={ICONS.LOGO_LIGHT.alt}
         width={48}
         height={48}
         priority

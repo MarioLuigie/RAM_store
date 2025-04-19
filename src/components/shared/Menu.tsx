@@ -40,6 +40,7 @@ export default function Menu() {
 		<>
 			{/* DESKTOP MENU */}
 			<nav className="hidden md:flex gap-3">
+        {/* MENU CONTENT */}
 				<MenuItems />
 			</nav>
 
@@ -54,6 +55,7 @@ export default function Menu() {
 							Menu
 						</SheetTitle>
 						<SheetDescription></SheetDescription>
+            {/* MENU CONTENT */}
 						<div className="flex flex-col items-start gap-3 w-full px-4">
 							<MenuItems />
 						</div>

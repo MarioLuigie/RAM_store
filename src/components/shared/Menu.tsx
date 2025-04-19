@@ -40,19 +40,23 @@ export default function Menu() {
 		<>
 			{/* DESKTOP MENU */}
 			<nav className="hidden md:flex gap-3">
-        <MenuItems />
+				<MenuItems />
 			</nav>
 
 			{/* MOBILE MENU */}
-			<nav className="flex md:hidden gap-3">
+			<nav className="md:hidden flex">
 				<Sheet>
 					<SheetTrigger className="align-middle">
 						<EllipsisVertical />
 					</SheetTrigger>
 					<SheetContent className="flex flex-col items-start">
-						<SheetTitle>Menu</SheetTitle>
-						<MenuItems />
+						<SheetTitle className="w-full p-5 border-b">
+							Menu
+						</SheetTitle>
 						<SheetDescription></SheetDescription>
+						<div className="flex flex-col items-start gap-3 w-full px-4">
+							<MenuItems />
+						</div>
 					</SheetContent>
 				</Sheet>
 			</nav>

@@ -1,10 +1,11 @@
-import { APP_NAME } from "@/lib/constants"
+// components
+import CopyrightNotice from '@/components/shared/CopyrightNotice'
 
 export default function Footer() {
 
   return (
-    <footer className="flex justify-center items-center">
-      {APP_NAME}
+    <footer className="flex justify-center items-center border-t">
+      <CopyrightNotice />
     </footer>
   )
 }

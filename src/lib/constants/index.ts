@@ -1,3 +1,4 @@
+// lib
 import { MENU_LABELS } from '@/lib/constants/texts'
 import { ROUTES } from '@/lib/constants/paths'
 
@@ -11,7 +12,7 @@ export const APP_ROUTE_NAME_HOME = 'Home'
 export const SERVER_URL =
 	process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 
-// MAIN MENU
+// MAIN MENU ITEMS
 export const MENU_ITEMS = [
 	{ label: MENU_LABELS.HOME, path: ROUTES.HOME },
 	{ label: MENU_LABELS.ABOUT, path: ROUTES.ABOUT },

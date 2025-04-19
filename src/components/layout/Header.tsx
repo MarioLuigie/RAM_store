@@ -6,16 +6,20 @@ import { ROUTES } from '@/lib/constants/paths'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import Logo from '@/components/shared/Logo'
+import ModeToggle from '@/components/shared/ModeToggle'
 
 export default function Header() {
 	return (
 		<header className="w-full border-b">
 			<div className="wrapper flex-between">
 				{/* LOGO */}
-        <Logo />
+				<Logo />
 
-        {/* BUTTONS */}
-				<div className='flex gap-3'>
+				{/* BUTTONS */}
+				<div className="flex gap-3">
+          {/* MODE TOGGLE DROPDOWN MENU */}
+					<ModeToggle />
+
 					{/* CART BUTTON */}
 					<Button asChild variant="ghost">
 						<Link href={ROUTES.CART}>

@@ -1,10 +1,6 @@
 // components
-import Loader from '@/components/shared/Loader'
+import LoadingPage from '@/components/pages/LoadingPage'
 
-export default function LoadingPage() {
-	return (
-		<div>
-      <Loader />
-		</div>
-	)
+export default function Loading() {
+	return <LoadingPage />
 }

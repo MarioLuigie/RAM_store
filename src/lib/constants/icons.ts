@@ -11,4 +11,8 @@ export const ICONS = {
 		path: ICONS_PATH.LOGO_DARK,
 		alt: `${APP_NAME} logo`,
 	},
+  LOADER: {
+		path: ICONS_PATH.LOADER,
+		alt: 'loading...',
+	},
 }

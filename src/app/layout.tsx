@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { APP_NAME, APP_DESC } from "@/lib/constants";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "RAM_fashionStore",
-  description: "RAM. Interpret as you wish.",
+  title: APP_NAME,
+  description: APP_DESC,
 };
 
 export default function RootLayout({

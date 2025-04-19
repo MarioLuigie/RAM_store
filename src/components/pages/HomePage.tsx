@@ -1,5 +1,11 @@
+import NewestArrivalsProducts from '@/components/content/NewestArrivalsProducts'
+
 export default function HomePage() {
-	return <div className="flex justify-center">HOME</div>
+	return (
+		<div className="flex justify-center">
+			<NewestArrivalsProducts />
+		</div>
+	)
 }
 
 // const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))

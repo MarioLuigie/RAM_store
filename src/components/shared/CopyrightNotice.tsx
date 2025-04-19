@@ -6,7 +6,7 @@ export default function CopyrightNotice() {
   
 	return (
 		<div className="p-5 flex-center">
-			{currentYear} &copy; <span className="font-bold pr-2">{APP_NAME}</span>{' '}
+			{currentYear} &copy; <span className="font-bold pr-2 pl-1">{APP_NAME}</span>{' '}
 			All Rights Reserved.
 		</div>
 	)

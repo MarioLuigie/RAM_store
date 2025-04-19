@@ -15,7 +15,7 @@ export default function Header() {
         <Logo />
 
         {/* BUTTONS */}
-				<div>
+				<div className='flex gap-3'>
 					{/* CART BUTTON */}
 					<Button asChild variant="ghost">
 						<Link href={ROUTES.CART}>
@@ -24,7 +24,7 @@ export default function Header() {
 					</Button>
 
 					{/* LOGIN BUTTON */}
-					<Button asChild variant="ghost">
+					<Button asChild>
 						<Link href={ROUTES.SIGN_IN}>
 							<UserIcon /> Sign In
 						</Link>

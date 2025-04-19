@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 
 export default function HomePage() {
 	return (
-		<div>
+		<div className='flex justify-center'>
 			<Button>HOME</Button>
 		</div>
 	)

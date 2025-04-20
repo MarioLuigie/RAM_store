@@ -74,8 +74,8 @@ const sampleData = {
 			category: "Men's Dress Shirts",
 			description: 'Streamlined design with flexible stretch fabric',
 			images: [
-				'/assets/images/sample-products/p4-1.jpg',
-				'/assets/images/sample-products/p4-2.jpg',
+				'/assets/images/sample-products/p4-1.png',
+				'/assets/images/sample-products/p4-2.png',
 			],
 			price: 39.95,
 			brand: 'Calvin Klein',
@@ -91,8 +91,8 @@ const sampleData = {
 			category: "Men's Dress Shirts",
 			description: 'Iconic Polo design with refined oxford fabric',
 			images: [
-				'/assets/images/sample-products/p5-1.jpg',
-				'/assets/images/sample-products/p5-2.jpg',
+				'/assets/images/sample-products/p5-1.png',
+				'/assets/images/sample-products/p5-2.png',
 			],
 			price: 79.99,
 			brand: 'Polo',

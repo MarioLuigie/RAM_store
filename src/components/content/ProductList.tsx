@@ -8,7 +8,7 @@ export default function ProductList({ data }: { data: Product[] }) {
 	return (
 		<>
 			{numberOfProducts > 0 ? (
-				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
 					{data.map((product: Product) => (
 						<ProductCard product={product} key={product.slug} />
 					))}

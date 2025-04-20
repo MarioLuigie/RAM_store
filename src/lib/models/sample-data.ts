@@ -23,8 +23,8 @@ const sampleData = {
 			category: "Men's Dress Shirts",
 			description: 'Classic Polo style with modern comfort',
 			images: [
-				'/assets/images/sample-products/p1-1.jpg',
-				'/assets/images/sample-products/p1-2.jpg',
+				'/assets/images/sample-products/p1-1.png',
+				'/assets/images/sample-products/p1-2.png',
 			],
 			price: 59.99,
 			brand: 'Polo',
@@ -40,8 +40,8 @@ const sampleData = {
 			category: "Men's Dress Shirts",
 			description: 'Timeless style and premium comfort',
 			images: [
-				'/assets/images/sample-products/p2-1.jpg',
-				'/assets/images/sample-products/p2-2.jpg',
+				'/assets/images/sample-products/p2-1.png',
+				'/assets/images/sample-products/p2-2.png',
 			],
 			price: 85.9,
 			brand: 'Brooks Brothers',
@@ -57,8 +57,8 @@ const sampleData = {
 			category: "Men's Dress Shirts",
 			description: 'A perfect blend of sophistication and comfort',
 			images: [
-				'/assets/images/sample-products/p3-1.jpg',
-				'/assets/images/sample-products/p3-2.jpg',
+				'/assets/images/sample-products/p3-1.png',
+				'/assets/images/sample-products/p3-2.png',
 			],
 			price: 99.95,
 			brand: 'Tommy Hilfiger',

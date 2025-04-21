@@ -5,6 +5,7 @@ import ProductCard from '@/components/content/ProductCard'
 
 export default function ProductList({ data }: { data: Product[] }) {
 	const numberOfProducts = data.length
+	
 	return (
 		<>
 			{numberOfProducts > 0 ? (

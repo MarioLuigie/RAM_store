@@ -31,20 +31,24 @@ export default function ProductCard({ product }: { product: Product }) {
 			<CardContent className="px-4 grid gap-4">
 				{/* PRODUCT NAME */}
 				<p className="text-xs">{product.brand}</p>
+
 				{/* LINK TO PRODUCT SITE */}
 				<div className="h-20 flex flex-col justify-between">
 					<Link href={`/product/${product.slug}`}>
 						<h2 className="font-medium">{product.name}</h2>
 					</Link>
 					<div className="flex-between gap-4">
+
 						{/* PRODUCT RATING */}
-						{product.rating} Stars
+					  <p>{product.rating} Stars</p>
+
 						{/* PRODUCT PRICE */}
 						{product.stock > 0 ? (
 							<ProductPrice value={product.price} />
 						) : (
 							<p className="text-destructive">Out of stock</p>
 						)}
+						
 					</div>
 				</div>
 			</CardContent>

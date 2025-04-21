@@ -7,11 +7,15 @@ type ProductPriceProps = {
 }
 
 export default function ProductPrice({ value, className }: ProductPriceProps) {
+
+	console.log("PRICE FROM PRODUCTPRICE", value, typeof value)
 	// Ensure to decimal places
 	const stringValue = value.toFixed(2)
 
 	// Get the int/float
 	const [intValue, floatValue] = stringValue.split('.')
+
+	console.log("$$$", typeof intValue)
 
 	return (
 		<p>

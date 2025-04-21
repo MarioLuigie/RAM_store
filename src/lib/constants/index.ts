@@ -15,7 +15,7 @@ export const SERVER_URL =
 // MAIN MENU ITEMS
 export const MENU_ITEMS = [
 	{ label: MENU_LABELS.HOME, path: ROUTES.HOME },
-	{ label: MENU_LABELS.ABOUT, path: ROUTES.ABOUT },
-	{ label: MENU_LABELS.OFFER, path: ROUTES.OFFER },
-	{ label: MENU_LABELS.CONTACT, path: ROUTES.CONTACT },
 ]
+
+// PRODUCTS
+export const LATEST_PRODUCTS_LIMIT = Number(process.env.LATEST_PRODUCTS_LIMIT) || 4

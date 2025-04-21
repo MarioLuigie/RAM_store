@@ -12,15 +12,11 @@ export async function getLatestProducts() {
 		orderBy: { createdAt: 'desc' },
 	})
 
-	console.log('DATA FROM PRISMA', data)
-
 	const products = data.map((product) => ({
 		...product,
 		price: product.price.toNumber(),
 		rating: product.rating.toNumber(),
 	}))
-
-	console.log('PRODUCTS WITH FILDS CONVERTED INTO NUMBERS', products)
 
 	return products
 }

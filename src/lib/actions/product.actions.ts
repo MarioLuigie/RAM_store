@@ -10,17 +10,11 @@ import { Product } from '@/lib/types/products.types'
 export async function getLatestProducts(): Promise<Product[]> {
 	const prisma = new PrismaClient()
 
-	// PRODUCTS WITH PRISMA TYPE
+	// PRODUCTS WITH PRISMA TYPES
 	const data = await prisma.product.findMany({
 		take: LATEST_PRODUCTS_LIMIT,
 		orderBy: { createdAt: 'desc' },
 	})
-
-	// const products = data.map((product) => ({
-	// 	...product,
-	// 	price: product.price.toNumber(),
-	// 	rating: product.rating.toNumber(),
-	// }))
 
 	return safeNormalizeProducts(data)
 }

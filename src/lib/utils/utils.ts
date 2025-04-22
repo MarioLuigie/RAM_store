@@ -21,8 +21,8 @@ export function normalizeProduct(product: Product): Product {
 }
 
 export function formatNumberWithDecimalToString(number: number): string {
-	if (isNaN(number) || !isFinite(number)) return '0.00';
-	return number.toFixed(2);
+	if (isNaN(number) || !isFinite(number)) return '0.00'
+	return number.toFixed(2) // returned string
 }
 
 

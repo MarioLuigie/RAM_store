@@ -7,8 +7,8 @@ export function safeNormalizeProducts(data: PrismaProduct[]): Product[] {
 	const parsedData = data.flatMap((product) => {
 		const parsed = InsertProductSchema.safeParse({
 			...product,
-			price: product.price.toString(),
-			rating: product.rating.toString(),
+			price: product.price.toFixed(2),
+			rating: product.rating.toFixed(1),
 		})
 
 		if (!parsed.success) {

@@ -20,8 +20,9 @@ export function normalizeProduct(product: Product): Product {
 	}
 }
 
-export function formatNumberWithDecimaltoString(number: number): string {
-	const [int, decimal] = number.toString().split('.')
-	return decimal ? `${int}.${decimal.padEnd(2, '0')}` : `${int}.00`
+export function formatNumberWithDecimalToString(number: number): string {
+	if (isNaN(number) || !isFinite(number)) return '0.00';
+	return number.toFixed(2);
 }
+
 

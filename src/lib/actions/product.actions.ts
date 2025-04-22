@@ -1,20 +1,40 @@
 'use server'
 // modules
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, Prisma } from '@prisma/client'
 // lib
 import { LATEST_PRODUCTS_LIMIT } from '@/lib/constants'
 import { safeNormalizeProducts } from '@/lib/utils/server'
 import { Product } from '@/lib/types/products.types'
 
+// CREATE PRISMA CLIENT
+const prisma = new PrismaClient()
+
 // GET LATEST PRODUCTS
-export async function getLatestProducts(): Promise<Product[]> {
-	const prisma = new PrismaClient()
+export async function getLatestProducts(): Promise<IDataResult<Product[]>> {
+	try {
+		// PRODUCTS WITH PRISMA TYPES
+		const data = await prisma.product.findMany({
+			take: LATEST_PRODUCTS_LIMIT,
+			orderBy: { createdAt: 'desc' },
+		})
 
-	// PRODUCTS WITH PRISMA TYPES
-	const data = await prisma.product.findMany({
-		take: LATEST_PRODUCTS_LIMIT,
-		orderBy: { createdAt: 'desc' },
-	})
+		return {
+			success: true,
+			data: safeNormalizeProducts(data),
+		}
 
-	return safeNormalizeProducts(data)
+	} catch (error: unknown) {
+		if (error instanceof Prisma.PrismaClientKnownRequestError) {
+			console.error('Prisma error:', error.message, error.code)
+		} else if (error instanceof Error) {
+			console.error('General error:', error.message)
+		} else {
+			console.error('Unknown error:', error)
+		}
+
+		return {
+			success: false,
+			data: []
+		}
+	}
 }

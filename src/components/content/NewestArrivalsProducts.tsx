@@ -9,7 +9,8 @@ import ProductList from '@/components/content/ProductList'
 export default async function NewestArrivalsProducts() {
 	// PRODUCTS WITH PRISMA TYPES AND NORMALIZE INTO PRODUCT APP TYPE
 	const latestProducts: PrismaProduct[] = await getLatestProducts()
-	const normalizedLatestProducts: Product[] = latestProducts.map(normalizeProduct)
+	const normalizedLatestProducts: Product[] =
+		latestProducts.map(normalizeProduct)
 
 	return (
 		<div className="w-full my-10">

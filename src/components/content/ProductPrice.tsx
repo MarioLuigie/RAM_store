@@ -14,7 +14,7 @@ export default function ProductPrice({ product }: { product: Product }) {
 					<span className="text-sm font-medium align-super">{decimal}</span>
 				</p>
 			) : (
-				<p className="text-destructive">Out of stock</p>
+				<p className="text-destructive font-medium">Out of stock</p>
 			)}
 		</>
 	)

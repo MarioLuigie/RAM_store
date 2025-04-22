@@ -1,5 +1,5 @@
 // lib
-import { Product } from '@/lib/types/products'
+import { Product } from '@/lib/types/products.types'
 // components
 import {
 	Card,
@@ -14,7 +14,7 @@ import ProductPrice from '@/components/content/ProductPrice'
 
 export default function ProductCard({ product }: { product: Product }) {
 	return (
-		<Card className='transform transition-all duration-300 hover:scale-105'>
+		<Card className="transform transition-all duration-300 hover:scale-105">
 			<CardHeader>
 				<div className="h-18">
 					<CardTitle>{product.name}</CardTitle>
@@ -38,9 +38,8 @@ export default function ProductCard({ product }: { product: Product }) {
 						<h2 className="font-medium">{product.name}</h2>
 					</Link>
 					<div className="flex-between gap-4">
-
 						{/* PRODUCT RATING */}
-					  <p>{product.rating} Stars</p>
+						<p>{product.rating} Stars</p>
 
 						{/* PRODUCT PRICE */}
 						{product.stock > 0 ? (
@@ -48,7 +47,6 @@ export default function ProductCard({ product }: { product: Product }) {
 						) : (
 							<p className="text-destructive">Out of stock</p>
 						)}
-						
 					</div>
 				</div>
 			</CardContent>

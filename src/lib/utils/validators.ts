@@ -1,11 +1,11 @@
 import { z } from 'zod'
-import { formatNumberWithDecimal } from '@/lib/utils/utils'
+import { formatNumberWithDecimaltoString } from '@/lib/utils/utils'
 
 // SCHEMA FOR INSERTING PRODUCTS
 const currency = z
 	.string()
 	.refine((value) =>
-		/^\d+(\.\d{2})?$/.test(formatNumberWithDecimal(Number(value)))
+		/^\d+(\.\d{2})?$/.test(formatNumberWithDecimaltoString(Number(value)))
 	)
 
 export const InsertProductSchema = z.object({
@@ -19,4 +19,5 @@ export const InsertProductSchema = z.object({
 	isFeatured: z.boolean(),
 	banner: z.string().nullable(),
 	price: currency,
+	rating: z.string()
 })

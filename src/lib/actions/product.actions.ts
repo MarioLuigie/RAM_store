@@ -2,12 +2,12 @@
 // modules
 import { PrismaClient } from '@prisma/client'
 // lib
-// import { convertToPlainObject } from '@/lib/utils'
 import { LATEST_PRODUCTS_LIMIT } from '@/lib/constants'
-import { convertToPlainObject } from '../utils/utils'
+import { safeNormalizeProducts } from '@/lib/utils/server'
+import { Product } from '@/lib/types/products.types'
 
 // GET LATEST PRODUCTS
-export async function getLatestProducts() {
+export async function getLatestProducts(): Promise<Product[]> {
 	const prisma = new PrismaClient()
 
 	// PRODUCTS WITH PRISMA TYPE
@@ -22,5 +22,5 @@ export async function getLatestProducts() {
 	// 	rating: product.rating.toNumber(),
 	// }))
 
-	return convertToPlainObject(data)
+	return safeNormalizeProducts(data)
 }

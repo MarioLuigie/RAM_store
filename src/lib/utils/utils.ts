@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { Product } from '@/lib/types/products.types'
+import { Decimal } from '@prisma/client/runtime/library'
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
@@ -11,18 +11,9 @@ export function convertToPlainObject<T>(value: T): T {
 	return JSON.parse(JSON.stringify(value))
 }
 
-// Convert Product fields from Prisma to strings
-export function normalizeProduct(product: Product): Product {
-	return {
-		...product,
-		price: product.price.toString(),
-		rating: product.rating.toString(),
-	}
-}
-
-export function formatNumberWithDecimalToString(number: number): string {
-	if (isNaN(number) || !isFinite(number)) return '0.00'
-	return number.toFixed(2) // returned string
+export function formatNumberWithDecimalToString(number: number | Decimal): string {
+  const [int, decimal] = number.toString().split('.');
+  return decimal ? `${int}.${decimal.padEnd(2, '0')}` : `${int}.00`;
 }
 
 

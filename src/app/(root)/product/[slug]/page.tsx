@@ -20,4 +20,4 @@ export default async function Page({
 
 //   return <ProductDetailsPage slug={slug} />
 // }
-// Server   Error: Route "/product/[slug]" used `params.slug`. `params` should be awaited before using its properties. Learn more:
+// Server   Error: Route "/product/[slug]" used `params.slug`. `params` should be awaited before using its properties. Learn more

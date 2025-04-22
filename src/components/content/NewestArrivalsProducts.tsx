@@ -7,9 +7,9 @@ import ProductList from '@/components/content/ProductList'
 export default async function NewestArrivalsProducts() {
 	// PRODUCTS WITH PRISMA TYPES AND NORMALIZE INTO PRODUCT APP TYPE
 	const { success, data }: IDataResult<Product[]> = await getLatestProducts()
-	const result: IDataResult<Product> = await getProductBySlug("polo-classic-pink-hoodie")
+	const result: IDataResult<Product> = await getProductBySlug("polo-classic-pink-hoodie")// test
 
-	console.log("RESULT", result)
+	console.log(result)
 
 	if (!success) {
 		return (

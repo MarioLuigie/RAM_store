@@ -45,8 +45,6 @@ export async function getProductBySlug(
 	slug: string
 ): Promise<IDataResult<Product>> {
 	try {
-		console.log('Product slug:', slug)
-
 		const data = await prisma.product.findFirst({
 			where: { slug: slug },
 		})

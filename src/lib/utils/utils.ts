@@ -1,26 +1,37 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from 'clsx'
+import { twMerge } from 'tailwind-merge'
 import { Product } from '@/lib/types/products.types'
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+	return twMerge(clsx(inputs))
 }
 
 // Convert prisma object into regular JS object
 export function convertToPlainObject<T>(value: T): T {
-  return JSON.parse(JSON.stringify(value))
+	return JSON.parse(JSON.stringify(value))
 }
 
 // Convert Product fields from Prisma to strings
 export function normalizeProduct(product: Product): Product {
-  return {
-    ...product,
-    price: product.price.toString(),
-    rating: product.rating.toString(),
-  }
+	return {
+		...product,
+		price: product.price.toString(),
+		rating: product.rating.toString(),
+	}
 }
 
 export function formatNumberWithDecimaltoString(number: number): string {
-  const [int, decimal] = number.toString().split(".")
-  return decimal ? `${int}.${decimal.padEnd(2, '0')}` : `${int}.00`
+	const [int, decimal] = number.toString().split('.')
+	return decimal ? `${int}.${decimal.padEnd(2, '0')}` : `${int}.00`
+}
+
+export function stylePrice(value: string): string {
+	const [int, decimal] = value.toString().split('.')
+
+	return `		
+    <p>
+			<span className='font-medium text-2xl'>$${int}</span>
+      <span className="text-sm align-super">${decimal}</span>
+		</p>
+    `
 }

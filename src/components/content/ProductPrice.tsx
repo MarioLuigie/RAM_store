@@ -10,7 +10,8 @@ export default function ProductPrice({ product }: { product: Product }) {
 		<>
 			{stock > 0 ? (
 				<p>
-					<span className="font-medium text-2xl">$ {int},</span>
+					<span className="font-medium text-sm align-super">$</span>
+					<span className="font-medium text-2xl">{int},</span>
 					<span className="text-sm font-medium align-super">{decimal}</span>
 				</p>
 			) : (

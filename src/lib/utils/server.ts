@@ -4,7 +4,7 @@ import { ProductSchema } from '@/lib/utils/validators'
 import { formatNumberWithDecimalToString } from '@/lib/utils/utils'
 
 // Normalize Products from db into JS object 
-export function safeNormalizeProducts(data: PrismaProduct[]): Product[] {
+export function safeNormalizeProducts(data: Product[] | PrismaProduct[]): Product[] {
   
 	const parsedData = data.flatMap((product) => {
 		// Validate datas from db on backend side and prepare for client

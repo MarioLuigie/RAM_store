@@ -25,13 +25,3 @@ export function formatNumberWithDecimaltoString(number: number): string {
 	return decimal ? `${int}.${decimal.padEnd(2, '0')}` : `${int}.00`
 }
 
-export function stylePrice(value: string): string {
-	const [int, decimal] = value.toString().split('.')
-
-	return `		
-    <p>
-			<span className='font-medium text-2xl'>$${int}</span>
-      <span className="text-sm align-super">${decimal}</span>
-		</p>
-    `
-}

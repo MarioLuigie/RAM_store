@@ -36,7 +36,7 @@ export async function getLatestProducts(): Promise<IDataResult<Product[]>> {
 		return {
 			success: false,
 			data: [] as Product[],
-		}
+		} // DONT RETURN EMPTY OBJECT FORCED AS Product type!
 	}
 }
 
@@ -47,10 +47,19 @@ export async function getProductBySlug(
 	try {
 		console.log('Product slug:', slug)
 
+		const data = await prisma.product.findFirst({
+			where: { slug: slug },
+		})
+
+		if (!data) {
+			throw new Error(`Product with slug "${slug}" not found`)
+		}
+
 		return {
 			success: true,
-			data: {} as Product,
+			data,
 		}
+
 	} catch (error: unknown) {
 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
 			console.error('Prisma error:', error.message, error.code)
@@ -63,6 +72,6 @@ export async function getProductBySlug(
 		return {
 			success: false,
 			data: {} as Product,
-		}
+		} // DONT RETURN EMPTY OBJECT FORCED AS Product type!
 	}
 }

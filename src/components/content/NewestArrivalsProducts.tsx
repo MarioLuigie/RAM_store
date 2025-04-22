@@ -1,5 +1,5 @@
 // lib
-import { getLatestProducts } from '@/lib/actions/product.actions'
+import { getLatestProducts, getProductBySlug } from '@/lib/actions/product.actions'
 import { Product } from '@/lib/types/products.types'
 // components
 import ProductList from '@/components/content/ProductList'
@@ -7,6 +7,9 @@ import ProductList from '@/components/content/ProductList'
 export default async function NewestArrivalsProducts() {
 	// PRODUCTS WITH PRISMA TYPES AND NORMALIZE INTO PRODUCT APP TYPE
 	const { success, data }: IDataResult<Product[]> = await getLatestProducts()
+	const result: IDataResult<Product> = await getProductBySlug("polo-classic-pink-hoodie")
+
+	console.log("RESULT", result)
 
 	if (!success) {
 		return (

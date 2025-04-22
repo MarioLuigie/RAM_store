@@ -8,7 +8,7 @@ const currency = z
 		/^\d+(\.\d{2})?$/.test(formatNumberWithDecimalToString(Number(value)))
 	)
 
-export const InsertProductSchema = z.object({
+export const ProductSchema = z.object({
 	name: z.string().min(3, 'Name must be at least 3 characters'),
 	slug: z.string().min(3, 'Slug must be at least 3 characters'),
 	category: z.string().min(3, 'Category must be at least 3 characters'),

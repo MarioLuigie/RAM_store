@@ -2,7 +2,7 @@
 // modules
 // import { PrismaClient, Prisma } from '@prisma/client'
 import { Prisma } from '@prisma/client'
-import { prisma } from '@/lib/db/prisma'// global prisma client
+import { prisma } from '@/lib/db/prisma' // global prisma client
 // lib
 import { LATEST_PRODUCTS_LIMIT } from '@/lib/constants'
 import { safeNormalizeProducts } from '@/lib/utils/server'
@@ -24,7 +24,6 @@ export async function getLatestProducts(): Promise<IDataResult<Product[]>> {
 			success: true,
 			data: safeNormalizeProducts(data),
 		}
-
 	} catch (error: unknown) {
 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
 			console.error('Prisma error:', error.message, error.code)
@@ -36,7 +35,34 @@ export async function getLatestProducts(): Promise<IDataResult<Product[]>> {
 
 		return {
 			success: false,
-			data: []
+			data: [] as Product[],
+		}
+	}
+}
+
+// GET SINGLE PRODUCT ITS SLUG
+export async function getProductBySlug(
+	slug: string
+): Promise<IDataResult<Product>> {
+	try {
+		console.log('Product slug:', slug)
+
+		return {
+			success: true,
+			data: {} as Product,
+		}
+	} catch (error: unknown) {
+		if (error instanceof Prisma.PrismaClientKnownRequestError) {
+			console.error('Prisma error:', error.message, error.code)
+		} else if (error instanceof Error) {
+			console.error('General error:', error.message)
+		} else {
+			console.error('Unknown error:', error)
+		}
+
+		return {
+			success: false,
+			data: {} as Product,
 		}
 	}
 }

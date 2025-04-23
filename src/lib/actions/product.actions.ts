@@ -5,7 +5,7 @@ import { Prisma } from '@prisma/client'
 import { prisma } from '@/lib/db/prisma' // global prisma client
 // lib
 import { LATEST_PRODUCTS_LIMIT } from '@/lib/constants'
-import { safeNormalizeProducts } from '@/lib/utils/server'
+import { safeNormalizeProducts, safeNormalizeProduct } from '@/lib/utils/server'
 import { Product } from '@/lib/types/products.types'
 
 // CREATE PRISMA CLIENT
@@ -55,7 +55,7 @@ export async function getProductBySlug(
 
 		return {
 			success: true,
-			data,
+			data: safeNormalizeProduct(data),
 		}
 
 	} catch (error: unknown) {

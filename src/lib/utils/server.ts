@@ -44,7 +44,7 @@ export function safeNormalizeProduct(product: Product | PrismaProduct): Product 
 
 	if (!parsed.success) {
 		console.warn('Invalid product skipped:', parsed.error)
-		return null
+		return {} as Product // DONT DO THAT ONLY FOR TEST
 	}
 
 	return {

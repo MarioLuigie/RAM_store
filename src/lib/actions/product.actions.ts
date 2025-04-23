@@ -20,6 +20,8 @@ export async function getLatestProducts(): Promise<IDataResult<Product[]>> {
 			orderBy: { createdAt: 'desc' },
 		})
 
+		console.log("SUROWE DANE", data)
+		
 		return {
 			success: true,
 			data: safeNormalizeProducts(data),

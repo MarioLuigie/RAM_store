@@ -22,3 +22,5 @@ export const ProductSchema = z.object({
 	rating: z.string(),
 	numReviews: z.string(),
 })
+
+

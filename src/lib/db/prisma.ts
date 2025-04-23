@@ -17,6 +17,7 @@ const adapter = new PrismaNeon({ connectionString })
 // Extends the PrismaClient with a custom result transformer to convert the price and rating fields to strings.
 // Tworzymy instancję PrismaClient z adapterem
 export const prisma = new PrismaClient({ adapter }).$extends({
+	//Zmiana typów danych surowych/nadpisanie nowymi typami w locie w czasie pobierania z db
 	result: {
 		product: {
 			price: {

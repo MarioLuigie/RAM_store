@@ -30,6 +30,11 @@ export const prisma = new PrismaClient({ adapter }).$extends({
 					return product.rating.toString()
 				},
 			},
+			numReviews: {
+				compute(product) {
+					return product.numReviews.toString()
+				},
+			},
 		},
 	},
 })

@@ -13,7 +13,10 @@ export function safeNormalizeProducts(data: Product[] | PrismaProduct[]): Produc
 			...product,
 			price: formatNumberWithDecimalToString(product.price),
 			rating: product.rating.toString(),
+			numReviews: product.numReviews.toString()
 		})
+
+		console.log("&&&", parsed)
 
 		if (!parsed.success) {
 			console.warn('Invalid product skipped:', parsed.error)
@@ -40,6 +43,7 @@ export function safeNormalizeProduct(product: Product | PrismaProduct): Product 
 		...product,
 		price: formatNumberWithDecimalToString(product.price),
 		rating: product.rating.toString(),
+		numReviews: product.numReviews.toString()
 	})
 
 	if (!parsed.success) {

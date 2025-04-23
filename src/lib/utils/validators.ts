@@ -19,5 +19,6 @@ export const ProductSchema = z.object({
 	isFeatured: z.boolean(),
 	banner: z.string().nullable(),
 	price: currency,
-	rating: z.string()
+	rating: z.string(),
+	numReviews: z.string(),
 })

@@ -20,7 +20,7 @@ export default function ProductImages({ images }: { images: string[] }) {
 			/>
 			<div className='flex'>
 				{images.map((image, i) => (
-					<div key={i} onClick={() => setCurrentImageIndex(i)}>
+					<div key={i} className={cn('border border-b-gray-400 cursor-pointer', currentImageIndex === i && 'border-black border-2')} onClick={() => setCurrentImageIndex(i)}>
 						<Image
 							src={image}
 							alt="product"

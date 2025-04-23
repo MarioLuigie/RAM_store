@@ -16,8 +16,6 @@ export function safeNormalizeProducts(data: Product[] | PrismaProduct[]): Produc
 			numReviews: product.numReviews.toString()
 		})
 
-		console.log("&&&", parsed)
-
 		if (!parsed.success) {
 			console.warn('Invalid product skipped:', parsed.error)
 			return []

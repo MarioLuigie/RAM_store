@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import ProductPrice from '@/components/content/ProductPrice'
-import Image from 'next/image'
+import ProductImages from '@/components/content/ProductImages'
 
 export default async function ProductDetailsPage({ slug }: { slug: string }) {
 	const { success, data: product }: IDataResult<Product> =
@@ -18,16 +18,11 @@ export default async function ProductDetailsPage({ slug }: { slug: string }) {
 
 	return (
 		<>
-			<section className="bg-red-300">
+			<section>
 				<div className="grid grid-cols-1 md:grid-cols-5">
 					{/* IMAGES COL */}
 					<div className="col-span-2">
-						<Image
-							src={product.images[0]}
-							alt={product.name}
-							width={300}
-							height={300}
-						/>
+						<ProductImages images={product.images} />
 					</div>
 
 					{/* DETAILS COL */}
@@ -74,7 +69,7 @@ export default async function ProductDetailsPage({ slug }: { slug: string }) {
 								</div>
 								{product.stock > 0 && (
 									<div className="flex-center">
-										<Button className='w-full'>Add to Cart</Button>
+										<Button className='w-full cursor-pointer'>Add to Cart</Button>
 									</div>
 								)}
 							</CardContent>
@@ -82,12 +77,6 @@ export default async function ProductDetailsPage({ slug }: { slug: string }) {
 					</div>
 				</div>
 			</section>
-
-			<p>{product.name}</p>
-			<p>{product.stock}</p>
-
-			<p>{product.slug}</p>
-			<Badge variant="outline">Badge</Badge>
 		</>
 	)
 }

@@ -18,7 +18,7 @@ export default function ProductImages({ images }: { images: string[] }) {
 				height={300}
 				className="min-h-[300px] object-cover object-center"
 			/>
-			<div className='flex'>
+			<div className='flex gap-2'>
 				{images.map((image, i) => (
 					<div key={i} className={cn('border border-b-gray-400 cursor-pointer', currentImageIndex === i && 'border-black border-2')} onClick={() => setCurrentImageIndex(i)}>
 						<Image

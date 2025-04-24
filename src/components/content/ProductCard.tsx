@@ -1,5 +1,6 @@
 // lib
 import { Product } from '@/lib/types/products.types'
+import { ROUTES } from '@/lib/constants/paths'
 // components
 import {
 	Card,
@@ -20,7 +21,7 @@ export default function ProductCard({ product }: { product: Product }) {
 					<CardTitle>{product.name}</CardTitle>
 					<CardDescription>{product.description}</CardDescription>
 				</div>
-				<Link href={`/product/${product.slug}`}>
+				<Link href={`${ROUTES.PRODUCT}/${product.slug}`}>
 					<Image
 						src={product.images[0]}
 						alt={product.name}
@@ -36,7 +37,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
 				{/* LINK TO PRODUCT SITE */}
 				<div className="h-20 flex flex-col justify-between">
-					<Link href={`/product/${product.slug}`}>
+					<Link href={`${ROUTES.PRODUCT}/${product.slug}`}>
 						<h2 className="font-medium">{product.name}</h2>
 					</Link>
 					<div className="flex-between gap-4">

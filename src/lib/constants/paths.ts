@@ -1,7 +1,9 @@
 export const ROUTES = {
   HOME: '/',
+  PRODUCT: '/product',
   CART: '/cart',
-  SIGN_IN: '/sign-in'
+  SIGN_IN: '/sign-in',
+  SIGN_OUT: '/sign-out',
 }
 
 export const ICONS_PATH = {

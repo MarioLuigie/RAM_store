@@ -1,4 +1,10 @@
 const sampleData = {
+	users: [
+		{
+			name: 'Jan',
+			email: 'admin@example.com',
+		},
+	],
 	products: [
 		{
 			name: 'Polo Classic Pink Hoodie',

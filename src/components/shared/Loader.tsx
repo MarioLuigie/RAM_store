@@ -15,6 +15,7 @@ export default function Loader({ width = 150, height = 150 }: LoaderProps) {
 			alt={ICONS.LOADER.alt}
 			width={width}
 			height={height}
+			unoptimized
 		/>
 	)
 }

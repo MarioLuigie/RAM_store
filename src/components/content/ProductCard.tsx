@@ -20,13 +20,15 @@ export default function ProductCard({ product }: { product: Product }) {
 					<CardTitle>{product.name}</CardTitle>
 					<CardDescription>{product.description}</CardDescription>
 				</div>
-				<Image
-					src={product.images[0]}
-					alt={product.name}
-					width={300}
-					height={300}
-					priority
-				/>
+				<Link href={`/product/${product.slug}`}>
+					<Image
+						src={product.images[0]}
+						alt={product.name}
+						width={300}
+						height={300}
+						priority
+					/>
+				</Link>
 			</CardHeader>
 			<CardContent className="px-4 grid gap-4">
 				{/* PRODUCT NAME */}

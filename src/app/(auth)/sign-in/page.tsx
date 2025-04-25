@@ -1,8 +1,8 @@
+import SignInPage from "@/components/pages/SignInPage"
+
 export default function Page() {
 
   return (
-    <div>
-      SIGN IN
-    </div>
+    <SignInPage />
   )
 }

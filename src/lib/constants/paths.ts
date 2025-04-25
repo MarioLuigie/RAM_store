@@ -4,6 +4,7 @@ export const ROUTES = {
 	CART: '/cart',
 	SIGN_IN: '/sign-in',
 	SIGN_OUT: '/sign-out',
+	SIGN_UP: '/sign-up',
 }
 
 export const ICONS_PATH = {

@@ -21,10 +21,11 @@ export enum FormFieldType {
 }
 
 export enum Auth {
-	SESSION = 'healthcare-sc'
+	SESSION = 'ram-store-sc',
 }
 
 export enum AuthTypes {
 	SIGN_IN = 'sign-in',
+	SIGN_OUT = 'sign-out',
 	SIGN_UP = 'sign-up',
 }

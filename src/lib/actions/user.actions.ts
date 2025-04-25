@@ -6,7 +6,6 @@ import { SignInFormSchema } from '@/lib/utils/validators'
 import { signIn, signOut } from '@/config/auth'
 
 // SIGN IN THE USER WITH CREDENTIALS
-
 export async function SignInUserWithCredentials(
 	prevState: unknown,
 	formData: FormData

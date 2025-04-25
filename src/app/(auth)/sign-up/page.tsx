@@ -1,7 +1,7 @@
 // modules
 import { Metadata } from "next"
 // component
-import SignOutPage from "@/components/pages/SignOutPage"
+import SignUpPage from "@/components/pages/SignUpPage"
 
 export const metadata: Metadata = {
   title: 'Sign out', 
@@ -10,6 +10,6 @@ export const metadata: Metadata = {
 export default function Page() {
 
   return (
-    <SignOutPage />
+    <SignUpPage />
   )
 }

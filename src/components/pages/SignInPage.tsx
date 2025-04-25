@@ -1,7 +1,3 @@
-// modules
-import Link from 'next/link'
-// lib
-import { ROUTES } from '@/lib/constants/paths'
 // components
 import {
 	Card,
@@ -19,9 +15,9 @@ export default function SignInPage() {
 		<div className="w-full max-w-md mx-auto">
 			<Card>
 				<CardHeader className="space-y-4">
-					<Link href={ROUTES.HOME} className="flex-center">
+					<div className="flex-center">
 						<Logo />
-					</Link>
+					</div>
 					<CardTitle className="text-center">Sign In</CardTitle>
 					<CardDescription className="text-center">
 						Sign in to your account

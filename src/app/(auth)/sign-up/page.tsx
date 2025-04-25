@@ -4,7 +4,7 @@ import { Metadata } from "next"
 import SignUpPage from "@/components/pages/SignUpPage"
 
 export const metadata: Metadata = {
-  title: 'Sign out', 
+  title: 'Sign up', 
 }
 
 export default function Page() {

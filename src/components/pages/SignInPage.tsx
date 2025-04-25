@@ -1,7 +1,6 @@
 // modules
 import Link from 'next/link'
 // lib
-import { AuthTypes } from '@/lib/constants/enums'
 import { ROUTES } from '@/lib/constants/paths'
 // components
 import {
@@ -15,7 +14,6 @@ import Logo from '@/components/shared/Logo'
 import AuthForm from '@/components/forms/AuthForm'
 
 export default function SignInPage() {
-	console.log(AuthTypes.SIGN_IN)
 
 	return (
 		<div className="w-full max-w-md mx-auto">

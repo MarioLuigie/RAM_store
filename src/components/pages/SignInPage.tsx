@@ -1,3 +1,8 @@
+//modules
+import { redirect } from 'next/navigation'
+// lib
+import { auth } from '@/config/auth'
+import { ROUTES } from '@/lib/constants/paths'
 // components
 import {
 	Card,
@@ -9,7 +14,13 @@ import {
 import Logo from '@/components/shared/Logo'
 import AuthForm from '@/components/forms/AuthForm'
 
-export default function SignInPage() {
+export default async function SignInPage() {
+	const session = await auth()
+
+	if(session) {
+		redirect(ROUTES.HOME)
+	}
+
 	return (
 		<div className="w-full max-w-md mx-auto">
 			<Card>

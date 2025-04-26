@@ -24,17 +24,17 @@ export default async function SignInPage({ callbackUrl }: { callbackUrl: string 
 
 	return (
 		<div className="w-full max-w-md mx-auto">
-			<Card>
-				<CardHeader className="space-y-4">
-					<div className="flex-center">
+			<Card className='gap-0'>
+				<CardHeader>
+					<div className="flex-center mb-4">
 						<Logo />
 					</div>
-					<CardTitle className="text-center">Sign In</CardTitle>
+					<CardTitle className="text-center text-xl">Sign In</CardTitle>
 					<CardDescription className="text-center">
 						Sign in to your account
 					</CardDescription>
 				</CardHeader>
-				<CardContent className="space-y-4">
+				<CardContent>
 					<AuthForm />
 				</CardContent>
 			</Card>

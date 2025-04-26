@@ -23,7 +23,12 @@ import {
 import { User } from 'next-auth'
 
 export default function LoggedInUserButton({ user }: { user: User }) {
-	const fallbackMark: string = 'A'
+	let fallbackMark: string = 'A'
+
+  if(user?.name) {
+    fallbackMark = user?.name.charAt(0)
+  }
+  
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>

@@ -17,7 +17,7 @@ import { NavUser } from '@/components/shared/NavUser'
 
 const MenuItems = () => (
 	<>
-		{/* MODE TOGGLE DROPDOWN MENU */}
+		{/* MODE TOGGLE DROPDOWN MENU BUTTON */}
 		<ModeToggle />
 
 		{/* CART BUTTON */}
@@ -27,7 +27,7 @@ const MenuItems = () => (
 			</Link>
 		</Button>
 
-		{/* SIGN IN BUTTON  OR LOGGED IN USER BUTTONS DROPDOWN - depend on there is the session user*/}
+		{/* SIGN IN BUTTON  OR LOGGED IN USER BUTTONS DROPDOWN MENU - depend on there is the session user or not*/}
 		<NavUser />
 	</>
 )

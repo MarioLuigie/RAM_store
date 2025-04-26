@@ -6,13 +6,18 @@ import { UserIcon } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 
-export default function LoggedOutUserButton() {
+export default function LoggedOutUserButton({
+	title = 'Sign In',
+}: {
+	title?: string
+}) {
 	return (
 		<>
 			{/* LOGIN BUTTON */}
 			<Button asChild>
 				<Link href={ROUTES.SIGN_IN}>
-					<UserIcon /> Sign In
+					<UserIcon />
+					{title}
 				</Link>
 			</Button>
 		</>

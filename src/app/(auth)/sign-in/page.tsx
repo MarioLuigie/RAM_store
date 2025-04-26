@@ -1,7 +1,7 @@
 // modules
 import { Metadata } from 'next'
 // components
-import SignInPage from '@/components/pages/SignInPage'
+import AuthPage from '@/components/pages/AuthPage'
 
 export const metadata: Metadata = {
 	title: 'Sign in',
@@ -14,5 +14,5 @@ export default async function Page({
 }) {
 	const { callbackUrl } = await searchParams
 
-	return <SignInPage callbackUrl={callbackUrl} />
+	return <AuthPage callbackUrl={callbackUrl} />
 }

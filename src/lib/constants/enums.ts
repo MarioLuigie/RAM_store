@@ -26,6 +26,5 @@ export enum Auth {
 
 export enum AuthTypes {
 	SIGN_IN = 'sign-in',
-	SIGN_OUT = 'sign-out',
 	SIGN_UP = 'sign-up',
 }

@@ -14,7 +14,7 @@ import {
 import Logo from '@/components/shared/Logo'
 import AuthForm from '@/components/forms/AuthForm'
 
-export default async function SignInPage({
+export default async function AuthPage({
 	callbackUrl,
 }: {
 	callbackUrl: string

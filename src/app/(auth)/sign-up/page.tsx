@@ -1,15 +1,18 @@
 // modules
-import { Metadata } from "next"
+import { Metadata } from 'next'
 // component
-import SignUpPage from "@/components/pages/SignUpPage"
+import AuthPage from '@/components/pages/AuthPage'
 
 export const metadata: Metadata = {
-  title: 'Sign up', 
+	title: 'Sign up',
 }
 
-export default function Page() {
+export default async function Page({
+	searchParams,
+}: {
+	searchParams: Promise<{ callbackUrl: string }>
+}) {
+	const { callbackUrl } = await searchParams
 
-  return (
-    <SignUpPage />
-  )
+	return <AuthPage callbackUrl={callbackUrl} />
 }

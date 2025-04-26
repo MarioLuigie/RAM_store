@@ -86,7 +86,7 @@ export default function LoggedInUserButton({ user }: { user: User }) {
 				</DropdownMenuGroup>
 				<DropdownMenuSeparator />
 				<form action={signOutUser}>
-					<button>
+					<button className='w-full'>
 						<DropdownMenuItem className="cursor-pointer">
 							<LogOut />
 							Log out

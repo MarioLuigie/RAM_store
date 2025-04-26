@@ -7,7 +7,9 @@ import {
 	LogOut,
 	Sparkles,
 } from 'lucide-react'
-//components
+// lib
+import { signOutUser } from '@/lib/actions/user.actions'
+// components
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import {
 	DropdownMenu,
@@ -83,10 +85,14 @@ export default function LoggedInUserButton({ user }: { user: User }) {
 					</DropdownMenuItem>
 				</DropdownMenuGroup>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem className="cursor-pointer">
-					<LogOut />
-					Log out
-				</DropdownMenuItem>
+				<form action={signOutUser}>
+					<button>
+						<DropdownMenuItem className="cursor-pointer">
+							<LogOut />
+							Log out
+						</DropdownMenuItem>
+					</button>
+				</form>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	)

@@ -14,17 +14,21 @@ import {
 import Logo from '@/components/shared/Logo'
 import AuthForm from '@/components/forms/AuthForm'
 
-export default async function SignInPage({ callbackUrl }: { callbackUrl: string }) {
+export default async function SignInPage({
+	callbackUrl,
+}: {
+	callbackUrl: string
+}) {
 	const session = await auth()
 
 	// callbackUrl - only for redirecting from providers site to app
-	if(session) {
+	if (session) {
 		redirect(callbackUrl || ROUTES.HOME)
 	}
 
 	return (
 		<div className="w-full max-w-md mx-auto">
-			<Card className='gap-0'>
+			<Card className="gap-0">
 				<CardHeader>
 					<div className="flex-center mb-4">
 						<Logo />

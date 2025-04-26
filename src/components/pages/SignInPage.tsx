@@ -14,11 +14,12 @@ import {
 import Logo from '@/components/shared/Logo'
 import AuthForm from '@/components/forms/AuthForm'
 
-export default async function SignInPage() {
+export default async function SignInPage({ callbackUrl }: { callbackUrl: string }) {
 	const session = await auth()
 
+	// callbackUrl - only for redirecting from providers site to app
 	if(session) {
-		redirect(ROUTES.HOME)
+		redirect(callbackUrl || ROUTES.HOME)
 	}
 
 	return (

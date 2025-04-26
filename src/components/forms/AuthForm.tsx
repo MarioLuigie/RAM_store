@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useActionState } from 'react'
 import { useFormStatus } from 'react-dom'
+import { useSearchParams } from 'next/navigation'
 // lib
 import { SIGNIN_DEFAULT_VALUES } from '@/lib/constants'
 import { ROUTES } from '@/lib/constants/paths'
@@ -21,6 +22,9 @@ export default function AuthForm() {
 		SignInUserWithCredentials,
 		DEFAULT_ACTION_STATE
 	)
+	const searchParams = useSearchParams()
+	const callbackUrl = searchParams.get('callbackUrl') || ROUTES.HOME
+
 	function StatusWrapper({
 		children,
 	}: {
@@ -32,6 +36,7 @@ export default function AuthForm() {
 
 	return (
 		<form action={action} className="p-6 md:p-8">
+			<input type='hidden' name='callbackUrl' value={callbackUrl}/>
 			{/* FORM FIELDS */}
 			<div className="space-y-6">
 				{/* EMAIL INPUT */}

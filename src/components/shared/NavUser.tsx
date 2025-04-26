@@ -1,13 +1,16 @@
+// lib
+import { auth } from '@/config/auth'
+// components
 import LoggedOutUserButton from '@/components/shared/LoggedOutUserButton'
 import LoggedInUserButton from './LoggedInUserButton'
 
-export function NavUser() {
-	return (
-		<>
-			<LoggedOutUserButton />
-			<LoggedInUserButton
-				user={{ name: 'abc', email: 'abc@example.com', avatar: '' }}
-			/>
-		</>
-	)
+export default async function NavUser() {
+	const session = await auth()
+
+	if (!session) {
+		return <LoggedOutUserButton />
+	}
+
+	if (session && session?.user)
+		return <LoggedInUserButton user={session?.user} />
 }

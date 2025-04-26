@@ -13,7 +13,7 @@ import {
 	SheetTitle,
 	SheetDescription,
 } from '@/components/ui/sheet'
-import { NavUser } from '@/components/shared/NavUser'
+import NavUser from '@/components/shared/NavUser'
 
 const MenuItems = () => (
 	<>

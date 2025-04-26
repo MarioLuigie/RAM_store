@@ -37,3 +37,10 @@ declare type CatchAllSlugPageProps = {
 declare type PageProps = {
 	searchParams: SearchParams
 }
+
+declare type SessionUser = {
+	name: string
+	email: string
+	id: string
+	avatar?: string
+}

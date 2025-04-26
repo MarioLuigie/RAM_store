@@ -57,7 +57,7 @@ export default function AuthForm() {
 						className="w-full bg-black outline-0 hover:bg-[#383638] cursor-pointer"
 						variant="fill"
 					>
-						Login
+						Sign In
 					</SubmitButton>
 				</div>
 
@@ -83,7 +83,7 @@ export default function AuthForm() {
 						<span className="sr-only">Login with Meta</span>
 					</Button>
 				</div>
-				
+
 				{/* REDIRECT TO SIGN UP ROUTE */}
 				<div className="text-center text-sm">
 					Don&apos;t have an account?{' '}

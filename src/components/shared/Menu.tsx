@@ -13,6 +13,7 @@ import {
 	SheetTitle,
 	SheetDescription,
 } from '@/components/ui/sheet'
+import { NavUser } from './NavUser'
 
 const MenuItems = () => (
 	<>
@@ -42,6 +43,7 @@ export default function Menu() {
 			<nav className="hidden md:flex gap-3">
         {/* MENU CONTENT */}
 				<MenuItems />
+				<NavUser user={{name: 'abc', email: 'abc@example.com', avatar:''}}/>
 			</nav>
 
 			{/* MOBILE MENU */}

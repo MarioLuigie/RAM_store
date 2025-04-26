@@ -71,6 +71,7 @@ export default function AuthForm() {
 				</div>
 			</div>
 
+			{/* ERROR MESSAGE OPTIONAL */}
 			<div className="h-6 my-2">
 				<p className="text-destructive text-center">
 					{data && !data.success && data.message}

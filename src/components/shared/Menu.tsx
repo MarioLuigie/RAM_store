@@ -13,7 +13,7 @@ import {
 	SheetTitle,
 	SheetDescription,
 } from '@/components/ui/sheet'
-import { NavUser } from './NavUser'
+import { NavUser } from '@/components/shared/NavUser'
 
 const MenuItems = () => (
 	<>
@@ -33,6 +33,8 @@ const MenuItems = () => (
 				<UserIcon /> Sign In
 			</Link>
 		</Button>
+
+		<NavUser user={{name: 'abc', email: 'abc@example.com', avatar:''}}/>
 	</>
 )
 
@@ -40,10 +42,9 @@ export default function Menu() {
 	return (
 		<>
 			{/* DESKTOP MENU */}
-			<nav className="hidden md:flex gap-3">
+			<nav className="hidden md:flex md:items-center gap-3">
         {/* MENU CONTENT */}
 				<MenuItems />
-				<NavUser user={{name: 'abc', email: 'abc@example.com', avatar:''}}/>
 			</nav>
 
 			{/* MOBILE MENU */}

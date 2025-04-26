@@ -2,7 +2,7 @@ export default function SignUpPage() {
 
   return (
     <div>
-      SIGN OUT
+      SIGN UP
     </div>
   )
 }

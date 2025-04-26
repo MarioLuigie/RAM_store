@@ -10,7 +10,6 @@ import Logo from '@/components/shared/Logo'
 import AuthForm from '@/components/forms/AuthForm'
 
 export default function SignInPage() {
-
 	return (
 		<div className="w-full max-w-md mx-auto">
 			<Card>
@@ -23,10 +22,15 @@ export default function SignInPage() {
 						Sign in to your account
 					</CardDescription>
 				</CardHeader>
-        <CardContent className='space-y-4'>
-          <AuthForm />
-        </CardContent>
+				<CardContent className="space-y-4">
+					<AuthForm />
+				</CardContent>
 			</Card>
+
+			<div className="mt-8 text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
+				By clicking continue, you agree to our{' '}
+				<a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+			</div>
 		</div>
 	)
 }

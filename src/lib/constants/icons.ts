@@ -15,4 +15,16 @@ export const ICONS = {
 		path: ICONS_PATH.LOADER,
 		alt: 'loading...',
 	},
+	APPLE: {
+		path: ICONS_PATH.APPLE,
+		alt: 'apple',
+	},
+	GOOGLE: {
+		path: ICONS_PATH.GOOGLE,
+		alt: 'google',
+	},
+	META: {
+		path: ICONS_PATH.META,
+		alt: 'meta',
+	},
 }

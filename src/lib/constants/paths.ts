@@ -11,4 +11,7 @@ export const ICONS_PATH = {
 	LOGO_LIGHT: '/assets/icons/logo-light-mode.svg',
 	LOGO_DARK: '/assets/icons/logo-dark-mode.svg',
 	LOADER: '/assets/icons/loader.gif',
+	APPLE: '/assets/icons/apple.svg',
+	GOOGLE: '/assets/icons/google.svg',
+	META: '/assets/icons/meta.svg',
 }

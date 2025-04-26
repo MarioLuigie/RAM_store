@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 // lib
 import { auth } from '@/config/auth'
 import { ROUTES } from '@/lib/constants/paths'
+import { AuthTypes } from '@/lib/constants/enums'
 // components
 import {
 	Card,
@@ -18,6 +19,7 @@ export default async function AuthPage({
 	callbackUrl,
 }: {
 	callbackUrl: string
+	type: AuthTypes
 }) {
 	const session = await auth()
 

@@ -1,5 +1,7 @@
 // modules
 import { Metadata } from 'next'
+// lib
+import { AuthTypes } from '@/lib/constants/enums'
 // components
 import AuthPage from '@/components/pages/AuthPage'
 
@@ -14,5 +16,5 @@ export default async function Page({
 }) {
 	const { callbackUrl } = await searchParams
 
-	return <AuthPage callbackUrl={callbackUrl} />
+	return <AuthPage callbackUrl={callbackUrl} type={AuthTypes.SIGN_IN} />
 }

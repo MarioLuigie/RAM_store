@@ -21,6 +21,14 @@ export default function AuthForm() {
 		SignInUserWithCredentials,
 		DEFAULT_ACTION_STATE
 	)
+	function StatusWrapper({
+		children,
+	}: {
+		children: (pending: boolean) => React.ReactNode
+	}) {
+		const { pending } = useFormStatus()
+		return <>{children(pending)}</>
+	}
 
 	return (
 		<form action={action} className="p-6 md:p-8">
@@ -62,12 +70,17 @@ export default function AuthForm() {
 
 				{/* SUBMIT BUTTON */}
 				<div>
-					<SubmitButton
-						className="w-full bg-black outline-0 hover:bg-[#383638] cursor-pointer"
-						variant="fill"
-					>
-						Sign In
-					</SubmitButton>
+					<StatusWrapper>
+						{(pending) => (
+							<SubmitButton
+								className="w-full bg-black outline-0 hover:bg-[#383638] cursor-pointer"
+								variant="fill"
+								isLoading={pending}
+							>
+								Sign In
+							</SubmitButton>
+						)}
+					</StatusWrapper>
 				</div>
 			</div>
 

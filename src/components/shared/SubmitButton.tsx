@@ -28,12 +28,12 @@ export default function SubmitButton({
 			variant={variant}
 		>
 			{isLoading ? (
-				<div className="flex items-center gap-4">
+				<div className="flex items-center gap-3">
 					<Image
 						src={ICONS.LOADER.path}
 						alt={ICONS.LOADER.alt}
-						width={24}
-						height={24}
+						width={17}
+						height={17}
 						className="animate-spin"
 						priority
 					/>

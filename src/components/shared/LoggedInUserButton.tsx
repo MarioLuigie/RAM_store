@@ -25,10 +25,10 @@ import { User } from 'next-auth'
 export default function LoggedInUserButton({ user }: { user: User }) {
 	let fallbackMark: string = 'A'
 
-  if(user?.name) {
-    fallbackMark = user?.name.charAt(0)
-  }
-  
+	if (user?.name) {
+		fallbackMark = user?.name.charAt(0)
+	}
+
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -91,7 +91,7 @@ export default function LoggedInUserButton({ user }: { user: User }) {
 				</DropdownMenuGroup>
 				<DropdownMenuSeparator />
 				<form action={signOutUser}>
-					<button className='w-full'>
+					<button className="w-full">
 						<DropdownMenuItem className="cursor-pointer">
 							<LogOut />
 							Log out

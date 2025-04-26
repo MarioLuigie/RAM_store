@@ -25,3 +25,9 @@ export const SIGNIN_DEFAULT_VALUES = {
 	email: '',
 	password: '',
 }
+
+// DEFAULT ACTION STATE FOR SIGN IN FORM
+export const DEFAULT_ACTION_STATE = {
+	success: false,
+	message: '',
+}

@@ -1,10 +1,14 @@
 'use client'
 // modules
 import Link from 'next/link'
+import { useActionState } from 'react'
+import { useFormStatus } from 'react-dom'
 // lib
 import { SIGNIN_DEFAULT_VALUES } from '@/lib/constants'
 import { ROUTES } from '@/lib/constants/paths'
 import { ICONS } from '@/lib/constants/icons'
+import { SignInUserWithCredentials } from '@/lib/actions/user.actions'
+import { DEFAULT_ACTION_STATE } from '@/lib/constants'
 // components
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -13,8 +17,13 @@ import SubmitButton from '@/components/shared/SubmitButton'
 import SVG from '@/components/shared/SVG'
 
 export default function AuthForm() {
+	const [data, action] = useActionState(
+		SignInUserWithCredentials,
+		DEFAULT_ACTION_STATE
+	)
+
 	return (
-		<form className="p-6 md:p-8">
+		<form action={action} className="p-6 md:p-8">
 			{/* FORM FIELDS */}
 			<div className="space-y-6">
 				{/* EMAIL INPUT */}
@@ -60,7 +69,16 @@ export default function AuthForm() {
 						Sign In
 					</SubmitButton>
 				</div>
+			</div>
 
+			<div className="h-6 my-2">
+				<p className="text-destructive text-center">
+					{data && !data.success && data.message}
+				</p>
+			</div>
+
+			{/* PROVIDERS */}
+			<div className="space-y-6">
 				{/* SEPERATOR LINE */}
 				<div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
 					<span className="relative z-10 bg-background px-2 text-muted-foreground">
@@ -68,7 +86,6 @@ export default function AuthForm() {
 					</span>
 				</div>
 
-				{/* PROVIDERS */}
 				<div className="grid grid-cols-3 gap-4">
 					<Button variant="outline" className="w-full">
 						<SVG src={ICONS.APPLE.path} />
@@ -83,18 +100,18 @@ export default function AuthForm() {
 						<span className="sr-only">Login with Meta</span>
 					</Button>
 				</div>
+			</div>
 
-				{/* REDIRECT TO SIGN UP ROUTE */}
-				<div className="text-center text-sm">
-					Don&apos;t have an account?{' '}
-					<Link
-						href={ROUTES.SIGN_UP}
-						className="underline underline-offset-4"
-						target='_self'
-					>
-						Sign up
-					</Link>
-				</div>
+			{/* REDIRECT TO SIGN UP ROUTE */}
+			<div className="text-center text-sm mt-6">
+				Don&apos;t have an account?{' '}
+				<Link
+					href={ROUTES.SIGN_UP}
+					className="underline underline-offset-4"
+					target="_self"
+				>
+					Sign up
+				</Link>
 			</div>
 		</form>
 	)

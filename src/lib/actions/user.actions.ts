@@ -36,6 +36,11 @@ export async function SignInUserWithCredentials(
 	}
 }
 
+// SIGN USER UP
+export async function signUpUser() {
+
+}
+
 // SIGN USER OUT
 export async function signOutUser() {
 	await signOut()

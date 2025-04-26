@@ -51,10 +51,15 @@ export default function AuthForm() {
 					/>
 				</div>
 
-        {/* SUBMIT BUTTON */}
-        <div>
-          <SubmitButton className='w-full bg-black outline-0 hover:bg-[#383638] cursor-pointer' variant='fill'>Login</SubmitButton>
-        </div>
+				{/* SUBMIT BUTTON */}
+				<div>
+					<SubmitButton
+						className="w-full bg-black outline-0 hover:bg-[#383638] cursor-pointer"
+						variant="fill"
+					>
+						Login
+					</SubmitButton>
+				</div>
 
 				{/* SEPERATOR LINE */}
 				<div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
@@ -78,6 +83,7 @@ export default function AuthForm() {
 						<span className="sr-only">Login with Meta</span>
 					</Button>
 				</div>
+				
 				{/* REDIRECT TO SIGN UP ROUTE */}
 				<div className="text-center text-sm">
 					Don&apos;t have an account?{' '}

@@ -90,6 +90,7 @@ export default function AuthForm() {
 					<Link
 						href={ROUTES.SIGN_UP}
 						className="underline underline-offset-4"
+						target='_self'
 					>
 						Sign up
 					</Link>

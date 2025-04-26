@@ -1,5 +1,5 @@
 // modules
-import { EllipsisVertical, ShoppingCart, UserIcon } from 'lucide-react'
+import { EllipsisVertical, ShoppingCart } from 'lucide-react'
 //lib
 import { ROUTES } from '@/lib/constants/paths'
 // components
@@ -27,14 +27,8 @@ const MenuItems = () => (
 			</Link>
 		</Button>
 
-		{/* LOGIN BUTTON */}
-		<Button asChild>
-			<Link href={ROUTES.SIGN_IN}>
-				<UserIcon /> Sign In
-			</Link>
-		</Button>
-
-		<NavUser user={{name: 'abc', email: 'abc@example.com', avatar:''}}/>
+		{/* SIGN IN BUTTON  OR LOGGED IN USER BUTTONS DROPDOWN - depend on there is the session user*/}
+		<NavUser />
 	</>
 )
 
@@ -43,7 +37,7 @@ export default function Menu() {
 		<>
 			{/* DESKTOP MENU */}
 			<nav className="hidden md:flex md:items-center gap-3">
-        {/* MENU CONTENT */}
+				{/* MENU CONTENT */}
 				<MenuItems />
 			</nav>
 
@@ -54,11 +48,9 @@ export default function Menu() {
 						<EllipsisVertical />
 					</SheetTrigger>
 					<SheetContent className="flex flex-col items-start">
-						<SheetTitle className="w-full p-5 border-b">
-							Menu
-						</SheetTitle>
+						<SheetTitle className="w-full p-5 border-b">Menu</SheetTitle>
 						<SheetDescription></SheetDescription>
-            {/* MENU CONTENT */}
+						{/* MENU CONTENT */}
 						<div className="flex flex-col items-start gap-3 w-full px-4">
 							<MenuItems />
 						</div>

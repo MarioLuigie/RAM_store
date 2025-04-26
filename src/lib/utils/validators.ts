@@ -36,3 +36,26 @@ export const SignInFormSchema = z
 			.max(100, 'Password is too long'),
 	})
 	.strict() // odrzuca nieznane pola, zapobiega atakom i błędom
+
+	// SCHEMA FOR SIGN UP FORM
+export const SignUpFormSchema = z
+.object({
+	name: z
+		.string().min(3, 'Name must be at least 3 characters'),
+	email: z
+		.string({ required_error: 'E-mail is required' })
+		.email('Enter a valid e-mail address')
+		.transform((val) => val.trim().toLowerCase()),
+	password: z
+		.string({ required_error: 'Password is required' })
+		.min(6, 'Password must be at least 6 characters')
+		.max(100, 'Password is too long'),
+	confirmPassword: z
+		.string().min(6, 'Password must be at least 6 characters')
+		.max(100, 'Password is too long')
+})
+.strict() 
+.refine((data) => data.password === data.confirmPassword, {
+	message: 'Paswords do not match',
+	path: ['confirmPassword'],
+})

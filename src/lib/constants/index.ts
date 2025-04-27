@@ -26,6 +26,14 @@ export const SIGNIN_DEFAULT_VALUES = {
 	password: '',
 }
 
+// DEFAULT VALUES FOR SIGNUP FORM
+export const SIGNUP_DEFAULT_VALUES = {
+	name: '',
+	email: '',
+	password: '',
+	confirmPassword: '',
+}
+
 // DEFAULT ACTION STATE FOR SIGN IN FORM
 export const DEFAULT_ACTION_STATE = {
 	success: false,

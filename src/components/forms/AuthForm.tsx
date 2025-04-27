@@ -159,7 +159,7 @@ export default function AuthForm({ type }: { type: AuthTypes }) {
 							id="name"
 							name="name"
 							type="text"
-							// required
+							required
 							autoComplete="name"
 							defaultValue={SIGNUP_DEFAULT_VALUES.name}
 						/>
@@ -171,8 +171,8 @@ export default function AuthForm({ type }: { type: AuthTypes }) {
 						<Input
 							id="email"
 							name="email"
-							type="text"
-							// required
+							type="email"
+							required
 							autoComplete="email"
 							defaultValue={SIGNUP_DEFAULT_VALUES.email}
 						/>
@@ -187,7 +187,7 @@ export default function AuthForm({ type }: { type: AuthTypes }) {
 							id="password"
 							name="password"
 							type="password"
-							// required
+							required
 							autoComplete="password"
 							defaultValue={SIGNUP_DEFAULT_VALUES.password}
 						/>
@@ -202,7 +202,7 @@ export default function AuthForm({ type }: { type: AuthTypes }) {
 							id="confirmPassword"
 							name="confirmPassword"
 							type="password"
-							// required
+							required
 							autoComplete="confirmPassword"
 							defaultValue={SIGNUP_DEFAULT_VALUES.confirmPassword}
 						/>

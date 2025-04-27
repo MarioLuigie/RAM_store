@@ -10,6 +10,7 @@ import { ROUTES } from '@/lib/constants/paths'
 import { ICONS } from '@/lib/constants/icons'
 import { DEFAULT_ACTION_STATE } from '@/lib/constants'
 import { SignInUserWithCredentials } from '@/lib/actions/user.actions'
+import { AuthTypes } from '@/lib/constants/enums'
 // components
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -17,7 +18,13 @@ import { Button } from '@/components/ui/button'
 import SubmitButton from '@/components/shared/SubmitButton'
 import SVG from '@/components/shared/SVG'
 
-export default function AuthForm() {
+export default function AuthForm({
+	type
+}: {
+	type: AuthTypes
+}) {
+	console.log(type)
+	
 	const [data, action] = useActionState(
 		SignInUserWithCredentials,
 		DEFAULT_ACTION_STATE

@@ -5,10 +5,10 @@ import { getProductBySlug } from '@/lib/actions/product.actions'
 import { Product } from '@/lib/types/products.types'
 // components
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import ProductPrice from '@/components/content/ProductPrice'
 import ProductImages from '@/components/content/ProductImages'
+import AddToCart from '@/components/content/AddToCart'
 
 export default async function ProductDetailsPage({ slug }: { slug: string }) {
 	const { success, data: product }: IDataResult<Product> =
@@ -69,7 +69,7 @@ export default async function ProductDetailsPage({ slug }: { slug: string }) {
 								</div>
 								{product.stock > 0 && (
 									<div className="flex-center">
-										<Button className='w-full cursor-pointer'>Add to Cart</Button>
+										<AddToCart />
 									</div>
 								)}
 							</CardContent>

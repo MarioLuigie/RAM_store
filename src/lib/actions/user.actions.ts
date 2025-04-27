@@ -8,7 +8,7 @@ import { signIn, signOut } from '@/config/auth'
 import { prisma } from '@/lib/db/prisma'
 
 // SIGN IN THE USER WITH CREDENTIALS
-export async function SignInUserWithCredentials(
+export async function signInUserWithCredentials(
 	prevState: unknown,
 	formData: FormData
 ) {
@@ -39,7 +39,7 @@ export async function SignInUserWithCredentials(
 }
 
 // SIGN USER UP
-export async function signUpUser(
+export async function signUpUserWithCredentials(
 	prevState: unknown,
 	formData: FormData
 ) {

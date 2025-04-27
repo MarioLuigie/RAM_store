@@ -5,11 +5,14 @@ import { useFormStatus } from 'react-dom'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 // lib
-import { SIGNIN_DEFAULT_VALUES } from '@/lib/constants'
+import { SIGNIN_DEFAULT_VALUES, SIGNUP_DEFAULT_VALUES } from '@/lib/constants'
 import { ROUTES } from '@/lib/constants/paths'
 import { ICONS } from '@/lib/constants/icons'
 import { DEFAULT_ACTION_STATE } from '@/lib/constants'
-import { SignInUserWithCredentials } from '@/lib/actions/user.actions'
+import {
+	signInUserWithCredentials,
+	signUpUserWithCredentials,
+} from '@/lib/actions/user.actions'
 import { AuthTypes } from '@/lib/constants/enums'
 // components
 import { Input } from '@/components/ui/input'
@@ -19,10 +22,12 @@ import SubmitButton from '@/components/shared/SubmitButton'
 import SVG from '@/components/shared/SVG'
 
 export default function AuthForm({ type }: { type: AuthTypes }) {
-	const [data, action] = useActionState(
-		SignInUserWithCredentials,
-		DEFAULT_ACTION_STATE
-	)
+	const actionFn =
+		type === AuthTypes.SIGN_IN
+			? signInUserWithCredentials
+			: signUpUserWithCredentials
+
+	const [data, action] = useActionState(actionFn, DEFAULT_ACTION_STATE)
 	const searchParams = useSearchParams()
 	const callbackUrl = searchParams.get('callbackUrl') || ROUTES.HOME
 
@@ -35,6 +40,7 @@ export default function AuthForm({ type }: { type: AuthTypes }) {
 		return <>{children(pending)}</>
 	}
 
+	// SIGN IN
 	if (type === AuthTypes.SIGN_IN) {
 		return (
 			<form action={action} className="p-6 md:p-8">
@@ -138,12 +144,26 @@ export default function AuthForm({ type }: { type: AuthTypes }) {
 		)
 	}
 
+	// SIGN UP
 	if (type === AuthTypes.SIGN_UP) {
 		return (
 			<form action={action} className="p-6 md:p-8">
 				<input type="hidden" name="callbackUrl" value={callbackUrl} />
 				{/* FORM FIELDS */}
 				<div className="space-y-6">
+					{/* NAME INPUT */}
+					<div className="grid gap-2">
+						<Label htmlFor="name">Name</Label>
+						<Input
+							id="name"
+							name="name"
+							type="text"
+							required
+							autoComplete="name"
+							defaultValue={SIGNUP_DEFAULT_VALUES.name}
+						/>
+					</div>
+
 					{/* EMAIL INPUT */}
 					<div className="grid gap-2">
 						<Label htmlFor="email">E-mail</Label>
@@ -153,7 +173,7 @@ export default function AuthForm({ type }: { type: AuthTypes }) {
 							type="email"
 							required
 							autoComplete="email"
-							defaultValue={SIGNIN_DEFAULT_VALUES.email}
+							defaultValue={SIGNUP_DEFAULT_VALUES.email}
 						/>
 					</div>
 
@@ -161,12 +181,6 @@ export default function AuthForm({ type }: { type: AuthTypes }) {
 					<div className="grid gap-2">
 						<div className="flex items-center">
 							<Label htmlFor="password">Password</Label>
-							<Link
-								href="#"
-								className="ml-auto text-sm underline-offset-2 hover:underline"
-							>
-								Forgot your password?
-							</Link>
 						</div>
 						<Input
 							id="password"
@@ -174,7 +188,22 @@ export default function AuthForm({ type }: { type: AuthTypes }) {
 							type="password"
 							required
 							autoComplete="password"
-							defaultValue={SIGNIN_DEFAULT_VALUES.password}
+							defaultValue={SIGNUP_DEFAULT_VALUES.password}
+						/>
+					</div>
+
+					{/* CONFIRM PASSWORD INPUT */}
+					<div className="grid gap-2">
+						<div className="flex items-center">
+							<Label htmlFor="confirmPassword">Confirm Password</Label>
+						</div>
+						<Input
+							id="confirmPassword"
+							name="confirmPassword"
+							type="password"
+							required
+							autoComplete="confirmPassword"
+							defaultValue={SIGNUP_DEFAULT_VALUES.confirmPassword}
 						/>
 					</div>
 

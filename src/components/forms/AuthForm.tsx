@@ -257,7 +257,7 @@ export default function AuthForm({ type }: { type: AuthTypes }) {
 
 				{/* REDIRECT TO SIGN IN ROUTE */}
 				<div className="text-center text-sm mt-6">
-					Have an account?{' '}
+					Already have an account?{' '}
 					<Link
 						href={ROUTES.SIGN_IN}
 						className="underline underline-offset-4"

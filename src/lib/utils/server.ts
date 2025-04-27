@@ -59,14 +59,27 @@ export function safeNormalizeProduct(product: Product): Product {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function formatErrorMessages(error: any) {
 	if (error instanceof ZodError) {
-		const fieldErrorMessages = Object.keys(error.errors).map(
+		// Handle Zod errors
+		const fieldErrorMessages: string[] = Object.keys(error.errors).map(
 			(field) => error.errors[Number(field)].message
 		)
 
 		return fieldErrorMessages.join('. ')
+	} else if (
+		error.name instanceof Prisma.PrismaClientKnownRequestError &&
+		error.code === 'P2002'
+	) {
+		// Handle prisma errors
+		const field: string = error.meta?.target ? error.meta?.target[0] : 'Field'
 
-	} else if (error instanceof Prisma.PrismaClientKnownRequestError) {
+		return `${field.charAt(0).toUpperCase() + field.slice(1)} already exists`
 	} else if (error instanceof Error) {
+		// Handle other errors
+		return typeof error.message === 'string'
+			? error.message
+			: JSON.stringify(error.message)
 	} else {
+		// Handle others
+		return 'Something went wrong'
 	}
 }

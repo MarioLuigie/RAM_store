@@ -1,10 +1,11 @@
 import { Product } from '@/lib/types/products.types'
 import { ProductSchema } from '@/lib/utils/validators'
 import { formatNumberWithDecimalToString } from '@/lib/utils/utils'
+import { ZodError } from 'zod'
+import { Prisma } from '@prisma/client'
 
-// Normalize Products from db into JS object 
+// Normalize Products from db into JS object
 export function safeNormalizeProducts(data: Product[]): Product[] {
-  
 	const parsedData = data.flatMap((product) => {
 		// Validate datas from db on backend side and prepare for client
 		// Checking whether the data fits the validation zod schema
@@ -12,7 +13,7 @@ export function safeNormalizeProducts(data: Product[]): Product[] {
 			...product,
 			price: formatNumberWithDecimalToString(product.price),
 			rating: product.rating.toString(),
-			numReviews: product.numReviews.toString()
+			numReviews: product.numReviews.toString(),
 		})
 
 		if (!parsed.success) {
@@ -32,7 +33,7 @@ export function safeNormalizeProducts(data: Product[]): Product[] {
 	return parsedData
 }
 
-// Normalize Product from db into JS object 
+// Normalize Product from db into JS object
 export function safeNormalizeProduct(product: Product): Product {
 	// Validate data from DB on backend side and prepare for client
 	// Checking whether the data fits the validation zod schema
@@ -40,7 +41,7 @@ export function safeNormalizeProduct(product: Product): Product {
 		...product,
 		price: formatNumberWithDecimalToString(product.price),
 		rating: product.rating.toString(),
-		numReviews: product.numReviews.toString()
+		numReviews: product.numReviews.toString(),
 	})
 
 	if (!parsed.success) {
@@ -55,4 +56,17 @@ export function safeNormalizeProduct(product: Product): Product {
 	}
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function formatErrorMessages(error: any) {
+	if (error instanceof ZodError) {
+		const fieldErrorMessages = Object.keys(error.errors).map(
+			(field) => error.errors[Number(field)].message
+		)
 
+		return fieldErrorMessages.join('. ')
+
+	} else if (error instanceof Prisma.PrismaClientKnownRequestError) {
+	} else if (error instanceof Error) {
+	} else {
+	}
+}

@@ -6,6 +6,7 @@ import { hashSync } from 'bcrypt-ts-edge'
 import { SignInFormSchema, SignUpFormSchema } from '@/lib/utils/validators'
 import { signIn, signOut } from '@/config/auth'
 import { prisma } from '@/lib/db/prisma'
+import { formatErrorMessages } from '@/lib/utils/server'
 
 // SIGN IN THE USER WITH CREDENTIALS
 export async function signInUserWithCredentials(
@@ -80,7 +81,7 @@ export async function signUpUserWithCredentials(
 
 		return {
 			success: false,
-			message: 'User was not registered'
+			message: formatErrorMessages(error)
 		}
 	}
 }

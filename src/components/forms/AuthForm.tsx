@@ -20,6 +20,7 @@ import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import SubmitButton from '@/components/shared/SubmitButton'
 import SVG from '@/components/shared/SVG'
+import FormattedErrorMessages from '../shared/FormattedErrorMessages'
 
 export default function AuthForm({ type }: { type: AuthTypes }) {
 	const actionFn =
@@ -158,7 +159,7 @@ export default function AuthForm({ type }: { type: AuthTypes }) {
 							id="name"
 							name="name"
 							type="text"
-							required
+							// required
 							autoComplete="name"
 							defaultValue={SIGNUP_DEFAULT_VALUES.name}
 						/>
@@ -170,8 +171,8 @@ export default function AuthForm({ type }: { type: AuthTypes }) {
 						<Input
 							id="email"
 							name="email"
-							type="email"
-							required
+							type="text"
+							// required
 							autoComplete="email"
 							defaultValue={SIGNUP_DEFAULT_VALUES.email}
 						/>
@@ -186,7 +187,7 @@ export default function AuthForm({ type }: { type: AuthTypes }) {
 							id="password"
 							name="password"
 							type="password"
-							required
+							// required
 							autoComplete="password"
 							defaultValue={SIGNUP_DEFAULT_VALUES.password}
 						/>
@@ -201,7 +202,7 @@ export default function AuthForm({ type }: { type: AuthTypes }) {
 							id="confirmPassword"
 							name="confirmPassword"
 							type="password"
-							required
+							// required
 							autoComplete="confirmPassword"
 							defaultValue={SIGNUP_DEFAULT_VALUES.confirmPassword}
 						/>
@@ -224,10 +225,12 @@ export default function AuthForm({ type }: { type: AuthTypes }) {
 				</div>
 
 				{/* ERROR MESSAGE OPTIONAL */}
-				<div className="h-6 my-2">
-					<p className="text-destructive text-center">
-						{data && !data.success && data.message}
-					</p>
+				<div className="min-h-6 my-2">
+					{!data.success &&
+						data.message &&
+						typeof data.message === 'string' && (
+							<FormattedErrorMessages message={data.message} />
+						)}
 				</div>
 
 				{/* PROVIDERS */}

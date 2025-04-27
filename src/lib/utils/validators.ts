@@ -51,7 +51,7 @@ export const SignUpFormSchema = z
 		.min(6, 'Password must be at least 6 characters')
 		.max(100, 'Password is too long'),
 	confirmPassword: z
-		.string().min(6, 'Password must be at least 6 characters')
+		.string().min(6, 'Confirm Password must be the same as Password')
 		.max(100, 'Password is too long')
 })
 .strict() 

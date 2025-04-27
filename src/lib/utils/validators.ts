@@ -51,11 +51,11 @@ export const SignUpFormSchema = z
 		.min(6, 'Password must be at least 6 characters')
 		.max(100, 'Password is too long'),
 	confirmPassword: z
-		.string().min(6, 'Confirm Password must be the same as Password')
+		.string().min(6, 'Confirm Password must be at least 6 characters')
 		.max(100, 'Password is too long')
 })
 .strict() 
 .refine((data) => data.password === data.confirmPassword, {
-	message: 'Paswords do not match',
+	message: 'Password and Confirm Password do not match',
 	path: ['confirmPassword'],
 })

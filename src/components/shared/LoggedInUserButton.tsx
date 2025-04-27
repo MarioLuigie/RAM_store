@@ -70,8 +70,10 @@ export default function LoggedInUserButton({ user }: { user: User }) {
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
 					<DropdownMenuItem className="cursor-pointer">
-						<Sparkles />
-						Upgrade to Pro
+						<Sparkles className="text-yellow-500" />
+						<p className="text-gradient bg-gradient-to-r from-yellow-400 to-red-700 text-transparent bg-clip-text">
+							Upgrade to Pro
+						</p>
 					</DropdownMenuItem>
 				</DropdownMenuGroup>
 				<DropdownMenuSeparator />

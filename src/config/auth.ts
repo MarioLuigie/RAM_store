@@ -57,18 +57,49 @@ export const config = {
 		async session({ session, user, trigger, token }) {
 			// Set the user ID from the token
 			session.user.id = token.sub as string
+			session.user.role = token.role 
+			session.user.name = token.name
+
+			console.log("TOKEN:", token)
 
 			// If there is an update, set the user name
-			if(trigger === 'update') {
+			if (trigger === 'update') {
 				session.user.name = user.name
 			}
 
 			return session
 		},
-	}
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		async jwt({ user, token }: any) {
+			// Asign user fields to token
+			if (user) {
+				token.role = user.role
+				// When user does not have a name use the email
+				if (user.name === 'NO_NAME') {
+					token.name = user.email!.split('@')[0]
+					// Update database to reflect the token name
+					await prisma.user.update({
+						where: { id: user.id },
+						data: { name: token.name }
+					})
+				}
+			}
+
+			return token
+		},
+	},
 } satisfies NextAuthConfig
 
 export const { handlers, signIn, signOut, auth } = NextAuth(config)
+
+// TOKEN: {
+//   name: 'Jan',
+//   email: 'admin@example.com',
+//   sub: '28610bf5-2e8f-4ebd-a141-81bc1bbc8877',
+//   iat: 1745770479,
+//   exp: 1748362479,
+//   jti: '36c31292-0d53-457f-9424-5a59f58ed2f4'
+// }
 
 // providers: [
 //   CredentialsProvider({

@@ -28,3 +28,11 @@ export enum AuthTypes {
 	SIGN_IN = 'sign-in',
 	SIGN_UP = 'sign-up',
 }
+
+export enum AuthRole {
+  USER = "user",
+  ADMIN = "admin",
+  MODERATOR = "moderator",
+  GUEST = "guest",
+}
+

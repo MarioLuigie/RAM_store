@@ -165,4 +165,21 @@
   .h3-bold {
     @apply font-bold text-xl lg:text-2xl;
   }
+
+  @keyframes pulseBackground {
+    0% {
+      background-color: #dddddd; /* Jaśniejsze tło */
+    }
+    50% {
+      background-color: #c2c2c2; /* Ciemniejsze tło */
+    }
+    100% {
+      background-color: #dddddd; /* Jaśniejsze tło */
+    }
+  }
+
+  .button-pulse {
+    animation: pulseBackground 3s infinite;
+  }
+
 }

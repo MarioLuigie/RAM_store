@@ -5,7 +5,6 @@ import { X } from 'lucide-react' // zakładam, że X masz z lucide-react
 import { CartItem } from '@/lib/types/cart.types'
 import { cn } from '@/lib/utils/utils'
 import { truncateText } from '@/lib/utils/utils'
-import ToolTip from '@/components/shared/ToolTip'
 
 // Custom hook
 export function useAddToCartToast() {
@@ -19,12 +18,11 @@ export function useAddToCartToast() {
 							? 'dark:bg-[#252525] bg-[#f7f7f7] dark:text-zinc-100 text-[#383838]'
 							: 'bg-red-200 dark:bg-red-300 dark:text-[#383838] text-[#383838]'
 					)}
+					title={item.name}
 				>
 					{/* MESSAGE */}
 					<div>
-						<ToolTip message={item.name}>
-							<p className="text-start">{truncateText(item.name, 20)}</p>
-						</ToolTip>
+						<p className="text-start">{truncateText(item.name, 20)}</p>
 						<p>
 							{isSuccess
 								? 'successfully added to the Cart!'

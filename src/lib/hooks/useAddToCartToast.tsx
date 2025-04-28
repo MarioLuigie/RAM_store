@@ -8,7 +8,6 @@ import { CartItem } from '@/lib/types/cart.types'
 import { cn } from '@/lib/utils/utils'
 import { truncateText } from '@/lib/utils/utils'
 import { ShoppingCart } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import { ROUTES } from '@/lib/constants/paths'
 
@@ -51,13 +50,13 @@ export function useAddToCartToast() {
 						/>
 
 						{/* SHOPPING CART BUTTON REDIRECT TO THE CART ROUTE */}
-						<Button
+						<button
 							title="Go to the Cart!"
-							className="button-pulse rounded-sm w-[40px] h-[40px]"
+							className="button-pulse rounded-sm w-[50px] h-[50px] flex-shrink-0 flex-center"
 							onClick={() => router.push(ROUTES.CART)}
 						>
-							<ShoppingCart color="#383638" />
-						</Button>
+							<ShoppingCart color="#383638" className='w-[22px] h-[22px]'/>
+						</button>
 					</div>
 
 					<button

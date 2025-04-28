@@ -10,9 +10,11 @@ import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
 import Image from 'next/image'
 import { X } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 export default function AddToCart({ item }: { item: CartItem }) {
 	console.log(item)
+	const router = useRouter()
 
 	function customToast(message: string) {
 		toast.custom((id) => (
@@ -40,7 +42,7 @@ export default function AddToCart({ item }: { item: CartItem }) {
 			<Button
 				type="button"
 				className="w-full cursor-pointer"
-				onClick={() => handleAddToCart(item, customToast)}
+				onClick={() => handleAddToCart(item, customToast, router)}
 			>
 				Add to Cart
 			</Button>

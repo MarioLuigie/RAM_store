@@ -1,12 +1,16 @@
 // modules
-import { toast } from "sonner"
+// import { toast } from 'sonner'
 // lib
-import { addToCart } from "@/lib/actions/cart.actions"
+import { addToCart } from '@/lib/actions/cart.actions'
+import { CartItem } from '@/lib/types/cart.types'
 
-export async function handleAddToCart() {
-  console.log("Added to Cart!")
+export async function handleAddToCart(
+	item: CartItem,
+	customToast: (message: string) => void
+) {
+	const { success, message } = await addToCart(item)
 
-  await addToCart()
-  
-  toast('Added to Cart')
+	if (success) {
+		customToast(message)
+	}
 }

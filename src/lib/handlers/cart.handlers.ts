@@ -1,5 +1,5 @@
 // modules
-// import { toast } from 'sonner'
+import { toast } from 'sonner'
 // lib
 import { addToCart } from '@/lib/actions/cart.actions'
 import { CartItem } from '@/lib/types/cart.types'
@@ -12,5 +12,7 @@ export async function handleAddToCart(
 
 	if (success) {
 		customToast(message)
-	}
+	} else {
+    toast.error(message)// Make your custom error toast
+  }
 }

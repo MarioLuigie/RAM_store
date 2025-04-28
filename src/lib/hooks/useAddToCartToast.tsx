@@ -21,16 +21,17 @@ export function useAddToCartToast() {
 					)}
 				>
 					{/* MESSAGE */}
-					<ToolTip message={item.name}>
-						<div>
-							<p className='text-start'>{truncateText(item.name, 20)}</p>
-							<p>
-								{isSuccess
-									? 'successfully added to the Cart!'
-									: 'not added to the Cart!'}
-							</p>
-						</div>
-					</ToolTip>
+					<div>
+						<ToolTip message={item.name}>
+							<p className="text-start">{truncateText(item.name, 20)}</p>
+						</ToolTip>
+						<p>
+							{isSuccess
+								? 'successfully added to the Cart!'
+								: 'not added to the Cart!'}
+						</p>
+					</div>
+
 					{/* IMAGE */}
 					<Image
 						src={item.image}

@@ -13,7 +13,7 @@ export function useAddToCartToast() {
 			toast.custom((id) => (
 				<div
 					className={cn(
-						'relative flex items-center gap-3 px-4 py-2 rounded-md border-[1px] border-[#e9e9e9] dark:border-[#3d3d3d] shadow-md dark:bg-[#252525] bg-[#f7f7f7]',
+						'relative flex items-center gap-6 px-4 py-2 rounded-md border-[1px] border-[#e9e9e9] dark:border-[#3d3d3d] shadow-md dark:bg-[#252525] bg-[#f7f7f7]',
 						isSuccess
 							? 'dark:bg-[#252525] bg-[#f7f7f7] dark:text-zinc-100 text-[#383838]'
 							: 'bg-red-200 dark:bg-red-300 dark:text-[#383838] text-[#383838]'

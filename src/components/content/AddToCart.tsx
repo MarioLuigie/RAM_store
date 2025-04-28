@@ -21,7 +21,7 @@ export default function AddToCart({ item }: { item: CartItem }) {
 				<Image
 					src={item.image}
 					alt={item.name}
-					className="w-[50px] h-[50px] flex-shrink-0 mr-2"
+					className="w-[50px] h-[50px] flex-shrink-0 mr-2.5 rounded-xs"
 					width={50}
 					height={50}
 				/>

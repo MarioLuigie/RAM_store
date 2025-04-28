@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback } from 'react'
-import { toast } from 'sonner' 
+import { toast } from 'sonner'
 import Image from 'next/image'
 import { X } from 'lucide-react'
 import { CartItem } from '@/lib/types/cart.types'
@@ -10,6 +10,7 @@ import { truncateText } from '@/lib/utils/utils'
 import { ShoppingCart } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
+import { ROUTES } from '@/lib/constants/paths'
 
 // Custom hook
 export function useAddToCartToast() {
@@ -20,7 +21,7 @@ export function useAddToCartToast() {
 			toast.custom((id) => (
 				<div
 					className={cn(
-						'relative flex items-center gap-6 px-4 py-2 rounded-md border-[1px] border-[#e9e9e9] dark:border-[#3d3d3d] shadow-md dark:bg-[#252525] bg-[#f7f7f7]',
+						'relative flex items-center gap-2 px-4 py-2 rounded-md border-[1px] border-[#e9e9e9] dark:border-[#3d3d3d] shadow-md dark:bg-[#252525] bg-[#f7f7f7]',
 						isSuccess
 							? 'dark:bg-[#252525] bg-[#f7f7f7] dark:text-zinc-100 text-[#383838]'
 							: 'bg-red-200 dark:bg-red-300 dark:text-[#383838] text-[#383838]'
@@ -30,7 +31,7 @@ export function useAddToCartToast() {
 					{/* MESSAGE */}
 					<div>
 						<p className="text-start font-medium">
-							{truncateText(item.name, 20)}
+							{truncateText(item.name, 21)}
 						</p>
 						<p>
 							{isSuccess
@@ -39,7 +40,7 @@ export function useAddToCartToast() {
 						</p>
 					</div>
 
-					<div className='flex items-center gap-2 mr-5'>
+					<div className="flex items-center gap-2 mr-5">
 						{/* IMAGE */}
 						<Image
 							src={item.image}
@@ -50,8 +51,12 @@ export function useAddToCartToast() {
 						/>
 
 						{/* SHOPPING CART BUTTON REDIRECT TO THE CART ROUTE */}
-						<Button title='Go to the Cart!' className='button-pulse rounded-sm w-[40px] h-[40px]' onClick={() => router.push('/cart')}>
-							<ShoppingCart color='#383638'/>
+						<Button
+							title="Go to the Cart!"
+							className="button-pulse rounded-sm w-[40px] h-[40px]"
+							onClick={() => router.push(ROUTES.CART)}
+						>
+							<ShoppingCart color="#383638" />
 						</Button>
 					</div>
 

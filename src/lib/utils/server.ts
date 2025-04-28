@@ -83,3 +83,12 @@ export function formatErrorMessages(error: any) {
 		return 'Something went wrong'
 	}
 }
+
+// Make text shorter
+export const truncateText = (text: string | null, end: number = 4) => {
+	if (text !== null) {
+		return `${text.slice(0, end)}...`
+	} else {
+		return
+	}
+}

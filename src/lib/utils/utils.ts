@@ -16,4 +16,13 @@ export function formatNumberWithDecimalToString(number: number | Decimal | strin
   return decimal ? `${int}.${decimal.padEnd(2, '0')}` : `${int}.00`;
 }
 
+// Make text shorter
+export const truncateText = (text: string | null, end: number = 4) => {
+	if (text !== null) {
+		return `${text.slice(0, end)}...`
+	} else {
+		return
+	}
+}
+
 

@@ -1,17 +1,10 @@
 'use client'
-// modules
-// import { useRouter } from 'next/navigation'
-// import { Plus } from 'lucide-react'
 // lib
 import { CartItem } from '@/lib/types/cart.types'
 import { handleAddToCart } from '@/lib/handlers/cart.handlers'
 import { useAddToCartToast } from '@/lib/hooks/useAddToCartToast'
 // components
 import { Button } from '@/components/ui/button'
-// import { toast } from 'sonner'
-// import Image from 'next/image'
-// import { X } from 'lucide-react'
-// import { useRouter } from 'next/navigation'
 
 export default function AddToCart({ item }: { item: CartItem }) {
 	console.log(item)

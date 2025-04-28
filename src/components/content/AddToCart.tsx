@@ -5,6 +5,7 @@ import { handleAddToCart } from '@/lib/handlers/cart.handlers'
 import { useAddToCartToast } from '@/lib/hooks/useAddToCartToast'
 // components
 import { Button } from '@/components/ui/button'
+import { Plus } from 'lucide-react'
 
 export default function AddToCart({ item }: { item: CartItem }) {
 	console.log(item)
@@ -17,7 +18,7 @@ export default function AddToCart({ item }: { item: CartItem }) {
 				className="w-full cursor-pointer"
 				onClick={() => handleAddToCart(item, showAddToCartToast)}
 			>
-				Add to Cart
+				<Plus />Add to Cart
 			</Button>
 		</div>
 	)

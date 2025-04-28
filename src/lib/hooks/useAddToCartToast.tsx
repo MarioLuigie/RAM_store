@@ -44,15 +44,15 @@ export function useAddToCartToast() {
 						<Image
 							src={item.image}
 							alt={item.name}
-							className="w-[50px] h-[50px] flex-shrink-0 rounded-sm"
-							width={50}
-							height={50}
+							className="w-[45px] h-[45px] flex-shrink-0 rounded-sm"
+							width={45}
+							height={45}
 						/>
 
 						{/* SHOPPING CART BUTTON REDIRECT TO THE CART ROUTE */}
 						<button
 							title="Go to the Cart!"
-							className="button-pulse rounded-sm w-[50px] h-[50px] flex-shrink-0 flex-center"
+							className="button-pulse rounded-sm w-[45px] h-[45px] flex-shrink-0 flex-center"
 							onClick={() => router.push(ROUTES.CART)}
 						>
 							<ShoppingCart color="#383638" className='w-[22px] h-[22px]'/>

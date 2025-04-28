@@ -17,7 +17,7 @@ export default function ToolTip({
 		<TooltipProvider>
 			<Tooltip>
 				<TooltipTrigger>{children}</TooltipTrigger>
-				<TooltipContent className='z-[9999]'>
+				<TooltipContent>
 					<p>{message}</p>
 				</TooltipContent>
 			</Tooltip>

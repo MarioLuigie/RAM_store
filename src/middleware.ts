@@ -6,7 +6,7 @@ import { SESSION_CART_ID } from '@/lib/constants'
 export function middleware(request: NextRequest) {
   const response = NextResponse.next()
 
-  // SESSION CART ID FOR UNLOGGED USERS
+  // SESSION CART ID
   // Check sessionCartId exists
   const hasSessionCartId = request.cookies.has(SESSION_CART_ID)
 
@@ -19,7 +19,7 @@ export function middleware(request: NextRequest) {
       name: SESSION_CART_ID,
       value: cartId,
       path: '/',
-      maxAge: 60 * 60 * 24 * 30, // 30 dni
+      maxAge: 60 * 60 * 24 * 30, // 30 days
       httpOnly: true,
       sameSite: 'lax',
     })

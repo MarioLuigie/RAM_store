@@ -74,7 +74,7 @@ export const config = {
 			// Asign user fields to token
 			if (user) {
 				token.role = user.role
-				// When user does not have a name use the email
+				// When user does not have a name use the email (default name in db model is NO_NAME)
 				if (user.name === 'NO_NAME') {
 					token.name = user.email!.split('@')[0]
 					// Update database to reflect the token name

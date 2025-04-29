@@ -57,7 +57,7 @@ export const config = {
 		async session({ session, user, trigger, token }) {
 			// Set the user ID from the token
 			session.user.id = token.sub as string
-			session.user.role = token.role 
+			session.user.role = token.role
 			session.user.name = token.name
 
 			// console.log("TOKEN:", token)
@@ -80,7 +80,7 @@ export const config = {
 					// Update database to reflect the token name
 					await prisma.user.update({
 						where: { id: user.id },
-						data: { name: token.name }
+						data: { name: token.name },
 					})
 				}
 			}

@@ -2,6 +2,9 @@
 import { MENU_LABELS } from '@/lib/constants/texts'
 import { ROUTES } from '@/lib/constants/paths'
 
+// COOKIES
+export const SESSION_CART_ID = 'ram-session-cart-id'
+
 // APP
 export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || 'RAM'
 export const APP_DESC =

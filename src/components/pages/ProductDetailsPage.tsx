@@ -70,7 +70,7 @@ export default async function ProductDetailsPage({ slug }: { slug: string }) {
 								{product.stock > 0 && (
 									<div className="flex-center">
 										<AddToCart
-											item={{
+											cartItem={{
 												productId: product.id,
 												name: product.name,
 												slug: product.slug,

@@ -7,8 +7,8 @@ import { useAddToCartToast } from '@/lib/hooks/useAddToCartToast';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 
-export default function AddToCart({ item }: { item: CartItem }) {
-	console.log(item);
+export default function AddToCart({ cartItem }: { cartItem: CartItem }) {
+	console.log(cartItem);
 	const { showAddToCartToast } = useAddToCartToast();
 
 	return (
@@ -16,7 +16,7 @@ export default function AddToCart({ item }: { item: CartItem }) {
 			<Button
 				type="button"
 				className="w-full cursor-pointer"
-				onClick={() => handleAddToCart(item, showAddToCartToast)}
+				onClick={() => handleAddToCart(cartItem, showAddToCartToast)}
 			>
 				<Plus />
 				Add to Cart

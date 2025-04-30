@@ -1,10 +1,10 @@
 // modules
-import NextAuth from 'next-auth'
-import { PrismaAdapter } from '@auth/prisma-adapter'
-import { prisma } from '@/lib/db/prisma'
-import CredentialsProvider from 'next-auth/providers/credentials'
-import { compareSync } from 'bcrypt-ts-edge'
-import type { NextAuthConfig } from 'next-auth'
+import NextAuth from 'next-auth';
+import { PrismaAdapter } from '@auth/prisma-adapter';
+import { prisma } from '@/lib/db/prisma';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import { compareSync } from 'bcrypt-ts-edge';
+import type { NextAuthConfig } from 'next-auth';
 
 export const config = {
 	pages: {
@@ -23,20 +23,20 @@ export const config = {
 				password: { type: 'password' },
 			},
 			async authorize(credentials) {
-				if (credentials === null) return null
+				if (credentials === null) return null;
 				//Find user in database
 				const user = await prisma.user.findFirst({
 					where: {
 						email: credentials.email as string,
 					},
-				})
+				});
 
 				// Check if the user exists and the password matches
 				if (user && user.password) {
 					const isMatch = compareSync(
 						credentials.password as string,
 						user.password
-					)
+					);
 
 					// If password is correct return user
 					if (isMatch) {
@@ -45,52 +45,52 @@ export const config = {
 							name: user.name,
 							email: user.email,
 							role: user.role,
-						}
+						};
 					}
 				}
 				// If user does not exist or password does not match return null
-				return null
+				return null;
 			},
 		}),
 	],
 	callbacks: {
 		async session({ session, user, trigger, token }) {
 			// Set the user ID from the token
-			session.user.id = token.sub as string
-			session.user.role = token.role
-			session.user.name = token.name
+			session.user.id = token.sub as string;
+			session.user.role = token.role;
+			session.user.name = token.name;
 
 			// console.log("TOKEN:", token)
 
 			// If there is an update, set the user name
 			if (trigger === 'update') {
-				session.user.name = user.name
+				session.user.name = user.name;
 			}
 
-			return session
+			return session;
 		},
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		async jwt({ user, token }: any) {
 			// Asign user fields to token
 			if (user) {
-				token.role = user.role
+				token.role = user.role;
 				// When user does not have a name use the email (default name in db model is NO_NAME)
 				if (user.name === 'NO_NAME') {
-					token.name = user.email!.split('@')[0]
+					token.name = user.email!.split('@')[0];
 					// Update database to reflect the token name
 					await prisma.user.update({
 						where: { id: user.id },
 						data: { name: token.name },
-					})
+					});
 				}
 			}
 
-			return token
+			return token;
 		},
 	},
-} satisfies NextAuthConfig
+} satisfies NextAuthConfig;
 
-export const { handlers, signIn, signOut, auth } = NextAuth(config)
+export const { handlers, signIn, signOut, auth } = NextAuth(config);
 
 // TOKEN: {
 //   name: 'Jan',

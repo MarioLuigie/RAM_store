@@ -1,28 +1,28 @@
-'use server'
+'use server';
 // modules
 // import { prisma } from '@/lib/db/prisma'
-import { cookies } from 'next/headers'
+import { cookies } from 'next/headers';
 // lib
-import { CartItem } from '@/lib/types/cart.types'
-import { SESSION_CART_ID } from '@/lib/constants'
+import { CartItem } from '@/lib/types/cart.types';
+import { SESSION_CART_ID } from '@/lib/constants';
 
 export async function addToCart(item: CartItem) {
-	console.log(item)
+	console.log(item);
 
 	try {
-		let sessionCartId = (await cookies()).get(SESSION_CART_ID)?.value
+		let sessionCartId = (await cookies()).get(SESSION_CART_ID)?.value;
 
 		if (!sessionCartId) {
 			// Middleware nie zadziałał — zabezpieczamy się
-			sessionCartId = crypto.randomUUID()
-			;(await cookies()).set({
+			sessionCartId = crypto.randomUUID();
+			(await cookies()).set({
 				name: SESSION_CART_ID,
 				value: sessionCartId,
 				path: '/',
 				maxAge: 60 * 60 * 24 * 30,
 				httpOnly: true,
 				sameSite: 'lax',
-			})
+			});
 		}
 
 		if (true) {
@@ -30,21 +30,21 @@ export async function addToCart(item: CartItem) {
 				success: true,
 				data: { name: item.name, image: item.image } as CartItem, // Only tests!
 				message: 'Successfully added to the Cart',
-			}
+			};
 		} else {
 			return {
 				success: false,
 				data: { name: item.name, image: item.image } as CartItem, // Only tests!
 				message: 'Not added to the Cart',
-			}
+			};
 		}
 	} catch (error) {
-		console.log(error)
+		console.log(error);
 		return {
 			success: false,
 			data: { name: item.name, image: item.image } as CartItem, // Only tests!
 			message: 'Not added to the Cart',
-		}
+		};
 	}
 }
 

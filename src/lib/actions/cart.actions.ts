@@ -5,25 +5,34 @@ import { cookies } from 'next/headers';
 // lib
 import { CartItem } from '@/lib/types/cart.types';
 import { SESSION_CART_ID } from '@/lib/constants';
+import { auth } from '@/config/auth';
+import { prisma } from '../db/prisma';
+import { convertToPlainObject } from '@/lib/utils/utils';
 
 export async function addToCart(item: CartItem) {
 	console.log(item);
 
 	try {
-		let sessionCartId = (await cookies()).get(SESSION_CART_ID)?.value;
-
+		// Check if session cart id string exists in cookie value on client side
+		const sessionCartId = (await cookies()).get(SESSION_CART_ID)?.value;
 		if (!sessionCartId) {
-			// Middleware nie zadziałał — zabezpieczamy się
-			sessionCartId = crypto.randomUUID();
-			(await cookies()).set({
-				name: SESSION_CART_ID,
-				value: sessionCartId,
-				path: '/',
-				maxAge: 60 * 60 * 24 * 30,
-				httpOnly: true,
-				sameSite: 'lax',
-			});
+			throw new Error('Session cart id cookie not found');
 		}
+
+		// Check if user is logged and create userId with session.user.id or with undefined when user is not logged
+		const session = await auth();
+		const userId = session?.user?.id ? session.user.id : undefined;
+
+		// Get the cart => do other server action named getCart()
+		const cart = await getCart();
+
+
+
+		console.log({
+			sessionCartId,
+			userId,
+			cart,
+		});
 
 		if (true) {
 			return {
@@ -47,6 +56,83 @@ export async function addToCart(item: CartItem) {
 		};
 	}
 }
+
+export async function getCart() {
+			// Check if session cart id string exists in cookie value on client side
+			const sessionCartId = (await cookies()).get(SESSION_CART_ID)?.value;
+			if (!sessionCartId) {
+				throw new Error('Session cart id cookie not found');
+			}
+	
+			// Check if user is logged and create userId with session.user.id or with undefined when user is not logged
+			const session = await auth();
+			const userId = session?.user?.id ? session.user.id : undefined;
+	
+			// Get the cart 
+			const cart = await prisma.cart.findFirst({
+				where: userId ? { userId: userId } : { sessionCartId: sessionCartId },
+			});
+			if (!cart) return undefined;
+	
+			return convertToPlainObject({
+				...cart,
+				items: cart.items as CartItem[],
+				itemsPrice: cart.itemsPrice.toString(),
+				shippingPrice: cart.shippingPrice.toString(),
+				taxPrice: cart.taxPrice.toString(),
+				totalPrice: cart.totalPrice.toString(),
+			});
+}
+
+// 'use server';
+// // modules
+// // import { prisma } from '@/lib/db/prisma'
+// import { cookies } from 'next/headers';
+// // lib
+// import { CartItem } from '@/lib/types/cart.types';
+// import { SESSION_CART_ID } from '@/lib/constants';
+
+// export async function addToCart(item: CartItem) {
+// 	console.log(item);
+
+// 	try {
+// 		let sessionCartId = (await cookies()).get(SESSION_CART_ID)?.value;
+
+// 		if (!sessionCartId) {
+// 			// Middleware nie zadziałał — zabezpieczamy się
+// 			sessionCartId = crypto.randomUUID();
+// 			(await cookies()).set({
+// 				name: SESSION_CART_ID,
+// 				value: sessionCartId,
+// 				path: '/',
+// 				maxAge: 60 * 60 * 24 * 30,
+// 				httpOnly: true,
+// 				sameSite: 'lax',
+// 			});
+// 		}
+
+// 		if (true) {
+// 			return {
+// 				success: true,
+// 				data: { name: item.name, image: item.image } as CartItem, // Only tests!
+// 				message: 'Successfully added to the Cart',
+// 			};
+// 		} else {
+// 			return {
+// 				success: false,
+// 				data: { name: item.name, image: item.image } as CartItem, // Only tests!
+// 				message: 'Not added to the Cart',
+// 			};
+// 		}
+// 	} catch (error) {
+// 		console.log(error);
+// 		return {
+// 			success: false,
+// 			data: { name: item.name, image: item.image } as CartItem, // Only tests!
+// 			message: 'Not added to the Cart',
+// 		};
+// 	}
+// }
 
 // 'use server'
 

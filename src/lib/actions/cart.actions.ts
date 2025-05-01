@@ -17,6 +17,9 @@ export async function addToCart(cartItem: CartItem) {
 	console.log(cartItem);
 
 	try {
+		// Parse and validate data - cart item sended to addToCart() server action
+		const validatedCartItem = CartItemSchema.parse(cartItem);
+
 		// Check if session cart id string exists in cookie value on client side
 		const sessionCartId = (await cookies()).get(SESSION_CART_ID)?.value;
 		if (!sessionCartId) {
@@ -30,9 +33,6 @@ export async function addToCart(cartItem: CartItem) {
 		// Get the cart => return cart or undefined
 		const cart = await getCart();
 
-		// Parse and validate data - cart item sended to addToCart() server action
-		const validatedCartItem = CartItemSchema.parse(cartItem);
-
 		// Find product in database
 		const product = await prisma.product.findFirst({
 			where: { id: validatedCartItem.productId },
@@ -41,19 +41,19 @@ export async function addToCart(cartItem: CartItem) {
 		if (!product) throw new Error('Product not found');
 
 		if (!cart) {
-			// Create new cart and add validated cart item to cart items
-			const createdCart: Cart = CartSchema.parse({
+			// Create and validate new cart and add validated cart item to cart items
+			const validatedCart: Cart = CartSchema.parse({
 				sessionCartId,
 				userId,
 				items: [validatedCartItem],
 				...calcPrices([validatedCartItem]),
 			});
 
-			console.log('Created new cart in addToCart func', createdCart);
+			console.log('Created new cart in addToCart func', validatedCart);
 
 			// Add created cart to the database
 			await prisma.cart.create({
-				data: createdCart,
+				data: validatedCart,
 			});
 
 			//Revalidate ProductDetailsPage path
@@ -138,8 +138,11 @@ export async function getCart() {
 	const cart = await prisma.cart.findFirst({
 		where: userId ? { userId: userId } : { sessionCartId: sessionCartId },
 	});
+
+	// If cart does not exist return undefined
 	if (!cart) return undefined;
 
+	// If cart exists return plained cart with converted fields from prisma decimal to string
 	return convertToPlainObject({
 		...cart,
 		items: cart.items as CartItem[],

@@ -1,12 +1,12 @@
 // lib
-import { addToCart } from '@/lib/actions/cart.actions'
+import { addItemToCart } from '@/lib/actions/cart.actions'
 import { CartItem } from '@/lib/types/cart.types'
 
-export async function handleAddToCart(
+export async function handleAddItemToCart(
 	cartItem: CartItem,
 	showAddToCartToast: (message: string, data: CartItem, isSuccess: boolean) => void
 ) {
-	const { success, message, data } = await addToCart(cartItem)
+	const { success, message, data } = await addItemToCart(cartItem)
 
 	if (success) {
 		showAddToCartToast(message, data, true)

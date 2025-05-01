@@ -15,7 +15,7 @@ import { ROUTES } from '@/lib/constants/paths';
 import { formatErrorMessages } from '@/lib/utils/server';
 
 // ADD TO CART
-export async function addToCart(cartItem: CartItem) {
+export async function addItemToCart(cartItem: CartItem) {
 	console.log(cartItem);
 
 	try {

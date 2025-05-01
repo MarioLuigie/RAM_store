@@ -1,7 +1,7 @@
 'use client';
 // lib
 import { CartItem } from '@/lib/types/cart.types';
-import { handleAddToCart } from '@/lib/handlers/cart.handlers';
+import { handleAddItemToCart } from '@/lib/handlers/cart.handlers';
 import { useAddToCartToast } from '@/lib/hooks/useAddToCartToast';
 // components
 import { Button } from '@/components/ui/button';
@@ -16,7 +16,7 @@ export default function AddToCart({ cartItem }: { cartItem: CartItem }) {
 			<Button
 				type="button"
 				className="w-full cursor-pointer"
-				onClick={() => handleAddToCart(cartItem, showAddToCartToast)}
+				onClick={() => handleAddItemToCart(cartItem, showAddToCartToast)}
 			>
 				<Plus />
 				Add to Cart

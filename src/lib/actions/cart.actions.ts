@@ -6,12 +6,12 @@ import { cookies } from 'next/headers';
 import { Cart, CartItem } from '@/lib/types/cart.types';
 import { SESSION_CART_ID } from '@/lib/constants';
 import { auth } from '@/config/auth';
-import { prisma } from '../db/prisma';
+import { prisma } from '@/lib/db/prisma';
 import { convertToPlainObject } from '@/lib/utils/utils';
 import { CartItemSchema, CartSchema } from '@/lib/utils/validators';
 import { calcPrices } from '@/lib/utils/utils';
 import { revalidatePath } from 'next/cache';
-import { ROUTES } from '../constants/paths';
+import { ROUTES } from '@/lib/constants/paths';
 
 export async function addToCart(cartItem: CartItem) {
 	console.log(cartItem);

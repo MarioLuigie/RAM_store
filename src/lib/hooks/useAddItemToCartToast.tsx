@@ -12,10 +12,10 @@ import { useRouter } from 'next/navigation'
 import { ROUTES } from '@/lib/constants/paths'
 
 // Custom hook
-export function useAddToCartToast() {
+export function useAddItemToCartToast() {
 	const router = useRouter()
 
-	const showAddToCartToast = useCallback(
+	const showAddItemToCartToast = useCallback(
 		(message: string, item: CartItem, isSuccess: boolean = true) => {
 			toast.custom((id) => (
 				<div
@@ -71,5 +71,5 @@ export function useAddToCartToast() {
 		[router]
 	)
 
-	return { showAddToCartToast }
+	return { showAddItemToCartToast }
 }

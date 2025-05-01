@@ -13,9 +13,9 @@ export async function handleAddItemToCart(
 	const { success, message, data } = await addItemToCart(cartItem);
 
 	if (success) {
-		showAddItemToCartToast(message, data, true);
+		showAddItemToCartToast(message, data, success);
 	} else {
-		showAddItemToCartToast(message, data, false);
+		showAddItemToCartToast(message, data, success);
 	}
 }
 

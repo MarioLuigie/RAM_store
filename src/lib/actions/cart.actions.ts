@@ -13,6 +13,7 @@ import { calcPrices } from '@/lib/utils/utils';
 import { revalidatePath } from 'next/cache';
 import { ROUTES } from '@/lib/constants/paths';
 
+// ADD TO CART 
 export async function addToCart(cartItem: CartItem) {
 	console.log(cartItem);
 
@@ -123,6 +124,7 @@ export async function addToCart(cartItem: CartItem) {
 	}
 }
 
+// GET CART
 export async function getCart() {
 	// Check if session cart id string exists in cookie value on client side
 	const sessionCartId = (await cookies()).get(SESSION_CART_ID)?.value;

@@ -165,8 +165,9 @@ export async function getCart() {
 
 // REMOVE ITEM FROM CART
 export async function removeItemFromCart(productId: string) {
-	let updatedExistItemInCart: CartItem | null = null;
+	let updatedCartItem: CartItem | null = null;
 	let removedCartItem: CartItem | null = null;
+
 	try {
 		console.log(productId);
 		// Check if session cart id string exists in cookie value on client side
@@ -205,7 +206,7 @@ export async function removeItemFromCart(productId: string) {
 				(item) => item.productId === productId
 			)!.qty = existItemInCart.qty - 1);
 
-			updatedExistItemInCart = { ...existItemInCart, qty: decreasedQty };
+			updatedCartItem = { ...existItemInCart, qty: decreasedQty };
 		}
 
 		// Update cart in db
@@ -221,8 +222,8 @@ export async function removeItemFromCart(productId: string) {
 
 		return {
 			success: true,
-			data: updatedExistItemInCart
-				? updatedExistItemInCart // if updatedExistItemInCart.qty >= 1 frontend know, that in the cart are 1 or more item quantities
+			data: updatedCartItem
+				? updatedCartItem // if updatedExistItemInCart.qty >= 1 frontend know, that in the cart are 1 or more item quantities
 				: removedCartItem, // if removedCarItem.qty = 0 frontend know, that there is no item in the cart
 			message: 'Product was removed from the Cart',
 		};

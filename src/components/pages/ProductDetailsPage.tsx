@@ -3,18 +3,20 @@ import { notFound } from 'next/navigation'
 // lib
 import { getProductBySlug } from '@/lib/actions/product.actions'
 import { Product } from '@/lib/types/products.types'
+import { getCart } from '@/lib/actions/cart.actions'
 // components
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import ProductPrice from '@/components/content/ProductPrice'
 import ProductImages from '@/components/content/ProductImages'
-import AddItemToCart from '@/components/content/AddItemToCart'
+import AddItemToCartButton from '@/components/content/AddItemToCartButton'
 
 export default async function ProductDetailsPage({ slug }: { slug: string }) {
 	const { success, data: product }: IDataResult<Product> =
 		await getProductBySlug(slug)
-
 	if (!success) notFound()
+
+	const cart = await getCart();
 
 	return (
 		<>
@@ -69,7 +71,8 @@ export default async function ProductDetailsPage({ slug }: { slug: string }) {
 								</div>
 								{product.stock > 0 && (
 									<div className="flex-center">
-										<AddItemToCart
+										<AddItemToCartButton
+											cart={cart}
 											cartItem={{
 												productId: product.id,
 												name: product.name,

@@ -7,7 +7,7 @@ import { useAddItemToCartToast } from '@/lib/hooks/useAddItemToCartToast';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 
-export default function AddToCart({ cartItem }: { cartItem: CartItem }) {
+export default function AddItemToCart({ cartItem }: { cartItem: CartItem }) {
 	console.log(cartItem);
 	const { showAddItemToCartToast } = useAddItemToCartToast();
 

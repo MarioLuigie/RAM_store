@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import ProductPrice from '@/components/content/ProductPrice'
 import ProductImages from '@/components/content/ProductImages'
-import AddToCart from '@/components/content/AddToCart'
+import AddItemToCart from '@/components/content/AddItemToCart'
 
 export default async function ProductDetailsPage({ slug }: { slug: string }) {
 	const { success, data: product }: IDataResult<Product> =
@@ -69,7 +69,7 @@ export default async function ProductDetailsPage({ slug }: { slug: string }) {
 								</div>
 								{product.stock > 0 && (
 									<div className="flex-center">
-										<AddToCart
+										<AddItemToCart
 											cartItem={{
 												productId: product.id,
 												name: product.name,

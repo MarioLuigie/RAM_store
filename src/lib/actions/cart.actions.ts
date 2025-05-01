@@ -41,7 +41,7 @@ export async function addToCart(cartItem: CartItem) {
 		if (!product) throw new Error('Product not found');
 
 		if (!cart) {
-			// Create new cart and add product to cart items
+			// Create new cart and add validated cart item to cart items
 			const createdCart: Cart = CartSchema.parse({
 				sessionCartId,
 				userId,
@@ -66,34 +66,58 @@ export async function addToCart(cartItem: CartItem) {
 			};
 		} else {
 			// Update existing cart pushing product to cart items
-		}
+			// Check if item is already in cart
+			const itemAlreadyExistingInCart = cart.items.find(
+				(item) => item.productId === validatedCartItem.productId
+			);
 
-		console.log({
-			sessionCartId,
-			userId,
-			cart,
-			validatedCartItem,
-			product,
-		});
+			if (itemAlreadyExistingInCart) {
+				// Check the stock of product - type Product - therefore maybe there is not the product available on the stock - empty stock right now
+				if (product.stock < itemAlreadyExistingInCart.qty + 1) {
+					throw new Error('Not enough stock');
+				}
 
-		if (true) {
+				// Increase the quantity of validatedCartItem existing in cart
+				cart.items.find(
+					(item) => item.productId === validatedCartItem.productId
+				)!.qty = itemAlreadyExistingInCart.qty + 1;
+			} else {
+				// Check the stock of product
+				if (product.stock < 1) throw new Error('Not enough stock');
+
+				// Add validated cart item to cart items
+				cart.items.push(validatedCartItem);
+			}
+
+			// Update cart in database - cart already exists in db therefore is neseccery updating only items array of existing cart
+			await prisma.cart.update({
+				where: { id: cart.id },
+				data: {
+					items: cart.items,
+					...calcPrices(cart.items),
+				},
+			});
+
+			revalidatePath(`${ROUTES.PRODUCT}/${product.slug}`);
+
 			return {
 				success: true,
-				data: { name: cartItem.name, image: cartItem.image } as CartItem, // Only tests!
+				data: validatedCartItem,
 				message: 'Successfully added to the Cart',
-			};
-		} else {
-			return {
-				success: false,
-				data: { name: cartItem.name, image: cartItem.image } as CartItem, // Only tests!
-				message: 'Not added to the Cart',
 			};
 		}
 	} catch (error) {
 		console.log(error);
 		return {
 			success: false,
-			data: { name: cartItem.name, image: cartItem.image } as CartItem, // Only tests!
+			data: {
+				productId: cartItem.productId,
+				name: cartItem.name,
+				slug: cartItem.slug,
+				qty: cartItem.qty,
+				image: cartItem.image,
+				price: cartItem.price,
+			},
 			message: 'Not added to the Cart',
 		};
 	}

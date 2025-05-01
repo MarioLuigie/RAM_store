@@ -17,7 +17,7 @@ export default async function ProductDetailsPage({ slug }: { slug: string }) {
 	if (!success) notFound()
 
 	const cart = await getCart();
-
+	console.log("CART:", cart)
 	return (
 		<>
 			<section>

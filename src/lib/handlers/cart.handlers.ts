@@ -19,7 +19,20 @@ export async function handleAddItemToCart(
 	}
 }
 
-export async function handleRemoveItemFromCart(productId: string) {
+export async function handleRemoveItemFromCart(
+	productId: string,
+	showRemovedItemFromCartToast: (
+		message: string,
+		data: CartItem,
+		isSuccess: boolean
+	) => void
+) {
 	console.log(productId);
-	await removeItemFromCart(productId);
+	const { success, message, data } = await removeItemFromCart(productId);
+
+	if (success) {
+		showRemovedItemFromCartToast(message, data, success);
+	} else {
+		showRemovedItemFromCartToast(message, data, success);
+	}
 }

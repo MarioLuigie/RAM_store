@@ -223,14 +223,36 @@ export async function removeItemFromCart(productId: string) {
 		return {
 			success: true,
 			data: updatedCartItem
-				? updatedCartItem // if updatedExistItemInCart.qty >= 1 frontend know, that in the cart are 1 or more item quantities
-				: removedCartItem, // if removedCarItem.qty = 0 frontend know, that there is no item in the cart
+				? {
+						productId: updatedCartItem.productId,
+						name: updatedCartItem.name,
+						slug: updatedCartItem.slug,
+						qty: updatedCartItem.qty,
+						image: updatedCartItem.image,
+						price: updatedCartItem.price,
+				  } // if updatedExistItemInCart.qty >= 1 frontend know, that in the cart are 1 or more item quantities
+				: {
+						productId: removedCartItem!.productId,
+						name: removedCartItem!.name,
+						slug: removedCartItem!.slug,
+						qty: removedCartItem!.qty,
+						image: removedCartItem!.image,
+						price: removedCartItem!.price,
+				  }, // if removedCarItem.qty = 0 frontend know, that there is no item in the cart
 			message: 'Product was removed from the Cart',
 		};
 	} catch (error) {
 		console.log(error);
 		return {
 			success: false,
+			data: {
+				productId,
+				name: '',
+				slug: '',
+				qty: 0,
+				image: '',
+				price: '',
+			},
 			message: formatErrorMessages(error),
 		};
 	}

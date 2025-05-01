@@ -224,7 +224,7 @@ export async function removeItemFromCart(productId: string) {
 			data: updatedExistItemInCart
 				? updatedExistItemInCart // if updatedExistItemInCart.qty >= 1 frontend know, that in the cart are 1 or more item quantities
 				: removedCartItem, // if removedCarItem.qty = 0 frontend know, that there is no item in the cart
-			message: 'Product removed from the Cart',
+			message: 'Product was removed from the Cart',
 		};
 	} catch (error) {
 		console.log(error);

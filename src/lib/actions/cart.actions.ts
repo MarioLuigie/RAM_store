@@ -165,8 +165,13 @@ export async function getCart() {
 
 // REMOVE ITEM FROM CART
 export async function removeItemFromCart(productId: string) {
-	let updatedCartItem: CartItem | null = null;
-	let removedCartItem: CartItem | null = null;
+	const context: {
+		updatedCartItem: CartItem | null;
+		removedCartItem: CartItem | null;
+	} = {
+		updatedCartItem: null,
+		removedCartItem: null,
+	};
 
 	try {
 		console.log(productId);
@@ -199,14 +204,14 @@ export async function removeItemFromCart(productId: string) {
 				(item) => item.productId !== existItemInCart.productId
 			);
 
-			removedCartItem = { ...existItemInCart, qty: 0 };
+			context.removedCartItem = { ...existItemInCart, qty: 0 };
 		} else {
 			// Decrease item quantity in cart
 			const decreasedQty = (cart.items.find(
 				(item) => item.productId === productId
 			)!.qty = existItemInCart.qty - 1);
 
-			updatedCartItem = { ...existItemInCart, qty: decreasedQty };
+			context.updatedCartItem = { ...existItemInCart, qty: decreasedQty };
 		}
 
 		// Update cart in db
@@ -222,22 +227,22 @@ export async function removeItemFromCart(productId: string) {
 
 		return {
 			success: true,
-			data: updatedCartItem
+			data: context.updatedCartItem
 				? {
-						productId: updatedCartItem.productId,
-						name: updatedCartItem.name,
-						slug: updatedCartItem.slug,
-						qty: updatedCartItem.qty,
-						image: updatedCartItem.image,
-						price: updatedCartItem.price,
+						productId: context.updatedCartItem.productId,
+						name: context.updatedCartItem.name,
+						slug: context.updatedCartItem.slug,
+						qty: context.updatedCartItem.qty,
+						image: context.updatedCartItem.image,
+						price: context.updatedCartItem.price,
 				  } // if updatedExistItemInCart.qty >= 1 frontend know, that in the cart are 1 or more item quantities
 				: {
-						productId: removedCartItem!.productId,
-						name: removedCartItem!.name,
-						slug: removedCartItem!.slug,
-						qty: removedCartItem!.qty,
-						image: removedCartItem!.image,
-						price: removedCartItem!.price,
+						productId: context.removedCartItem!.productId,
+						name: context.removedCartItem!.name,
+						slug: context.removedCartItem!.slug,
+						qty: context.removedCartItem!.qty,
+						image: context.removedCartItem!.image,
+						price: context.removedCartItem!.price,
 				  }, // if removedCarItem.qty = 0 frontend know, that there is no item in the cart
 			message: 'Product was removed from the Cart',
 		};

@@ -3,12 +3,15 @@
 // import { prisma } from '@/lib/db/prisma'
 import { cookies } from 'next/headers';
 // lib
-import { CartItem } from '@/lib/types/cart.types';
+import { Cart, CartItem } from '@/lib/types/cart.types';
 import { SESSION_CART_ID } from '@/lib/constants';
 import { auth } from '@/config/auth';
 import { prisma } from '../db/prisma';
 import { convertToPlainObject } from '@/lib/utils/utils';
-import { CartItemSchema } from '@/lib/utils/validators';
+import { CartItemSchema, CartSchema } from '@/lib/utils/validators';
+import { calcPrices } from '@/lib/utils/utils';
+import { revalidatePath } from 'next/cache';
+import { ROUTES } from '../constants/paths';
 
 export async function addToCart(cartItem: CartItem) {
 	console.log(cartItem);
@@ -35,7 +38,35 @@ export async function addToCart(cartItem: CartItem) {
 			where: { id: validatedCartItem.productId },
 		});
 
-		
+		if (!product) throw new Error('Product not found');
+
+		if (!cart) {
+			// Create new cart and add product to cart items
+			const createdCart: Cart = CartSchema.parse({
+				sessionCartId,
+				userId,
+				items: [validatedCartItem],
+				...calcPrices([validatedCartItem]),
+			});
+
+			console.log('Created new cart in addToCart func', createdCart);
+
+			// Add created cart to the database
+			await prisma.cart.create({
+				data: createdCart,
+			});
+
+			//Revalidate ProductDetailsPage path
+			revalidatePath(`${ROUTES.PRODUCT}/${product.slug}`);
+
+			return {
+				success: true,
+				data: validatedCartItem,
+				message: 'Successfully added to the Cart',
+			};
+		} else {
+			// Update existing cart pushing product to cart items
+		}
 
 		console.log({
 			sessionCartId,
@@ -94,6 +125,26 @@ export async function getCart() {
 		totalPrice: cart.totalPrice.toString(),
 	});
 }
+
+// product: {
+// 	id: '52da1815-7306-4792-ac48-cc67afe606b8',
+// 	name: 'Polo Classic Pink Hoodie',
+// 	slug: 'polo-classic-pink-hoodie',
+// 	category: "Men's Sweatshirts",
+// 	images: [
+// 		'/assets/images/sample-products/p6-1.jpg',
+// 		'/assets/images/sample-products/p6-2.jpg'
+// 	],
+// 	brand: 'Polo',
+// 	description: 'Soft, stylish, and perfect for laid-back days',
+// 	stock: 8,
+// 	price: '99.99',
+// 	rating: '4.6',
+// 	numReviews: '12',
+// 	isFeatured: true,
+// 	banner: null,
+// 	createdAt: 2025-04-24T10:50:17.522Z
+// }
 
 // 'use server';
 // // modules

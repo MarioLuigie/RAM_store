@@ -6,3 +6,10 @@ export type Product = z.infer<typeof ProductSchema> & {
   id: string
   createdAt: Date
 }
+
+export type Prices = {
+  itemsPrice: string
+  shippingPrice: string
+  taxPrice: string
+  totalPrice: string
+}

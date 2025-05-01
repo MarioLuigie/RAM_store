@@ -1,6 +1,8 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { Decimal } from '@prisma/client/runtime/library';
+import { CartItem } from '../types/cart.types';
+import { Prices } from '../types/products.types';
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -36,4 +38,24 @@ export function round2(value: number | string) {
 	} else {
 		throw new Error('Value is not a number or string');
 	}
+}
+
+// Calculate price
+export function calcPrices(items: CartItem[]) {
+	const itemsPrice: number = round2(
+		items.reduce((acc, item) => acc + Number(item.price) * item.qty, 0)
+	);
+
+	const shippingPrice: number = round2(itemsPrice > 100 ? 0 : 10);
+	const taxPrice: number = round2(itemsPrice * 0.21);
+	const totalPrice: number = round2(itemsPrice + shippingPrice + taxPrice);
+
+	const prices: Prices = {
+		itemsPrice: itemsPrice.toFixed(2),
+		shippingPrice: shippingPrice.toFixed(2),
+		taxPrice: taxPrice.toFixed(2),
+		totalPrice: totalPrice.toFixed(2),
+	}
+
+	return prices;
 }

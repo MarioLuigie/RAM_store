@@ -81,6 +81,7 @@ export default async function ProductDetailsPage({ slug }: { slug: string }) {
 												image: product.images![0],
 												price: product.price,
 											}}
+											productStock={product.stock}
 										/>
 									</div>
 								)}

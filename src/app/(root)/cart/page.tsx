@@ -1,5 +1,7 @@
 // modules
 import { Metadata } from 'next'
+// components
+import CartPage from '@/components/pages/CartPage'
 
 export const metadata: Metadata = {
 	title: 'Cart',
@@ -8,8 +10,6 @@ export const metadata: Metadata = {
 export default function Page() {
 
   return (
-    <div>
-      CART
-    </div>
+    <CartPage />
   )
 }

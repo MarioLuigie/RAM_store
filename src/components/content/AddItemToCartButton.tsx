@@ -50,19 +50,19 @@ export default function AddItemToCartButton({
 
 			if (!result?.success) {
 				// Jeśli backend nie potwierdzi, cofamy zmianę
-				updateQuantity(-1)
+				updateQuantity(-1);
 			}
 		} catch (error) {
 			console.error('Add to cart failed:', error);
 			// W przypadku błędu – również cofamy optimistic update
-			updateQuantity(-1)
+			updateQuantity(-1);
 		}
 	};
 
 	const removeFromCart = async () => {
 		if (!existCartItem) return;
 		// Optimistic update
-		updateQuantity(-1)
+		updateQuantity(-1);
 
 		try {
 			const result = await handleRemoveItemFromCart(
@@ -72,12 +72,11 @@ export default function AddItemToCartButton({
 
 			if (!result?.success) {
 				// Cofnięcie jeśli backend zwrócił błąd
-				updateQuantity(+1)
+				updateQuantity(+1);
 			}
 		} catch (error) {
 			console.error('Remove from cart failed:', error);
-			updateQuantity(+1)
-			
+			updateQuantity(+1);
 		}
 	};
 

@@ -1,23 +1,23 @@
 // modules
-import { notFound } from 'next/navigation'
+import { notFound } from 'next/navigation';
 // lib
-import { getProductBySlug } from '@/lib/actions/product.actions'
-import { Product } from '@/lib/types/products.types'
-import { getCart } from '@/lib/actions/cart.actions'
+import { getProductBySlug } from '@/lib/actions/product.actions';
+import { Product } from '@/lib/types/products.types';
+import { getCart } from '@/lib/actions/cart.actions';
 // components
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent } from '@/components/ui/card'
-import ProductPrice from '@/components/content/ProductPrice'
-import ProductImages from '@/components/content/ProductImages'
-import AddItemToCartButton from '@/components/content/AddItemToCartButton'
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+import ProductPrice from '@/components/content/ProductPrice';
+import ProductImages from '@/components/content/ProductImages';
+import AddItemToCartButton from '@/components/content/AddItemToCartButton';
 
 export default async function ProductDetailsPage({ slug }: { slug: string }) {
 	const { success, data: product }: IDataResult<Product> =
-		await getProductBySlug(slug)
-	if (!success) notFound()
+		await getProductBySlug(slug);
+	if (!success) notFound();
 
 	const cart = await getCart();
-	console.log("CART:", cart)
+	console.log('CART:', cart);
 	return (
 		<>
 			<section>
@@ -69,6 +69,7 @@ export default async function ProductDetailsPage({ slug }: { slug: string }) {
 										<Badge variant="destructive">Out of Stock</Badge>
 									)}
 								</div>
+
 								{product.stock > 0 && (
 									<div className="flex-center">
 										<AddItemToCartButton
@@ -85,11 +86,15 @@ export default async function ProductDetailsPage({ slug }: { slug: string }) {
 										/>
 									</div>
 								)}
+
+								<div className='mt-4'>
+									<p className='text-sm text-center text-neutral-400'>{`You currently have units of this product in your cart.`}</p>
+								</div>
 							</CardContent>
 						</Card>
 					</div>
 				</div>
 			</section>
 		</>
-	)
+	);
 }

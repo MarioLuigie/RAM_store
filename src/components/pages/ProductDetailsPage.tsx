@@ -10,10 +10,12 @@ import ProductImages from '@/components/content/ProductImages';
 import AddItemToCart from '@/components/content/AddItemToCart';
 
 export default async function ProductDetailsPage({ slug }: { slug: string }) {
+	// GET PRODUCT FROM DB
 	const { success, data: product }: IDataResult<Product> =
 		await getProductBySlug(slug);
 	if (!success) notFound();
 
+	// GET CART FROM DB
 	const cart = await getCart();
 	console.log('CART:', cart);
 	return (

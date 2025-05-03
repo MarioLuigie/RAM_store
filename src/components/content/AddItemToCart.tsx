@@ -1,4 +1,6 @@
-'use client'
+'use client';
+// modules
+import { useState } from 'react';
 // lib
 import { Product } from '@/lib/types/products.types';
 import { Cart } from '@/lib/types/cart.types';
@@ -15,7 +17,12 @@ export default function AddItemToCart({
 	cart?: Cart | undefined;
 	product: Product;
 }) {
-  const isInStock = product.stock > 0;
+	const existCartItem =
+		cart && cart.items.find((item) => item.productId === product.id);
+
+	const [quantity, setQuantity] = useState(existCartItem?.qty || 0);
+
+	const isInStock = product.stock > 0;
 	return (
 		<div>
 			<Card>
@@ -49,13 +56,18 @@ export default function AddItemToCart({
 									price: product.price,
 								}}
 								productStock={product.stock}
+                quantity={quantity}
+                setQuantity={setQuantity}
+                existCartItem={existCartItem}
 							/>
 						</div>
 					)}
 
-					{isInStock && (<div className="mt-4">
-						<p className="text-sm text-center text-neutral-400">{`You currently have units of this product in your cart.`}</p>
-					</div>)}
+					{isInStock && (
+						<div className="mt-4">
+							<p className="text-sm text-center text-neutral-400">{`You currently have ${quantity} units of this product in your cart.`}</p>
+						</div>
+					)}
 				</CardContent>
 			</Card>
 		</div>

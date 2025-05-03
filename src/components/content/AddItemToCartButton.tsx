@@ -1,6 +1,4 @@
 'use client';
-// modules
-import { useState } from 'react';
 // lib
 import { Cart, CartItem } from '@/lib/types/cart.types';
 import {
@@ -17,43 +15,69 @@ export default function AddItemToCartButton({
 	cart,
 	cartItem,
 	productStock,
+	quantity,
+	setQuantity,
+	existCartItem,
 }: {
 	cart?: Cart | undefined;
 	cartItem: CartItem;
 	productStock: number;
+	quantity: number;
+	setQuantity: React.Dispatch<React.SetStateAction<number>>;
+	existCartItem: CartItem | undefined;
 }) {
 	console.log(cart, cartItem);
 
 	const { showAddItemToCartToast } = useAddItemToCartToast();
 	const { showRemovedItemFromCartToast } = useRemovedItemFromCartToast();
 
-	const existCartItem =
-		cart && cart.items.find((item) => item.productId === cartItem.productId);
-	const [quantity, setQuantity] = useState(existCartItem?.qty || 0);
-
 	const canAdd = quantity < productStock;
 	const canRemove = quantity > 0;
 
-	const addToCart = () => {
+	const updateQuantity = (delta: number) => {
+		setQuantity((prev) => Math.max(0, prev + delta));
+	};
+
+	const addToCart = async () => {
+		// Optimistic update – natychmiastowa zmiana UI
+		updateQuantity(+1);
+
 		try {
-			handleAddItemToCart(cartItem, showAddItemToCartToast);
-			setQuantity((prev) => prev + 1);
+			const result = await handleAddItemToCart(
+				cartItem,
+				showAddItemToCartToast
+			);
+
+			if (!result?.success) {
+				// Jeśli backend nie potwierdzi, cofamy zmianę
+				updateQuantity(-1)
+			}
 		} catch (error) {
-			console.error('Failed to add item to cart:', error);
+			console.error('Add to cart failed:', error);
+			// W przypadku błędu – również cofamy optimistic update
+			updateQuantity(-1)
 		}
 	};
 
-	const removeFromCart = () => {
+	const removeFromCart = async () => {
 		if (!existCartItem) return;
+		// Optimistic update
+		updateQuantity(-1)
 
 		try {
-			handleRemoveItemFromCart(
+			const result = await handleRemoveItemFromCart(
 				existCartItem.productId,
 				showRemovedItemFromCartToast
 			);
-			setQuantity((prev) => Math.max(0, prev - 1));
+
+			if (!result?.success) {
+				// Cofnięcie jeśli backend zwrócił błąd
+				updateQuantity(+1)
+			}
 		} catch (error) {
-			console.error('Failed to remove item from cart:', error);
+			console.error('Remove from cart failed:', error);
+			updateQuantity(+1)
+			
 		}
 	};
 

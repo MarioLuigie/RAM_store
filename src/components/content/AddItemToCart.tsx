@@ -15,6 +15,7 @@ export default function AddItemToCart({
 	cart?: Cart | undefined;
 	product: Product;
 }) {
+  const isInStock = product.stock > 0;
 	return (
 		<div>
 			<Card>
@@ -28,14 +29,14 @@ export default function AddItemToCart({
 
 					<div className="mb-2 flex justify-between">
 						<div>Status</div>
-						{product.stock > 0 ? (
+						{isInStock ? (
 							<Badge variant="outline">In Stock</Badge>
 						) : (
 							<Badge variant="destructive">Out of Stock</Badge>
 						)}
 					</div>
 
-					{product.stock > 0 && (
+					{isInStock && (
 						<div className="flex-center">
 							<AddItemToCartButton
 								cart={cart}
@@ -52,9 +53,9 @@ export default function AddItemToCart({
 						</div>
 					)}
 
-					<div className="mt-4">
+					{isInStock && (<div className="mt-4">
 						<p className="text-sm text-center text-neutral-400">{`You currently have units of this product in your cart.`}</p>
-					</div>
+					</div>)}
 				</CardContent>
 			</Card>
 		</div>

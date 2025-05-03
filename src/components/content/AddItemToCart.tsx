@@ -23,7 +23,6 @@ export default function AddItemToCart({
 	const [quantity, setQuantity] = useState(existCartItem?.qty || 0);
 
 	const isInStock = product.stock > 0;
-	// const isInStock = product.stock > 0;
 	return (
 		<div>
 			<Card>

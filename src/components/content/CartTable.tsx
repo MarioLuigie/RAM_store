@@ -1,6 +1,17 @@
 'use client';
 //lib
 import { Cart } from '@/lib/types/cart.types';
+// components
+// import {
+//   Table,
+//   TableBody,
+//   TableCaption,
+//   TableCell,
+//   TableHead,
+//   TableHeader,
+//   TableRow,
+// } from "@/components/ui/table"
+
 
 export default function CartTable({ cart }: { cart?: Cart }) {
 	console.log(cart);

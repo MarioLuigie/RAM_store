@@ -23,6 +23,7 @@ export default function AddItemToCart({
 	const [quantity, setQuantity] = useState(existCartItem?.qty || 0);
 
 	const isInStock = product.stock > 0;
+	// const isInStock = product.stock > 0;
 	return (
 		<div>
 			<Card>
@@ -56,18 +57,19 @@ export default function AddItemToCart({
 									price: product.price,
 								}}
 								productStock={product.stock}
-                quantity={quantity}
-                setQuantity={setQuantity}
-                existCartItem={existCartItem}
+								quantity={quantity}
+								setQuantity={setQuantity}
+								existCartItem={existCartItem}
 							/>
 						</div>
 					)}
 
 					{isInStock && (
 						<div className="mt-4">
-							<p className="text-sm text-center text-neutral-400">{`You currently have ${quantity} units of this product in your cart.`}</p>
+							<p className="text-sm text-center text-neutral-400">{`You currently have ${quantity} units of this product in your cart. Your cart total: $ ${cart?.itemsPrice}`}</p>
 						</div>
 					)}
+
 				</CardContent>
 			</Card>
 		</div>

@@ -1,8 +1,6 @@
-export default function CartPage() {
+// components
+import CartTable from '@/components/content/CartTable';
 
-  return (
-    <div>
-      CART PAGE
-    </div>
-  )
+export default function CartPage() {
+	return <CartTable />;
 }

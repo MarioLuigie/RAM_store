@@ -1,8 +1,9 @@
 // lib
 import { Product } from '@/lib/types/products.types'
+import { formatCurrency } from '@/lib/utils/utils'
 
 export default function ProductPrice({ product }: { product: Product }) {
-	const price: string = product.price
+	const price: string = formatCurrency(product.price)
 	const stock: number = product.stock
 	const [int, decimal] = price.split('.')
 

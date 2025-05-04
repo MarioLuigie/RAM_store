@@ -55,7 +55,24 @@ export function calcPrices(items: CartItem[]) {
 		shippingPrice: shippingPrice.toFixed(2),
 		taxPrice: taxPrice.toFixed(2),
 		totalPrice: totalPrice.toFixed(2),
-	}
+	};
 
 	return prices;
+}
+
+const CURRENCY_FORMATTER = new Intl.NumberFormat('en-US', {
+	currency: 'USD',
+	style: 'currency',
+	minimumFractionDigits: 2,
+});
+
+// Format currency using the formatter above
+export function formatCurrency(amount: number | string | null) {
+	if (typeof amount === 'number') {
+		return CURRENCY_FORMATTER.format(amount); // returned always string
+	} else if (typeof amount === 'string') {
+		return CURRENCY_FORMATTER.format(Number(amount)); // returned always string
+	} else {
+		return 'NaN';
+	}
 }

@@ -16,6 +16,7 @@ import {
 import Link from 'next/link';
 import Image from 'next/image';
 import { ChangeProductQuantity } from './ChangeProductQuantity';
+import { formatCurrency } from '@/lib/utils/utils';
 
 export default async function CartTable({ cart }: { cart?: Cart }) {
 	let productsMap: Map<string, number> = new Map();
@@ -75,9 +76,9 @@ export default async function CartTable({ cart }: { cart?: Cart }) {
 										/>
 										{/* <ChangeProductQuantityServer item={item} productId={productId} /> */}
 									</TableCell>
-									<TableCell className="text-right">{`$${(
+									<TableCell className="text-right">{`${formatCurrency((
 										Number(item.price) * item.qty
-									).toFixed(2)}`}</TableCell>
+									).toFixed(2))}`}</TableCell>
 								</TableRow>
 							);
 						})}

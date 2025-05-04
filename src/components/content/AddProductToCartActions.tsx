@@ -82,6 +82,7 @@ export default function AddProductToCartActions({
 
 	return (
 		<div>
+			{/* CHANGE QUANTITY OF ITEMS IN CART - ADDING OR REMOVING EXISTING ITEMS*/}
 			<div className="flex items-center justify-between mt-4">
 				<Button
 					disabled={!canRemove}
@@ -106,6 +107,7 @@ export default function AddProductToCartActions({
 				</Button>
 			</div>
 
+			{/* ADD PRODUCT TO CART - ONLY ADDING ITEMS */}
 			<div className="w-full mt-4">
 				<Button
 					disabled={canRemove}

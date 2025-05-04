@@ -46,7 +46,6 @@ export default function AddProductToCartPanel({
 					{isInStock && (
 						<div className="flex-center">
 							<AddProductToCartActions
-								cart={cart}
 								cartItem={{
 									productId: product.id,
 									name: product.name,

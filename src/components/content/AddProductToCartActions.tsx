@@ -1,6 +1,6 @@
 'use client';
 // lib
-import { Cart, CartItem } from '@/lib/types/cart.types';
+import { CartItem } from '@/lib/types/cart.types';
 import { useCartActions } from '@/lib/hooks/useCartActions';
 // components
 import { Button } from '@/components/ui/button';
@@ -8,21 +8,19 @@ import ChangeProductQuantityButton from '@/components/content/ChangeProductQuant
 import { Plus } from 'lucide-react';
 
 export default function AddProductToCartActions({
-	cart,
 	cartItem,
 	productStock,
 	quantity,
 	setQuantity,
 	existCartItem,
 }: {
-	cart?: Cart | undefined;
 	cartItem: CartItem;
 	productStock: number;
 	quantity: number;
 	setQuantity: React.Dispatch<React.SetStateAction<number>>;
 	existCartItem: CartItem | undefined;
 }) {
-	console.log(cart, cartItem);
+
 	const { addToCart, removeFromCart, canAdd, canRemove } = useCartActions({
 		cartItem,
 		productStock,

@@ -16,8 +16,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export default function CartTable({ cart }: { cart?: Cart }) {
-	console.log(cart);
-
 	return (
 		<div className="grid md:grid-cols-4 md:gap-5">
 			<div className="overflow-x-auto md:col-span-3">

@@ -115,15 +115,15 @@ export default function AuthForm({ type }: { type: AuthTypes }) {
 					</div>
 
 					<div className="grid grid-cols-3 gap-4">
-						<Button variant="outline" className="w-full">
+						<Button variant="outline" className="w-full" aria-label='Login with Apple'>
 							<SVG src={ICONS.APPLE.path} />
 							<span className="sr-only">Login with Apple</span>
 						</Button>
-						<Button variant="outline" className="w-full">
+						<Button variant="outline" className="w-full" aria-label='Login with Google'>
 							<SVG src={ICONS.GOOGLE.path} />
 							<span className="sr-only">Login with Google</span>
 						</Button>
-						<Button variant="outline" className="w-full">
+						<Button variant="outline" className="w-full" aria-label='Login with Meta'>
 							<SVG src={ICONS.META.path} />
 							<span className="sr-only">Login with Meta</span>
 						</Button>
@@ -243,15 +243,15 @@ export default function AuthForm({ type }: { type: AuthTypes }) {
 					</div>
 
 					<div className="grid grid-cols-3 gap-4">
-						<Button variant="outline" className="w-full">
+						<Button variant="outline" className="w-full" aria-label='Login with Apple'>
 							<SVG src={ICONS.APPLE.path} />
 							<span className="sr-only">Login with Apple</span>
 						</Button>
-						<Button variant="outline" className="w-full">
+						<Button variant="outline" className="w-full" aria-label='Login with Google'>
 							<SVG src={ICONS.GOOGLE.path} />
 							<span className="sr-only">Login with Google</span>
 						</Button>
-						<Button variant="outline" className="w-full">
+						<Button variant="outline" className="w-full" aria-label='Login with Meta'>
 							<SVG src={ICONS.META.path} />
 							<span className="sr-only">Login with Meta</span>
 						</Button>

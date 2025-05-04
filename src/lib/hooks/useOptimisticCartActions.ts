@@ -15,7 +15,7 @@ interface UseCartActionsParams {
 	existCartItem: CartItem | undefined;
 }
 
-export function useCartActions({
+export function useOptimisticCartActions({
 	cartItem,
 	productStock,
 	quantity,

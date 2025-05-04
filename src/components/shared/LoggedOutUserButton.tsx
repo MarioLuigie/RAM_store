@@ -14,7 +14,7 @@ export default function LoggedOutUserButton({
 	return (
 		<>
 			{/* LOGIN BUTTON */}
-			<Button asChild>
+			<Button asChild aria-label='Sign in'>
 				<Link href={ROUTES.SIGN_IN}>
 					<UserIcon />
 					{title}

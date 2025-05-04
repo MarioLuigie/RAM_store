@@ -21,7 +21,7 @@ const MenuItems = () => (
 		<ModeToggle />
 
 		{/* CART BUTTON */}
-		<Button asChild variant="ghost">
+		<Button asChild variant="ghost" aria-label='Go to cart'>
 			<Link href={ROUTES.CART}>
 				<ShoppingCart /> Cart
 			</Link>

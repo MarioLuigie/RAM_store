@@ -26,6 +26,7 @@ export default function ChangeProductQuantityButton({
       variant="outline"
       className="cursor-pointer"
       onClick={removeFromCart}
+      aria-label="Decrease quantity"
     >
       <Minus className="h-4 w-4" />
     </Button>
@@ -38,6 +39,7 @@ export default function ChangeProductQuantityButton({
       variant="outline"
       className="cursor-pointer"
       onClick={addToCart}
+      aria-label="Increase quantity"
     >
       <Plus className="h-4 w-4" />
     </Button>

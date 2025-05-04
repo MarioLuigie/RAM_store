@@ -1,11 +1,19 @@
 'use client';
 // lib
 import { CartItem } from '@/lib/types/cart.types';
-import { useCartActions } from '@/lib/hooks/useCartActions';
+import { useOptimisticCartActions } from '@/lib/hooks/useOptimisticCartActions';
 // components
 import { Button } from '@/components/ui/button';
 import ChangeProductQuantityButton from '@/components/content/ChangeProductQuantityButton';
 import { Plus } from 'lucide-react';
+
+type AddProductToCartActionProps = {
+	cartItem: CartItem;
+	productStock: number;
+	quantity: number;
+	setQuantity: React.Dispatch<React.SetStateAction<number>>;
+	existCartItem: CartItem | undefined;
+}
 
 export default function AddProductToCartActions({
 	cartItem,
@@ -13,15 +21,9 @@ export default function AddProductToCartActions({
 	quantity,
 	setQuantity,
 	existCartItem,
-}: {
-	cartItem: CartItem;
-	productStock: number;
-	quantity: number;
-	setQuantity: React.Dispatch<React.SetStateAction<number>>;
-	existCartItem: CartItem | undefined;
-}) {
-
-	const { addToCart, removeFromCart, canAdd, canRemove } = useCartActions({
+}: AddProductToCartActionProps) {
+	
+	const { addToCart, removeFromCart, canAdd, canRemove } = useOptimisticCartActions({
 		cartItem,
 		productStock,
 		quantity,
@@ -46,6 +48,7 @@ export default function AddProductToCartActions({
 					type="button"
 					className="w-full cursor-pointer"
 					onClick={addToCart}
+					aria-label='Add product to the cart'
 				>
 					<Plus />
 					Add to Cart

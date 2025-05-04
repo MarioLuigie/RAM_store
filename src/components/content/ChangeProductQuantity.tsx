@@ -2,23 +2,25 @@
 // modules
 import { useState } from 'react';
 // lib
-import { useCartActions } from '@/lib/hooks/useCartActions';
+import { useOptimisticCartActions } from '@/lib/hooks/useOptimisticCartActions';
 import { CartItem } from '@/lib/types/cart.types';
 // components
 import ChangeCartContentButton from '@/components/content/ChangeProductQuantityButton';
+
+type ChangeProductQuantityProps = {
+	productStock: number;
+	item: CartItem;
+	quantity: number;
+}
 
 export function ChangeProductQuantity({
 	productStock,
 	item,
 	quantity,
-}: {
-	productStock: number;
-	item: CartItem;
-	quantity: number;
-}) {
+}: ChangeProductQuantityProps) {
 	// CURRENT STATE FOR OPTIMISTIC UPDATE
 	const [currentQuantity, setCurrentQuantity] = useState(quantity);
-	const { addToCart, removeFromCart, canAdd, canRemove } = useCartActions({
+	const { addToCart, removeFromCart, canAdd, canRemove } = useOptimisticCartActions({
 		cartItem: item,
 		productStock,
 		existCartItem: item,

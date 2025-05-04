@@ -11,11 +11,12 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table';
-import { ChangeProductQuantityWrapper } from '@/components/content/ChangeProductQuantityWrapper';
+import { ChangeProductQuantityServer } from '@/components/content/ChangeProductQuantityServer';
 import Link from 'next/link';
 import Image from 'next/image';
 
 export default function CartTable({ cart }: { cart?: Cart }) {
+	
 	return (
 		<div className="grid md:grid-cols-4 md:gap-5">
 			<div className="overflow-x-auto md:col-span-3">
@@ -50,7 +51,7 @@ export default function CartTable({ cart }: { cart?: Cart }) {
 								</TableCell>
 								<TableCell className="flex-center">
 									{/* CHANGE QUANTITY OF ITEMS IN CART - ADDING OR REMOVING */}
-									<ChangeProductQuantityWrapper item={item} />
+									<ChangeProductQuantityServer item={item} />
 								</TableCell>
 								<TableCell className="text-right">{`$${(
 									Number(item.price) * item.qty

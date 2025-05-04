@@ -16,7 +16,7 @@ export default function NotFoundPage() {
 					<p className="text-[#383638] text-lg">
 						Could not find requested resource
 					</p>
-					<Button variant="outline" className="mt-6">
+					<Button variant="outline" className="mt-6" aria-label='Back to Home'>
 						<Link href={ROUTES.HOME}>Back to Home</Link>
 					</Button>
 				</div>

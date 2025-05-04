@@ -97,7 +97,7 @@ export default function CartTable({ cart }: { cart?: Cart }) {
 									</div>
 								</TableCell>
 								<TableCell className="text-right">{`$${
-									Number(item.price) * item.qty
+									(Number(item.price) * item.qty).toFixed(2)
 								}`}</TableCell>
 							</TableRow>
 						))}

@@ -1,12 +1,13 @@
 'use client';
 // lib
 import { Cart, CartItem } from '@/lib/types/cart.types';
-import {
-	handleAddItemToCart,
-	handleRemoveItemFromCart,
-} from '@/lib/handlers/cart.handlers';
-import { useAddItemToCartToast } from '@/lib/hooks/useAddItemToCartToast';
-import { useRemovedItemFromCartToast } from '@/lib/hooks/useRemovedItemFromCartToast';
+// import {
+// 	handleAddItemToCart,
+// 	handleRemoveItemFromCart,
+// } from '@/lib/handlers/cart.handlers';
+// import { useAddItemToCartToast } from '@/lib/hooks/useAddItemToCartToast';
+// import { useRemovedItemFromCartToast } from '@/lib/hooks/useRemovedItemFromCartToast';
+import { useCartActions } from '@/lib/hooks/useCartActions';
 // components
 import { Button } from '@/components/ui/button';
 import { Plus, Minus } from 'lucide-react';
@@ -28,57 +29,64 @@ export default function AddProductToCartActions({
 }) {
 	console.log(cart, cartItem);
 
-	const { showAddItemToCartToast } = useAddItemToCartToast();
-	const { showRemovedItemFromCartToast } = useRemovedItemFromCartToast();
+	// const { showAddItemToCartToast } = useAddItemToCartToast();
+	// const { showRemovedItemFromCartToast } = useRemovedItemFromCartToast();
+	const { addToCart, removeFromCart, canAdd, canRemove } = useCartActions({
+		cartItem,
+		productStock,
+		quantity,
+		setQuantity,
+		existCartItem,
+	});
 
-	const canAdd = quantity < productStock;
-	const canRemove = quantity > 0;
+	// const canAdd = quantity < productStock;
+	// const canRemove = quantity > 0;
 
-	const updateQuantity = (delta: number) => {
-		setQuantity((prev) => Math.max(0, prev + delta));
-	};
+	// const updateQuantity = (delta: number) => {
+	// 	setQuantity((prev) => Math.max(0, prev + delta));
+	// };
 
-	const addToCart = async () => {
-		// Optimistic update – natychmiastowa zmiana UI
-		updateQuantity(+1);
+	// const addToCart = async () => {
+	// 	// Optimistic update – natychmiastowa zmiana UI
+	// 	updateQuantity(+1);
 
-		try {
-			const result = await handleAddItemToCart(
-				cartItem,
-				showAddItemToCartToast
-			);
+	// 	try {
+	// 		const result = await handleAddItemToCart(
+	// 			cartItem,
+	// 			showAddItemToCartToast
+	// 		);
 
-			if (!result?.success) {
-				// Jeśli backend nie potwierdzi, cofamy zmianę
-				updateQuantity(-1);
-			}
-		} catch (error) {
-			console.error('Add to cart failed:', error);
-			// W przypadku błędu – również cofamy optimistic update
-			updateQuantity(-1);
-		}
-	};
+	// 		if (!result?.success) {
+	// 			// Jeśli backend nie potwierdzi, cofamy zmianę
+	// 			updateQuantity(-1);
+	// 		}
+	// 	} catch (error) {
+	// 		console.error('Add to cart failed:', error);
+	// 		// W przypadku błędu – również cofamy optimistic update
+	// 		updateQuantity(-1);
+	// 	}
+	// };
 
-	const removeFromCart = async () => {
-		if (!existCartItem) return;
-		// Optimistic update
-		updateQuantity(-1);
+	// const removeFromCart = async () => {
+	// 	if (!existCartItem) return;
+	// 	// Optimistic update
+	// 	updateQuantity(-1);
 
-		try {
-			const result = await handleRemoveItemFromCart(
-				existCartItem.productId,
-				showRemovedItemFromCartToast
-			);
+	// 	try {
+	// 		const result = await handleRemoveItemFromCart(
+	// 			existCartItem.productId,
+	// 			showRemovedItemFromCartToast
+	// 		);
 
-			if (!result?.success) {
-				// Cofnięcie jeśli backend zwrócił błąd
-				updateQuantity(+1);
-			}
-		} catch (error) {
-			console.error('Remove from cart failed:', error);
-			updateQuantity(+1);
-		}
-	};
+	// 		if (!result?.success) {
+	// 			// Cofnięcie jeśli backend zwrócił błąd
+	// 			updateQuantity(+1);
+	// 		}
+	// 	} catch (error) {
+	// 		console.error('Remove from cart failed:', error);
+	// 		updateQuantity(+1);
+	// 	}
+	// };
 
 	return (
 		<div>

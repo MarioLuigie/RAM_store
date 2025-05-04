@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import ProductPrice from '@/components/content/ProductPrice';
 import AddProductToCartActions from '@/components/content/AddProductToCartActions';
+import { formatCurrency } from '@/lib/utils/utils';
 
 export default function AddProductToCartPanel({
 	cart,
@@ -62,9 +63,9 @@ export default function AddProductToCartPanel({
 						</div>
 					)}
 
-					{isInStock && (
+					{isInStock && cart && (
 						<div className="mt-4">
-							<p className="text-sm text-center text-neutral-400">{`You currently have ${quantity} units of this product in your cart. Your cart total: $ ${cart?.itemsPrice}`}</p>
+							<p className="text-sm text-center text-neutral-400">{`You currently have ${quantity} units of this product in your cart. Your cart total: ${formatCurrency(cart.itemsPrice)}`}</p>
 						</div>
 					)}
 

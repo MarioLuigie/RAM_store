@@ -60,8 +60,8 @@ export function calcPrices(items: CartItem[]) {
 	return prices;
 }
 
-const CURRENCY_FORMATTER = new Intl.NumberFormat('en-US', {
-	currency: 'USD',
+const CURRENCY_FORMATTER = new Intl.NumberFormat('de-DE', {
+	currency: 'EUR',
 	style: 'currency',
 	minimumFractionDigits: 2,
 });
@@ -76,3 +76,29 @@ export function formatCurrency(amount: number | string | null) {
 		return 'NaN';
 	}
 }
+
+export function formatCurrencyParts(
+	amount: number | string,
+	locale = 'de-DE',
+	currencyCode = 'EUR'
+) {
+	const number = typeof amount === 'number' ? amount : Number(amount)
+
+	const formatter = new Intl.NumberFormat(locale, {
+		style: 'currency',
+		currency: currencyCode,
+	})
+
+	const parts = formatter.formatToParts(number)
+
+	const currency = parts.find(p => p.type === 'currency')?.value || ''
+	const integer = parts.find(p => p.type === 'integer')?.value || '0'
+	const fraction = parts.find(p => p.type === 'fraction')?.value || ''
+	const literal = parts.find(p => p.type === 'decimal')?.value || ''
+	const symbolFirst =
+		parts.findIndex(p => p.type === 'currency') <
+		parts.findIndex(p => p.type === 'integer')
+
+	return { currency, integer, fraction, symbolFirst, literal }
+}
+

@@ -1,6 +1,13 @@
 'use client';
 //lib
 import { Cart } from '@/lib/types/cart.types';
+import {
+	handleAddItemToCart,
+	handleRemoveItemFromCart,
+} from '@/lib/handlers/cart.handlers';
+import { useAddItemToCartToast } from '@/lib/hooks/useAddItemToCartToast';
+import { useRemovedItemFromCartToast } from '@/lib/hooks/useRemovedItemFromCartToast';
+import { ROUTES } from '@/lib/constants/paths';
 // components
 import {
 	Table,
@@ -11,19 +18,15 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table';
+import { Button } from '@/components/ui/button';
+import { Minus, Plus } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ROUTES } from '@/lib/constants/paths';
-import { Button } from '../ui/button';
-import { Minus, Plus } from 'lucide-react';
-import { handleAddItemToCart, handleRemoveItemFromCart } from '@/lib/handlers/cart.handlers';
-import { useAddItemToCartToast } from '@/lib/hooks/useAddItemToCartToast';
-import { useRemovedItemFromCartToast } from '@/lib/hooks/useRemovedItemFromCartToast';
 
 export default function CartTable({ cart }: { cart?: Cart }) {
 	console.log(cart);
-		const { showAddItemToCartToast } = useAddItemToCartToast();
-		const { showRemovedItemFromCartToast } = useRemovedItemFromCartToast();
+	const { showAddItemToCartToast } = useAddItemToCartToast();
+	const { showRemovedItemFromCartToast } = useRemovedItemFromCartToast();
 
 	return (
 		<div className="grid md:grid-cols-4 md:gap-5">
@@ -65,7 +68,12 @@ export default function CartTable({ cart }: { cart?: Cart }) {
 											type="button"
 											variant="outline"
 											className="cursor-pointer"
-											onClick={() => handleRemoveItemFromCart(item.productId, showRemovedItemFromCartToast)}
+											onClick={() =>
+												handleRemoveItemFromCart(
+													item.productId,
+													showRemovedItemFromCartToast
+												)
+											}
 										>
 											<Minus className="h-4 w-4" />
 										</Button>
@@ -77,13 +85,20 @@ export default function CartTable({ cart }: { cart?: Cart }) {
 											type="button"
 											variant="outline"
 											className="cursor-pointer"
-											onClick={() => handleAddItemToCart(item, showAddItemToCartToast)}
+											onClick={() =>
+												handleAddItemToCart(
+													item,
+													showAddItemToCartToast
+												)
+											}
 										>
 											<Plus className="h-4 w-4" />
 										</Button>
 									</div>
 								</TableCell>
-								<TableCell className="text-right">{`$${Number(item.price) * item.qty}`}</TableCell>
+								<TableCell className="text-right">{`$${
+									Number(item.price) * item.qty
+								}`}</TableCell>
 							</TableRow>
 						))}
 					</TableBody>

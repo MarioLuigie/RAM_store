@@ -4,16 +4,16 @@ import { Minus, Plus } from "lucide-react";
 type ChangeCartContentButtonParams = {
   removeFromCart: () => Promise<void>
   addToCart: () => Promise<void>
-  canAdd: boolean
   canRemove: boolean
+  canAdd: boolean
   quantity: number
 }
 
 export default function ChangeCartContentButton({
   removeFromCart,
   addToCart,
-  canAdd,
   canRemove,
+  canAdd,
   quantity,
 }: ChangeCartContentButtonParams) {
 

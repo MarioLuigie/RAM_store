@@ -37,9 +37,9 @@ export default function AddProductToCartActions({
 			<ChangeCartContentButton
 				removeFromCart={removeFromCart}
 				addToCart={addToCart}
-				quantity={quantity}
-				canAdd={canAdd}
 				canRemove={canRemove}
+				canAdd={canAdd}
+				quantity={quantity}
 			/>
 			{/* ADD PRODUCT TO CART - ONLY ADDING ITEMS */}
 			<div className="w-full mt-4">

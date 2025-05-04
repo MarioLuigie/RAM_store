@@ -40,7 +40,7 @@ export async function getLatestProducts(): Promise<IDataResult<Product[]>> {
 	}
 }
 
-// GET SINGLE PRODUCT ITS SLUG
+// GET SINGLE PRODUCT BY SLUG
 export async function getProductBySlug(
 	slug: string
 ): Promise<IDataResult<Product>> {
@@ -71,5 +71,44 @@ export async function getProductBySlug(
 			success: false,
 			data: {} as Product,
 		} // DONT RETURN EMPTY OBJECT FORCED AS Product type!
+	}
+}
+
+// GET PRODUCTS BY SLUG
+export async function getProductsBySlugs(
+	slugs: string[]
+): Promise<IDataResult<Product[]>> {
+	try {
+		const data = await prisma.product.findMany({
+			where: {
+				slug: {
+					in: slugs,
+				},
+			},
+		})
+
+		if (!data || data.length === 0) {
+			throw new Error(`No products found for the provided slugs`)
+		}
+
+		const normalized = data.map((item) => safeNormalizeProduct(item))
+
+		return {
+			success: true,
+			data: normalized,
+		}
+	} catch (error: unknown) {
+		if (error instanceof Prisma.PrismaClientKnownRequestError) {
+			console.error('Prisma error:', error.message, error.code)
+		} else if (error instanceof Error) {
+			console.error('General error:', error.message)
+		} else {
+			console.error('Unknown error:', error)
+		}
+
+		return {
+			success: false,
+			data: [],
+		}
 	}
 }

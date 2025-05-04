@@ -1,6 +1,7 @@
 //lib
 import { Cart } from '@/lib/types/cart.types';
 import { ROUTES } from '@/lib/constants/paths';
+import { getProductsBySlugs } from '@/lib/actions/product.actions';
 // components
 import {
 	Table,
@@ -11,12 +12,25 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table';
-import { ChangeProductQuantityServer } from '@/components/content/ChangeProductQuantityServer';
+// import { ChangeProductQuantityServer } from '@/components/content/ChangeProductQuantityServer';
 import Link from 'next/link';
 import Image from 'next/image';
+import { ChangeProductQuantity } from './ChangeProductQuantity';
 
-export default function CartTable({ cart }: { cart?: Cart }) {
-	
+export default async function CartTable({ cart }: { cart?: Cart }) {
+	let productsMap: Map<string, number> = new Map();
+
+	if (cart) {
+		const slugs = cart.items.map((item) => item.slug);
+		const { success, data: products } = await getProductsBySlugs(slugs);
+
+		if (!success) return <p>Failed to load products</p>;
+
+		productsMap = new Map(
+			products.map((product) => [product.slug, product.stock])
+		);
+	}
+
 	return (
 		<div className="grid md:grid-cols-4 md:gap-5">
 			<div className="overflow-x-auto md:col-span-3">
@@ -32,32 +46,42 @@ export default function CartTable({ cart }: { cart?: Cart }) {
 						</TableRow>
 					</TableHeader>
 					<TableBody>
-						{cart?.items?.map((item) => (
-							<TableRow key={item.slug}>
-								<TableCell className="font-medium">
-									<Link
-										href={`${ROUTES.PRODUCT}/${item.slug}`}
-										className="flex items-center gap-5"
-									>
-										<Image
-											src={item.image}
-											alt={item.name}
-											className="w-[45px] h-[45px] flex-shrink-0 rounded-sm"
-											width={45}
-											height={45}
+						{cart?.items?.map((item) => {
+							const productStock = productsMap.get(item.slug);
+							if (!productStock) return null;
+
+							return (
+								<TableRow key={item.slug}>
+									<TableCell className="font-medium">
+										<Link
+											href={`${ROUTES.PRODUCT}/${item.slug}`}
+											className="flex items-center gap-5"
+										>
+											<Image
+												src={item.image}
+												alt={item.name}
+												className="w-[45px] h-[45px] flex-shrink-0 rounded-sm"
+												width={45}
+												height={45}
+											/>
+											<p>{item.name}</p>
+										</Link>
+									</TableCell>
+									<TableCell className="flex-center">
+										{/* CHANGE QUANTITY OF ITEMS IN CART - ADDING OR REMOVING */}
+										<ChangeProductQuantity
+											productStock={productStock}
+											item={item}
+											quantity={item.qty}
 										/>
-										<p>{item.name}</p>
-									</Link>
-								</TableCell>
-								<TableCell className="flex-center">
-									{/* CHANGE QUANTITY OF ITEMS IN CART - ADDING OR REMOVING */}
-									<ChangeProductQuantityServer item={item} />
-								</TableCell>
-								<TableCell className="text-right">{`$${(
-									Number(item.price) * item.qty
-								).toFixed(2)}`}</TableCell>
-							</TableRow>
-						))}
+										{/* <ChangeProductQuantityServer item={item} productId={productId} /> */}
+									</TableCell>
+									<TableCell className="text-right">{`$${(
+										Number(item.price) * item.qty
+									).toFixed(2)}`}</TableCell>
+								</TableRow>
+							);
+						})}
 					</TableBody>
 				</Table>
 			</div>

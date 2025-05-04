@@ -4,8 +4,8 @@ import { Cart, CartItem } from '@/lib/types/cart.types';
 import { useCartActions } from '@/lib/hooks/useCartActions';
 // components
 import { Button } from '@/components/ui/button';
+import ChangeProductQuantityButton from '@/components/content/ChangeProductQuantityButton';
 import { Plus } from 'lucide-react';
-import ChangeCartContentButton from '@/components/content/ChangeCartContentButton';
 
 export default function AddProductToCartActions({
 	cart,
@@ -34,7 +34,7 @@ export default function AddProductToCartActions({
 	return (
 		<div>
 			{/* CHANGE QUANTITY OF ITEMS IN CART - ADDING OR REMOVING EXISTING ITEMS*/}
-			<ChangeCartContentButton
+			<ChangeProductQuantityButton
 				removeFromCart={removeFromCart}
 				addToCart={addToCart}
 				canRemove={canRemove}

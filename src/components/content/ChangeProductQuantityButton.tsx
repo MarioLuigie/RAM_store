@@ -1,3 +1,4 @@
+// components
 import { Button } from "@/components/ui/button";
 import { Minus, Plus } from "lucide-react";
 
@@ -9,7 +10,7 @@ type ChangeCartContentButtonParams = {
   quantity: number
 }
 
-export default function ChangeCartContentButton({
+export default function ChangeProductQuantityButton({
   removeFromCart,
   addToCart,
   canRemove,

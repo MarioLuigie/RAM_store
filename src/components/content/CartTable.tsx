@@ -1,12 +1,5 @@
-'use client';
 //lib
 import { Cart } from '@/lib/types/cart.types';
-import {
-	handleAddItemToCart,
-	handleRemoveItemFromCart,
-} from '@/lib/handlers/cart.handlers';
-import { useAddItemToCartToast } from '@/lib/hooks/useAddItemToCartToast';
-import { useRemovedItemFromCartToast } from '@/lib/hooks/useRemovedItemFromCartToast';
 import { ROUTES } from '@/lib/constants/paths';
 // components
 import {
@@ -18,18 +11,12 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
-import { Minus, Plus } from 'lucide-react';
+import { ChangeProductQuantityWrapper } from '@/components/content/ChangeProductQuantityWrapper';
 import Link from 'next/link';
 import Image from 'next/image';
-// import { useCartActions } from '@/lib/hooks/useCartActions';
 
 export default function CartTable({ cart }: { cart?: Cart }) {
 	console.log(cart);
-	const { showAddItemToCartToast } = useAddItemToCartToast();
-	const { showRemovedItemFromCartToast } = useRemovedItemFromCartToast();
-
-	// const { addToCart, removeFromCart, canAdd, canRemove} = useCartActions({})
 
 	return (
 		<div className="grid md:grid-cols-4 md:gap-5">
@@ -65,43 +52,11 @@ export default function CartTable({ cart }: { cart?: Cart }) {
 								</TableCell>
 								<TableCell className="flex-center">
 									{/* CHANGE QUANTITY OF ITEMS IN CART - ADDING OR REMOVING */}
-									<div className="flex items-center justify-between w-[140px]">
-										<Button
-											disabled={false}
-											type="button"
-											variant="outline"
-											className="cursor-pointer"
-											onClick={() =>
-												handleRemoveItemFromCart(
-													item.productId,
-													showRemovedItemFromCartToast
-												)
-											}
-										>
-											<Minus className="h-4 w-4" />
-										</Button>
-										<span className="min-w-12 w-full flex-center text-xl px-2">
-											{item.qty || '0'}
-										</span>
-										<Button
-											disabled={false}
-											type="button"
-											variant="outline"
-											className="cursor-pointer"
-											onClick={() =>
-												handleAddItemToCart(
-													item,
-													showAddItemToCartToast
-												)
-											}
-										>
-											<Plus className="h-4 w-4" />
-										</Button>
-									</div>
+									<ChangeProductQuantityWrapper item={item} />
 								</TableCell>
-								<TableCell className="text-right">{`$${
-									(Number(item.price) * item.qty).toFixed(2)
-								}`}</TableCell>
+								<TableCell className="text-right">{`$${(
+									Number(item.price) * item.qty
+								).toFixed(2)}`}</TableCell>
 							</TableRow>
 						))}
 					</TableBody>

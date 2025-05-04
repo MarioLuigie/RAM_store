@@ -8,7 +8,7 @@ import { Cart } from '@/lib/types/cart.types';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import ProductPrice from '@/components/content/ProductPrice';
-import AddItemToCartButton from '@/components/content/AddItemToCartButton';
+import AddItemToCartControl from '@/components/content/AddItemToCartControl';
 
 export default function AddItemToCart({
 	cart,
@@ -45,7 +45,7 @@ export default function AddItemToCart({
 
 					{isInStock && (
 						<div className="flex-center">
-							<AddItemToCartButton
+							<AddItemToCartControl
 								cart={cart}
 								cartItem={{
 									productId: product.id,

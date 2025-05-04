@@ -6,7 +6,7 @@ import { ROUTES } from '@/lib/constants/paths'
 import { AuthTypes } from '@/lib/constants/enums'
 // components
 import AuthForm from '@/components/forms/AuthForm'
-import AuthPad from '@/components/content/AuthPad'
+import AuthPanel from '@/components/content/AuthPanel'
 
 export default async function AuthPage({
 	callbackUrl,
@@ -25,18 +25,18 @@ export default async function AuthPage({
 	// SIGN IN
 	if (type === AuthTypes.SIGN_IN) {
 		return (
-			<AuthPad title="Sign In" desc="Sign in to your account">
+			<AuthPanel title="Sign In" desc="Sign in to your account">
 				<AuthForm type={AuthTypes.SIGN_IN}/>
-			</AuthPad>
+			</AuthPanel>
 		)
 	}
 
 	//SIGN UP
 	if (type === AuthTypes.SIGN_UP) {
 		return (
-			<AuthPad title='Sign Up' desc='Create your account and sign in'>
+			<AuthPanel title='Sign Up' desc='Create your account and sign in'>
 				<AuthForm type={AuthTypes.SIGN_UP}/>
-			</AuthPad>
+			</AuthPanel>
 		)
 	}
 }

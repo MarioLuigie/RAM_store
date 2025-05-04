@@ -11,7 +11,7 @@ import { useRemovedItemFromCartToast } from '@/lib/hooks/useRemovedItemFromCartT
 import { Button } from '@/components/ui/button';
 import { Plus, Minus } from 'lucide-react';
 
-export default function AddItemToCartButton({
+export default function AddProductToCartActions({
 	cart,
 	cartItem,
 	productStock,

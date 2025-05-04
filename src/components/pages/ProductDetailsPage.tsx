@@ -7,7 +7,7 @@ import { getCart } from '@/lib/actions/cart.actions';
 // components
 import ProductPrice from '@/components/content/ProductPrice';
 import ProductImages from '@/components/content/ProductImages';
-import AddItemToCart from '@/components/content/AddItemToCart';
+import AddProductToCartPanel from '@/components/content/AddProductToCartPanel';
 
 export default async function ProductDetailsPage({ slug }: { slug: string }) {
 	// GET PRODUCT FROM DB
@@ -50,8 +50,8 @@ export default async function ProductDetailsPage({ slug }: { slug: string }) {
 						</div>
 					</div>
 
-					{/* ACTION COL */}
-					<AddItemToCart cart={cart} product={product} />
+					{/* ACTION COL - ADDING AND REMOVING ITEMS*/}
+					<AddProductToCartPanel cart={cart} product={product} />
 				</div>
 			</section>
 		</>

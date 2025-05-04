@@ -14,7 +14,7 @@ type AuthPadProps = {
   children: React.ReactNode
 }
 
-export default function AuthPad({
+export default function AuthPanel({
   title,
   desc,
   children

@@ -49,7 +49,6 @@ export default async function CartTable({ cart }: { cart?: Cart }) {
 						{cart?.items?.map((item) => {
 							const productStock = productsMap.get(item.slug);
 							if (!productStock) return null;
-
 							return (
 								<TableRow key={item.slug}>
 									<TableCell className="font-medium">

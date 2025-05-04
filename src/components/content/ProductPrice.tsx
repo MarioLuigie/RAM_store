@@ -1,30 +1,15 @@
 import { Product } from '@/lib/types/products.types'
-import { formatCurrencyParts } from '@/lib/utils/utils'
+import StyledPrice from '@/components/content/StyledPrice'
 
 export default function ProductPrice({ product }: { product: Product }) {
 	const stock: number = product.stock
-	const { currency, integer, fraction, symbolFirst, literal } = formatCurrencyParts(product.price)
 
 	if (stock <= 0) {
 		return <p className="text-destructive font-medium">Out of stock</p>
 	}
 
 	return (
-		<p>
-			{symbolFirst && (
-				<span className="font-medium text-sm align-super">{currency}</span>
-			)}
-			<span className="font-medium text-2xl">{integer}</span>
-			{fraction && (
-				<>
-					<span className="text-2xl">{literal || ','}</span>
-					<span className="text-sm font-medium align-super">{fraction}</span>
-				</>
-			)}
-			{!symbolFirst && (
-				<span className="font-medium text-sm align-super">{currency}</span>
-			)}
-		</p>
+		<StyledPrice price={product.price} />
 	)
 }
 

@@ -22,6 +22,7 @@ import { SHIPPING_ADDRESS_DEFAULT_VALUES } from '@/lib/constants';
 import Loader from '@/components/shared/Loader';
 import { ArrowRight } from 'lucide-react';
 import { handleUpdateUserAddress } from '@/lib/handlers/user.handlers';
+import { ROUTES } from '@/lib/constants/paths';
 
 type FullNameField = ControllerRenderProps<ShippingAddress, 'fullName'>;
 type StreetAddressField = ControllerRenderProps<
@@ -56,7 +57,7 @@ export default function ShippingAddressForm({
 		console.log(shippingAddressFormValues);
 
 		startTransition(async () => {
-			await handleUpdateUserAddress(shippingAddressFormValues, router);
+			await handleUpdateUserAddress(shippingAddressFormValues, router, ROUTES.PAYMENT_METHOD);
 		})
 
 		// await handleUpdateUserAddress(shippingAddressFormValues, router)

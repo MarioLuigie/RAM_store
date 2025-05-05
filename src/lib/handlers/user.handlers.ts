@@ -6,14 +6,15 @@ import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.
 // USER UPDATE ADDRESS HANDLER
 export async function handleUpdateUserAddress(
 	address: ShippingAddress,
-	router: AppRouterInstance
+	router: AppRouterInstance,
+  redirectPath: string,
 ) {
 	const result = await updateUserAddress(address);
 	const { success, message } = result;
 
 	if (success) {
 		toast.success(message);
-		router.push('/payment-method');
+		router.push(redirectPath);
 	} else {
 		toast.error(message);
 	}

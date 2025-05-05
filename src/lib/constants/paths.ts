@@ -3,6 +3,7 @@ export const ROUTES = {
 	PRODUCT: '/product',
 	CART: '/cart',
 	SHIPPING_ADDRESS: '/shipping-address',
+	PAYMENT_METHOD: '/payment-method',
 	SIGN_IN: '/sign-in',
 	SIGN_OUT: '/sign-out',
 	SIGN_UP: '/sign-up',

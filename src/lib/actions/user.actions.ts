@@ -109,7 +109,7 @@ export async function getUserById(userId: string) {
 		return {
 			success: true,
 			data: user,
-			message: 'User founded with successful',
+			message: 'User founded successfully',
 		};
 	} catch (error) {
 		console.log(error);
@@ -133,24 +133,18 @@ export async function updateUserAddress(data: ShippingAddress) {
 
 		const address = ShippingAddressSchema.parse(data);
 
-		const updatedUser = await prisma.user.update({
+		await prisma.user.update({
 			where: { id: currentUser.id },
 			data: { address },
 		});
 
 		return {
 			success: true,
-			data: {
-				name: updatedUser.name,
-			},
-			message: 'User`s address updated with successfull',
+			message: 'Address updated successfully!',
 		};
 	} catch (error) {
 		return {
 			success: false,
-			data: {
-				name: '',
-			},
 			message: formatErrorMessages(error),
 		};
 	}

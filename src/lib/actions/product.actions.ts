@@ -2,7 +2,7 @@
 // modules
 // import { PrismaClient, Prisma } from '@prisma/client'
 import { Prisma } from '@prisma/client'
-import { prisma } from '@/lib/db/prisma' // global prisma client
+import { prisma } from '@/lib/db/prisma' // global app prisma client
 // lib
 import { LATEST_PRODUCTS_LIMIT } from '@/lib/constants'
 import { safeNormalizeProducts, safeNormalizeProduct } from '@/lib/utils/server'

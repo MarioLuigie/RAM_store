@@ -3,7 +3,11 @@
 import { isRedirectError } from 'next/dist/client/components/redirect-error';
 import { hashSync } from 'bcrypt-ts-edge';
 // lib
-import { ShippingAddressSchema, SignInFormSchema, SignUpFormSchema } from '@/lib/utils/validators';
+import {
+	ShippingAddressSchema,
+	SignInFormSchema,
+	SignUpFormSchema,
+} from '@/lib/utils/validators';
 import { auth, signIn, signOut } from '@/config/auth';
 import { prisma } from '@/lib/db/prisma';
 import { formatErrorMessages } from '@/lib/utils/server';
@@ -130,23 +134,22 @@ export async function updateUserAddress(data: ShippingAddress) {
 		const address = ShippingAddressSchema.parse(data);
 
 		const updatedUser = await prisma.user.update({
-			where: { id: currentUser.id},
-			data: {address},
-		})
+			where: { id: currentUser.id },
+			data: { address },
+		});
 
 		return {
 			success: true,
 			data: {
 				name: updatedUser.name,
 			},
-			message: 'User`s address updated with successfull'
-		}
-
+			message: 'User`s address updated with successfull',
+		};
 	} catch (error) {
 		return {
 			success: false,
 			data: {
-				name: '',	
+				name: '',
 			},
 			message: formatErrorMessages(error),
 		};

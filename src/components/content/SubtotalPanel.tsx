@@ -4,6 +4,7 @@ import { useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 //lib
 import { Cart } from '@/lib/types/cart.types';
+import { ROUTES } from '@/lib/constants/paths';
 // components
 import { Card, CardContent } from '@/components/ui/card';
 import StyledPrice from '@/components/content/StyledPrice';
@@ -36,7 +37,7 @@ export default function SubtotalPanel({ cart }: { cart: Cart }) {
 						disabled={isPending}
 						onClick={() =>
 							startTransition(() => {
-								router.push('/shipping-address');
+								router.push(ROUTES.SHIPPING_ADDRESS);
 							})
 						}
 					>

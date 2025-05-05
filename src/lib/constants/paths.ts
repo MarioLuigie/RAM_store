@@ -2,6 +2,7 @@ export const ROUTES = {
 	HOME: '/',
 	PRODUCT: '/product',
 	CART: '/cart',
+	SHIPPING_ADDRESS: '/shipping-address',
 	SIGN_IN: '/sign-in',
 	SIGN_OUT: '/sign-out',
 	SIGN_UP: '/sign-up',

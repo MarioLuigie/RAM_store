@@ -37,6 +37,7 @@ export default function ShippingAddressForm({
 
 	const router = useRouter();
 
+	// CREATE FORM FROM USEFORM
 	const form = useForm<ShippingAddress>({
 		resolver: zodResolver(ShippingAddressSchema),
 		defaultValues: address || SHIPPING_ADDRESS_DEFAULT_VALUES,
@@ -44,6 +45,7 @@ export default function ShippingAddressForm({
 
 	const [isPending, startTransition] = useTransition();
 
+	// ON SUBMIT HANDLER
 	const onSubmit: SubmitHandler<ShippingAddress> = async (
 		shippingAddressFormValues: ShippingAddress
 	) => {

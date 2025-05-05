@@ -151,6 +151,7 @@ export default function ShippingAddressForm({
 						type="submit"
 						disabled={isPending}
 						className="cursor-pointer"
+						aria-label='Continue shipping'
 					>
 						{isPending ? (
 							<Loader width={16} height={16} />

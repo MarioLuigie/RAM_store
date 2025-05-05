@@ -40,6 +40,7 @@ export default function SubtotalPanel({ cart }: { cart: Cart }) {
 								router.push(ROUTES.SHIPPING_ADDRESS);
 							})
 						}
+						aria-label='Checkout'
 					>
 						{isPending ? (
 							<Loader width={16} height={16}/>

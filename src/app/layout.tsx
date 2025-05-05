@@ -42,7 +42,7 @@ export default function RootLayout({
 					disableTransitionOnChange
 				>
 					{children}
-					<Toaster expand={true} visibleToasts={3}/>
+					<Toaster expand={true} visibleToasts={3} closeButton={false} />
 				</ThemeProvider>
 			</body>
 		</html>

@@ -21,6 +21,7 @@ import { Input } from '@/components/ui/input';
 import { SHIPPING_ADDRESS_DEFAULT_VALUES } from '@/lib/constants';
 import Loader from '@/components/shared/Loader';
 import { ArrowRight } from 'lucide-react';
+import { handleUpdateUserAddress } from '@/lib/handlers/user.handlers';
 
 type FullNameField = ControllerRenderProps<ShippingAddress, 'fullName'>;
 type StreetAddressField = ControllerRenderProps<
@@ -54,10 +55,15 @@ export default function ShippingAddressForm({
 	) => {
 		console.log(shippingAddressFormValues);
 
-		return;
+		startTransition(async () => {
+			await handleUpdateUserAddress(shippingAddressFormValues, router);
+		})
+
+		// await handleUpdateUserAddress(shippingAddressFormValues, router)
+
 	};
 
-	console.log(startTransition, router);
+	console.log(router);
 
 	return (
 		<Form {...form}>

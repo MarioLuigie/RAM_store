@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ControllerRenderProps, SubmitHandler, useForm } from 'react-hook-form';
-import { z } from 'zod';
 // lib
 import { ShippingAddress } from '@/lib/types/shipping.types';
 import { ShippingAddressSchema } from '@/lib/utils/validators';
@@ -21,7 +20,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { SHIPPING_ADDRESS_DEFAULT_VALUES } from '@/lib/constants';
 import Loader from '@/components/shared/Loader';
-import { ArrowRight, SendHorizontal } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 type FullNameField = ControllerRenderProps<ShippingAddress, 'fullName'>;
 type StreetAddressField = ControllerRenderProps<ShippingAddress, 'streetAddress'>;
@@ -50,6 +49,8 @@ export default function ShippingAddressForm({
 	) => {
 		console.log(shippingAddressFormValues);
 	};
+
+	console.log(startTransition, router)
 
 	return (
 		<div className="max-w-md mx-auto space-y-4">
@@ -149,9 +150,9 @@ export default function ShippingAddressForm({
 							{isPending ? (
 								<Loader width={16} height={16} />
 							) : (
-								<SendHorizontal />
+								<ArrowRight />
 							)}
-							Submit
+							Continue
 						</Button>
 					</div>
 				</form>

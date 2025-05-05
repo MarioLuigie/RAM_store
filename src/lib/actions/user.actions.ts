@@ -90,3 +90,28 @@ export async function signUpUserWithCredentials(
 export async function signOutUser() {
 	await signOut()
 }
+
+// GET USER BY THE ID
+export async function getUserById(userId: string) {
+	console.log(userId)
+	try {
+		const user = await prisma.user.findFirst({
+			where: { id: userId },
+		})
+
+		if (!user) throw new Error('User not found')
+
+		return {
+			success: true,
+			data: user,
+			message: 'User founded with successful'
+		}
+		
+	} catch (error) {
+		console.log(error)
+		return {
+			success: false,
+			data: {id: '', address: {}},
+		}
+	}
+}

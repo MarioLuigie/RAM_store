@@ -33,7 +33,7 @@ export default function SubtotalPanel({ cart }: { cart: Cart }) {
 					</div>
 
 					<Button
-						className="w-full"
+						className="w-full cursor-pointer"
 						disabled={isPending}
 						onClick={() =>
 							startTransition(() => {

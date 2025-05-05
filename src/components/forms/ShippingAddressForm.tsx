@@ -151,7 +151,7 @@ export default function ShippingAddressForm({
 					</div>
 
 					<div className="flex justify-center gap-2 w-full">
-						<Button type="submit" disabled={isPending}>
+						<Button type="submit" disabled={isPending} className='cursor-pointer'>
 							{isPending ? (
 								<Loader width={16} height={16} />
 							) : (

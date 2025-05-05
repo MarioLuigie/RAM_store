@@ -1,3 +1,4 @@
+'use client'
 //lib
 import { Cart } from '@/lib/types/cart.types';
 // components

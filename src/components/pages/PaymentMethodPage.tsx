@@ -2,7 +2,7 @@ export default function PaymentMethodPage() {
 
   return (
     <div>
-      PAYMANET METHOD ROUTE
+      PAYMENT METHOD ROUTE
     </div>
   )
 }

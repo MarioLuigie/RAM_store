@@ -37,6 +37,15 @@ export const SIGNUP_DEFAULT_VALUES = {
 	confirmPassword: '',
 }
 
+// DEFAULT VALUES FOR SIGNUP FORM
+export const SHIPPING_ADDRESS_DEFAULT_VALUES = {
+	fullName: 'Jan Kowalski',
+	streetAddress: '123 Main st',
+	city: 'Krakow',
+	postalCode: '12-123',
+	country: 'Poland',
+}
+
 // DEFAULT ACTION STATE FOR SIGN IN FORM
 export const DEFAULT_ACTION_STATE = {
 	success: false,

@@ -17,6 +17,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ChangeProductQuantity } from './ChangeProductQuantity';
 import { formatCurrency } from '@/lib/utils/utils';
+import SubtotalPanel from '@/components/content/SubtotalPanel';
 
 export default async function CartTable({ cart }: { cart?: Cart }) {
 	let productsMap: Map<string, number> = new Map();
@@ -76,15 +77,16 @@ export default async function CartTable({ cart }: { cart?: Cart }) {
 										/>
 										{/* <ChangeProductQuantityServer item={item} productId={productId} /> */}
 									</TableCell>
-									<TableCell className="text-right">{`${formatCurrency((
-										Number(item.price) * item.qty
-									).toFixed(2))}`}</TableCell>
+									<TableCell className="text-right">{`${formatCurrency(
+										(Number(item.price) * item.qty).toFixed(2)
+									)}`}</TableCell>
 								</TableRow>
 							);
 						})}
 					</TableBody>
 				</Table>
 			</div>
+			{cart && <SubtotalPanel cart={cart} />}
 		</div>
 	);
 }

@@ -58,110 +58,109 @@ export default function ShippingAddressForm({
 	console.log(startTransition, router);
 
 	return (
-		<div className="max-w-md mx-auto space-y-4">
-			<Form {...form}>
-				<form
-					onSubmit={form.handleSubmit(onSubmit)}
-					className="flex flex-col gap-4"
-				>
-					<div className="flex flex-col md:flex-row gap-5">
-						<FormField
-							control={form.control}
-							name="fullName"
-							render={({ field }: { field: FullNameField }) => (
-								<FormItem className="w-full">
-									<FormLabel>Full Name</FormLabel>
-									<FormControl>
-										<Input placeholder="Enter full name" {...field} />
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-					</div>
+		<Form {...form}>
+			<form
+				onSubmit={form.handleSubmit(onSubmit)}
+				className="flex flex-col gap-5"
+			>
+				<div className="flex flex-col md:flex-row gap-5">
+					<FormField
+						control={form.control}
+						name="fullName"
+						render={({ field }: { field: FullNameField }) => (
+							<FormItem className="w-full">
+								<FormLabel>Full Name</FormLabel>
+								<FormControl>
+									<Input placeholder="Enter full name" {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				</div>
 
-					<div className="flex flex-col md:flex-row gap-5">
-						<FormField
-							control={form.control}
-							name="streetAddress"
-							render={({ field }: { field: StreetAddressField }) => (
-								<FormItem className="w-full">
-									<FormLabel>Street Address</FormLabel>
-									<FormControl>
-										<Input
-											placeholder="Enter street address"
-											{...field}
-										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-					</div>
+				<div className="flex flex-col md:flex-row gap-5">
+					<FormField
+						control={form.control}
+						name="streetAddress"
+						render={({ field }: { field: StreetAddressField }) => (
+							<FormItem className="w-full">
+								<FormLabel>Street Address</FormLabel>
+								<FormControl>
+									<Input
+										placeholder="Enter street address"
+										{...field}
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				</div>
 
-					<div className="flex flex-col md:flex-row gap-5">
-						<FormField
-							control={form.control}
-							name="city"
-							render={({ field }: { field: CityField }) => (
-								<FormItem className="w-full">
-									<FormLabel>City</FormLabel>
-									<FormControl>
-										<Input placeholder="Enter city" {...field} />
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-					</div>
+				<div className="flex flex-col md:flex-row gap-5">
+					<FormField
+						control={form.control}
+						name="city"
+						render={({ field }: { field: CityField }) => (
+							<FormItem className="w-full">
+								<FormLabel>City</FormLabel>
+								<FormControl>
+									<Input placeholder="Enter city" {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				</div>
 
-					<div className="flex flex-col md:flex-row gap-5">
-						<FormField
-							control={form.control}
-							name="postalCode"
-							render={({ field }: { field: PostalCodeField }) => (
-								<FormItem className="w-full">
-									<FormLabel>Postal Code</FormLabel>
-									<FormControl>
-										<Input
-											placeholder="Enter postal code"
-											{...field}
-										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-					</div>
+				<div className="flex flex-col md:flex-row gap-5">
+					<FormField
+						control={form.control}
+						name="postalCode"
+						render={({ field }: { field: PostalCodeField }) => (
+							<FormItem className="w-full">
+								<FormLabel>Postal Code</FormLabel>
+								<FormControl>
+									<Input placeholder="Enter postal code" {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				</div>
 
-					<div className="flex flex-col md:flex-row gap-5">
-						<FormField
-							control={form.control}
-							name="country"
-							render={({ field }: { field: CountryField }) => (
-								<FormItem className="w-full">
-									<FormLabel>Country</FormLabel>
-									<FormControl>
-										<Input placeholder="Enter country" {...field} />
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-					</div>
+				<div className="flex flex-col md:flex-row gap-5">
+					<FormField
+						control={form.control}
+						name="country"
+						render={({ field }: { field: CountryField }) => (
+							<FormItem className="w-full">
+								<FormLabel>Country</FormLabel>
+								<FormControl>
+									<Input placeholder="Enter country" {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				</div>
 
-					<div className="flex justify-end gap-2 w-full mt-6">
-						<Button type="submit" disabled={isPending} className='cursor-pointer'>
-							{isPending ? (
-								<Loader width={16} height={16} />
-							) : (
-								<ArrowRight />
-							)}
-							Continue
-						</Button>
-					</div>
-				</form>
-			</Form>
-		</div>
+				<div className="flex justify-end gap-2 w-full mt-4">
+					<Button
+						type="submit"
+						disabled={isPending}
+						className="cursor-pointer"
+					>
+						{isPending ? (
+							<Loader width={16} height={16} />
+						) : (
+							<ArrowRight />
+						)}
+						Continue
+					</Button>
+				</div>
+			</form>
+		</Form>
 	);
 }

@@ -59,9 +59,6 @@ export default function ShippingAddressForm({
 		startTransition(async () => {
 			await handleUpdateUserAddress(shippingAddressFormValues, router, ROUTES.PAYMENT_METHOD);
 		})
-
-		// await handleUpdateUserAddress(shippingAddressFormValues, router)
-
 	};
 
 	console.log(router);

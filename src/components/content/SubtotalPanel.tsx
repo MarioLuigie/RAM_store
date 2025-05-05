@@ -1,12 +1,19 @@
-'use client'
+'use client';
+// modules
+import { useTransition } from 'react';
+import { useRouter } from 'next/navigation';
 //lib
 import { Cart } from '@/lib/types/cart.types';
 // components
 import { Card, CardContent } from '@/components/ui/card';
 import StyledPrice from '@/components/content/StyledPrice';
 import { Button } from '@/components/ui/button';
+import Loader from '@/components/shared/Loader';
+import { ArrowRight } from 'lucide-react';
 
-export default function SubtotalPanel({ cart }: { cart: Cart}) {
+export default function SubtotalPanel({ cart }: { cart: Cart }) {
+	const [isPending, startTransition] = useTransition();
+	const router = useRouter();
 	return (
 		<div>
 			<Card>
@@ -24,7 +31,22 @@ export default function SubtotalPanel({ cart }: { cart: Cart}) {
 						{cart && <StyledPrice price={cart?.itemsPrice} />}
 					</div>
 
-					<Button className="w-full">Checkout</Button>
+					<Button
+						className="w-full"
+						disabled={isPending}
+						onClick={() =>
+							startTransition(() => {
+								router.push('/shipping-address');
+							})
+						}
+					>
+						{isPending ? (
+							<Loader width={16} height={16}/>
+						) : (
+							<ArrowRight />
+						)}{' '}
+						Checkout
+					</Button>
 				</CardContent>
 			</Card>
 		</div>

@@ -23,7 +23,10 @@ import Loader from '@/components/shared/Loader';
 import { ArrowRight } from 'lucide-react';
 
 type FullNameField = ControllerRenderProps<ShippingAddress, 'fullName'>;
-type StreetAddressField = ControllerRenderProps<ShippingAddress, 'streetAddress'>;
+type StreetAddressField = ControllerRenderProps<
+	ShippingAddress,
+	'streetAddress'
+>;
 type CityField = ControllerRenderProps<ShippingAddress, 'city'>;
 type PostalCodeField = ControllerRenderProps<ShippingAddress, 'postalCode'>;
 type CountryField = ControllerRenderProps<ShippingAddress, 'country'>;
@@ -52,7 +55,7 @@ export default function ShippingAddressForm({
 		console.log(shippingAddressFormValues);
 	};
 
-	console.log(startTransition, router)
+	console.log(startTransition, router);
 
 	return (
 		<div className="max-w-md mx-auto space-y-4">
@@ -65,7 +68,7 @@ export default function ShippingAddressForm({
 						<FormField
 							control={form.control}
 							name="fullName"
-							render={({ field }: {field: FullNameField}) => (
+							render={({ field }: { field: FullNameField }) => (
 								<FormItem className="w-full">
 									<FormLabel>Full Name</FormLabel>
 									<FormControl>
@@ -81,7 +84,7 @@ export default function ShippingAddressForm({
 						<FormField
 							control={form.control}
 							name="streetAddress"
-							render={({ field }: { field: StreetAddressField}) => (
+							render={({ field }: { field: StreetAddressField }) => (
 								<FormItem className="w-full">
 									<FormLabel>Street Address</FormLabel>
 									<FormControl>
@@ -100,7 +103,7 @@ export default function ShippingAddressForm({
 						<FormField
 							control={form.control}
 							name="city"
-							render={({ field }: { field: CityField}) => (
+							render={({ field }: { field: CityField }) => (
 								<FormItem className="w-full">
 									<FormLabel>City</FormLabel>
 									<FormControl>
@@ -116,7 +119,7 @@ export default function ShippingAddressForm({
 						<FormField
 							control={form.control}
 							name="postalCode"
-							render={({ field }: { field: PostalCodeField}) => (
+							render={({ field }: { field: PostalCodeField }) => (
 								<FormItem className="w-full">
 									<FormLabel>Postal Code</FormLabel>
 									<FormControl>
@@ -135,7 +138,7 @@ export default function ShippingAddressForm({
 						<FormField
 							control={form.control}
 							name="country"
-							render={({ field }: { field: CountryField}) => (
+							render={({ field }: { field: CountryField }) => (
 								<FormItem className="w-full">
 									<FormLabel>Country</FormLabel>
 									<FormControl>

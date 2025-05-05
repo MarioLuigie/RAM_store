@@ -66,7 +66,7 @@ const CURRENCY_FORMATTER = new Intl.NumberFormat('de-DE', {
 	minimumFractionDigits: 2,
 });
 
-// Format currency using the formatter above
+// Format currency using the formatter above and return currency
 export function formatCurrency(amount: number | string | null) {
 	if (typeof amount === 'number') {
 		return CURRENCY_FORMATTER.format(amount); // returned always string
@@ -77,6 +77,7 @@ export function formatCurrency(amount: number | string | null) {
 	}
 }
 
+// Format currency using the formatter and return currency parts e.x for styling items
 export function formatCurrencyParts(
 	amount: number | string,
 	locale = 'de-DE',

@@ -63,6 +63,7 @@ export default function ShippingAddressForm({
 				onSubmit={form.handleSubmit(onSubmit)}
 				className="flex flex-col gap-5"
 			>
+				{/* FULL NAME */}
 				<div className="flex flex-col md:flex-row gap-5">
 					<FormField
 						control={form.control}
@@ -79,6 +80,7 @@ export default function ShippingAddressForm({
 					/>
 				</div>
 
+				{/* STREET ADDRESS */}
 				<div className="flex flex-col md:flex-row gap-5">
 					<FormField
 						control={form.control}
@@ -98,6 +100,7 @@ export default function ShippingAddressForm({
 					/>
 				</div>
 
+				{/* CITY */}
 				<div className="flex flex-col md:flex-row gap-5">
 					<FormField
 						control={form.control}
@@ -114,6 +117,7 @@ export default function ShippingAddressForm({
 					/>
 				</div>
 
+				{/* POSTAL CODE */}
 				<div className="flex flex-col md:flex-row gap-5">
 					<FormField
 						control={form.control}
@@ -130,6 +134,7 @@ export default function ShippingAddressForm({
 					/>
 				</div>
 
+				{/* COUNTRY */}
 				<div className="flex flex-col md:flex-row gap-5">
 					<FormField
 						control={form.control}
@@ -146,6 +151,7 @@ export default function ShippingAddressForm({
 					/>
 				</div>
 
+				{/* SUBMIT BUTTON */}
 				<div className="flex justify-end gap-2 w-full mt-4">
 					<Button
 						type="submit"

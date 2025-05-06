@@ -9,6 +9,7 @@ import { ShippingAddress } from '@/lib/types/shipping.types';
 import { getUserById } from '@/lib/actions/user.actions';
 // componnets
 import ShippingAddressForm from '@/components/forms/ShippingAddressForm';
+import CheckoutSteps from '@/components/shared/CheckoutSteps';
 
 export default async function ShippingAddressPage() {
 	const cart: Cart | undefined = await getCart();
@@ -25,7 +26,8 @@ export default async function ShippingAddressPage() {
   console.log("ShippingAddressPage:", success)
 
 	return (
-		<div>
+		<>
+			<CheckoutSteps />
 			<div className="max-w-md mx-auto space-y-4">
 				<h1 className="h2-bold mt-4">Shipping Address</h1>
 				<p className="text-sm text-muted-foreground">
@@ -35,6 +37,6 @@ export default async function ShippingAddressPage() {
 					<ShippingAddressForm address={user.address as ShippingAddress} />
 				</div>
 			</div>
-		</div>
+		</>
 	);
 }

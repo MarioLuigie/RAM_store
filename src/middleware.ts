@@ -31,7 +31,7 @@ export async function middleware(request: NextRequest) {
 
     if (!isAuthenticated) {
       const signInUrl = new URL(ROUTES.SIGN_IN, request.url);
-      signInUrl.searchParams.set('callbackUrl', url.pathname); // umożliwia redirect po zalogowaniu
+      signInUrl.searchParams.set('callbackUrl', pathname); // umożliwia redirect po zalogowaniu
       return NextResponse.redirect(signInUrl);
     }
   }
@@ -80,6 +80,22 @@ export async function middleware(request: NextRequest) {
 export const config = {
 	matcher: ['/((?!api|_next|.*\\..*).*)'],
 }
+
+// request.nextUrl - {
+//   href: 'http://localhost:3000/sign-in?callbackUrl=%2Fshipping-address',
+//   origin: 'http://localhost:3000',
+//   protocol: 'http:',
+//   username: '',
+//   password: '',
+//   host: 'localhost:3000',
+//   hostname: 'localhost',
+//   port: '3000',
+//   pathname: '/sign-in',
+//   search: '?callbackUrl=%2Fshipping-address',
+//   searchParams: URLSearchParams {  },
+//   hash: ''
+// }
+// request.nextUrl.pathname - /sign-in
 
 // // src/middleware.ts
 // // modules

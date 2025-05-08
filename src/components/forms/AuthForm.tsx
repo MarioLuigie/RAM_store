@@ -20,7 +20,7 @@ import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import SubmitButton from '@/components/shared/SubmitButton'
 import SVG from '@/components/shared/SVG'
-import FormattedErrorMessages from '../shared/FormattedErrorMessages'
+import FormattedErrorMessages from '@/components/shared/FormattedErrorMessages'
 
 export default function AuthForm({ type }: { type: AuthTypes }) {
 	const actionFn =
@@ -32,7 +32,7 @@ export default function AuthForm({ type }: { type: AuthTypes }) {
 	const searchParams = useSearchParams()
 	const callbackUrl = searchParams.get('callbackUrl') || ROUTES.HOME
 
-	console.log("CALLBAACK URL:", callbackUrl)
+	console.log("CALLBACK URL:", callbackUrl)
 
 	function StatusWrapper({
 		children,

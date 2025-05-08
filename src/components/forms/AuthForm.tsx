@@ -136,7 +136,10 @@ export default function AuthForm({ type }: { type: AuthTypes }) {
 				<div className="text-center text-sm mt-6">
 					Don&apos;t have an account?{' '}
 					<Link
-						href={ROUTES.SIGN_UP}
+						href={{
+							pathname: ROUTES.SIGN_UP,
+							query: { callbackUrl },
+						}}
 						className="underline underline-offset-4"
 						target="_self"
 					>

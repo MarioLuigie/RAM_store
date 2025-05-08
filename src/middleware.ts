@@ -19,6 +19,7 @@ export async function middleware(request: NextRequest) {
   const pathname = url.pathname;
 
 	// 🔒 Sprawdzenie, czy ścieżka jest chroniona
+	// CHECK IF PATH/ROUTE IS AUTHENTICATED
 	const requiresAuth = protectedPaths.some((pattern) => pattern.test(pathname));
 
 	if (requiresAuth) {
@@ -36,6 +37,7 @@ export async function middleware(request: NextRequest) {
   }
 
 	// 🍪 Zarządzanie sesją koszyka (Twoja logika)
+	// SESSION CART`S MANAGMENT
 	const newRequestHeaders = new Headers(request.headers)
 
 	const hasSessionCartId = request.cookies.has(SESSION_CART_ID)

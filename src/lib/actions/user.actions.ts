@@ -31,8 +31,6 @@ export async function signInUserWithCredentials(
 			callbackUrl,
 		});
 
-		await signIn('credentials', user);
-
 		return {
 			success: true,
 			message: 'Signed in successfully',
@@ -75,9 +73,12 @@ export async function signUpUserWithCredentials(
 			},
 		});
 
+		const callbackUrl = formData.get('callbackUrl')?.toString() || '/';
+
 		await signIn('credentials', {
 			email: user.email,
 			password: plainPassword,
+			callbackUrl,
 		});
 
 		return {

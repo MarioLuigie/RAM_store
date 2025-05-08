@@ -5,6 +5,8 @@ import { prisma } from '@/lib/db/prisma';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { compareSync } from 'bcrypt-ts-edge';
 import type { NextAuthConfig } from 'next-auth';
+import { cookies } from 'next/headers';
+import { SESSION_CART_ID } from '@/lib/constants';
 
 export const config = {
 	pages: {
@@ -70,9 +72,10 @@ export const config = {
 			return session;
 		},
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		async jwt({ user, token }: any) {
+		async jwt({ user, token, trigger }: any) {
 			// Asign user fields to token
 			if (user) {
+				token.id = user.id;
 				token.role = user.role;
 				// When user does not have a name use the email (default name in db model is NO_NAME)
 				if (user.name === 'NO_NAME') {
@@ -82,6 +85,50 @@ export const config = {
 						where: { id: user.id },
 						data: { name: token.name },
 					});
+				}
+
+				if (trigger === 'signIn' || trigger === 'signUp') {
+					const sessionCartId = (await cookies()).get(
+						SESSION_CART_ID
+					)?.value;
+
+					if (sessionCartId) {
+						const sessionCart = await prisma.cart.findFirst({
+							where: { sessionCartId },
+						});
+
+						if (sessionCart) {
+							// Jeśli koszyk jest już przypisany do użytkownika, nic nie rób
+							if (sessionCart.userId !== user.id) {
+								// Usuń tylko inne koszyki przypisane do tego użytkownika
+								await prisma.cart.deleteMany({
+									where: {
+										userId: user.id,
+										id: { not: sessionCart.id },
+									},
+								});
+
+								// Przypisz koszyk z ciasteczka do użytkownika
+								await prisma.cart.update({
+									where: { id: sessionCart.id },
+									data: { userId: user.id },
+								});
+							}
+						}
+
+						// if (sessionCart) {
+						// 	// Delete current user`s cart (that is old unused cart)
+						// 	await prisma.cart.deleteMany({
+						// 		where: { userId: user.id },
+						// 	});
+
+						// 	// Assign new cart to user
+						// 	await prisma.cart.update({
+						// 		where: { id: sessionCart.id },
+						// 		data: { userId: user.id },
+						// 	});
+						// }
+					}
 				}
 			}
 

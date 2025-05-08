@@ -32,6 +32,8 @@ export default function AuthForm({ type }: { type: AuthTypes }) {
 	const searchParams = useSearchParams()
 	const callbackUrl = searchParams.get('callbackUrl') || ROUTES.HOME
 
+	console.log("CALLBAACK URL:", callbackUrl)
+
 	function StatusWrapper({
 		children,
 	}: {

@@ -61,8 +61,6 @@ export default function ShippingAddressForm({
 		})
 	};
 
-	console.log(router);
-
 	return (
 		<Form {...form}>
 			<form

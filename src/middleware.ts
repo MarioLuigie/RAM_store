@@ -1,7 +1,41 @@
-import { NextResponse, NextRequest } from 'next/server'
-import { SESSION_CART_ID } from '@/lib/constants'
+import { NextResponse, NextRequest } from 'next/server';
+import { SESSION_CART_ID } from '@/lib/constants';
+import { getToken } from 'next-auth/jwt';
+import { ROUTES } from '@/lib/constants/paths';
 
-export function middleware(request: NextRequest) {
+
+const protectedPaths = [
+  /^\/shipping-address/,
+  /^\/payment-method/,
+  /^\/place-order/,
+  /^\/profile/,
+  /^\/user\/.*/,
+  /^\/order\/.*/,
+  /^\/admin/,
+];
+
+export async function middleware(request: NextRequest) {
+	const url = request.nextUrl;
+  const pathname = url.pathname;
+
+	// 🔒 Sprawdzenie, czy ścieżka jest chroniona
+	const requiresAuth = protectedPaths.some((pattern) => pattern.test(pathname));
+
+	if (requiresAuth) {
+    const token = await getToken({
+			req: request,
+			secret: process.env.NEXTAUTH_SECRET,
+		});
+    const isAuthenticated = !!token;
+
+    if (!isAuthenticated) {
+      const signInUrl = new URL(ROUTES.SIGN_IN, request.url);
+      signInUrl.searchParams.set('callbackUrl', url.pathname); // umożliwia redirect po zalogowaniu
+      return NextResponse.redirect(signInUrl);
+    }
+  }
+
+	// 🍪 Zarządzanie sesją koszyka (Twoja logika)
 	const newRequestHeaders = new Headers(request.headers)
 
 	const hasSessionCartId = request.cookies.has(SESSION_CART_ID)

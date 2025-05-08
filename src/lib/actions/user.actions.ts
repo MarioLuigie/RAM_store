@@ -24,6 +24,13 @@ export async function signInUserWithCredentials(
 			password: formData.get('password'),
 		});
 
+		const callbackUrl = formData.get('callbackUrl')?.toString() || '/';
+
+		await signIn('credentials', {
+			...user,
+			callbackUrl,
+		});
+
 		await signIn('credentials', user);
 
 		return {

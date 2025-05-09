@@ -1,5 +1,6 @@
-import { z } from 'zod'
-import { formatNumberWithDecimalToString } from '@/lib/utils/utils'
+import { z } from 'zod';
+import { formatNumberWithDecimalToString } from '@/lib/utils/utils';
+import { PAYMENT_METHODS } from '../constants';
 
 // SCHEMA FOR SIGN IN FORM
 export const SignInFormSchema = z
@@ -13,7 +14,7 @@ export const SignInFormSchema = z
 			.min(6, 'Password must be at least 6 characters')
 			.max(100, 'Password is too long'),
 	})
-	.strict() // odrzuca nieznane pola, zapobiega atakom i błędom
+	.strict(); // odrzuca nieznane pola, zapobiega atakom i błędom
 
 // SCHEMA FOR SIGN UP FORM
 export const SignUpFormSchema = z
@@ -36,7 +37,7 @@ export const SignUpFormSchema = z
 	.refine((data) => data.password === data.confirmPassword, {
 		message: 'Password and Confirm Password do not match',
 		path: ['confirmPassword'],
-	})
+	});
 
 // SCHEMA FOR INSERTING PRODUCTS
 const currency = z
@@ -45,7 +46,7 @@ const currency = z
 		(value) =>
 			/^\d+(\.\d{2})?$/.test(formatNumberWithDecimalToString(Number(value))),
 		'Price must have exactly two decimal places'
-	)
+	);
 
 export const ProductSchema = z.object({
 	name: z.string().min(3, 'Name must be at least 3 characters'),
@@ -60,7 +61,7 @@ export const ProductSchema = z.object({
 	price: currency,
 	rating: z.string(),
 	numReviews: z.string(),
-})
+});
 
 // SCHEMA FOR CART ITEM
 export const CartItemSchema = z.object({
@@ -70,7 +71,7 @@ export const CartItemSchema = z.object({
 	qty: z.number().int().nonnegative('Quantity must be a possitive number'),
 	image: z.string().min(1, 'Image is required'),
 	price: currency,
-})
+});
 
 // SCHEMA FOR CART
 export const CartSchema = z.object({
@@ -81,15 +82,27 @@ export const CartSchema = z.object({
 	shippingPrice: currency,
 	taxPrice: currency,
 	totalPrice: currency,
-})
+});
 
 // SCHEMA FOR SHIPPING ADDRESS
 export const ShippingAddressSchema = z.object({
 	fullName: z.string().min(3, 'Name must be at least 3 characters'),
-	streetAddress: z.string().min(3, 'Street address must be at least 3 characters'),
+	streetAddress: z
+		.string()
+		.min(3, 'Street address must be at least 3 characters'),
 	city: z.string().min(3, 'City must be at least 3 characters'),
 	postalCode: z.string().min(3, 'Postal code must be at least 3 characters'),
 	country: z.string().min(3, 'Country must be at least 3 characters'),
 	lat: z.number().optional(),
 	lng: z.number().optional(),
-})
+});
+
+// SCHEMA FOR PAYMENT METHOD
+export const PaymentMethodSchema = z
+	.object({
+		type: z.string().min(1, 'Payment method is required'),
+	})
+	.refine((data) => PAYMENT_METHODS.includes(data.type), {
+		path: ['type'],
+		message: 'Invalid payment method',
+	});

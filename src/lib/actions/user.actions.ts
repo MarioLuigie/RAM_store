@@ -122,10 +122,22 @@ export async function getUserById(userId: string) {
 			message: 'User founded successfully',
 		};
 	} catch (error) {
-		console.log(error);
 		return {
 			success: false,
-			data: { id: '', address: {} },
+			data: {
+				id: '',
+				name: '',
+				email: '',
+				emailVerified: '',
+				password: '',
+				role: '',
+				address: {},
+				paymentMethod: '',
+				image: '',
+				createdAt: '',
+				updatedAt: '',
+			},
+			message: formatErrorMessages(error),
 		};
 	}
 }

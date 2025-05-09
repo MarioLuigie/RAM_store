@@ -1,7 +1,7 @@
 // modules
 import { Metadata } from "next";
 // components
-import PlaceOrder from "@/components/pages/PlaceOrder";
+import PlaceOrderPage from "@/components/pages/PlaceOrderPage";
 
 export const metadata: Metadata = {
 	title: 'Place Order',
@@ -10,6 +10,6 @@ export const metadata: Metadata = {
 export default function Page() {
 
   return (
-    <PlaceOrder />
+    <PlaceOrderPage />
   )
 }

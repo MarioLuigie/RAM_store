@@ -7,7 +7,11 @@ import { ControllerRenderProps, SubmitHandler, useForm } from 'react-hook-form';
 // lib
 import { ShippingAddress } from '@/lib/types/shipping.types';
 import { ShippingAddressSchema } from '@/lib/utils/validators';
+import { handleUpdateUserAddress } from '@/lib/handlers/user.handlers';
+import { ROUTES } from '@/lib/constants/paths';
+import { SHIPPING_ADDRESS_DEFAULT_VALUES } from '@/lib/constants';
 // components
+import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
 	Form,
@@ -18,11 +22,7 @@ import {
 	FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { SHIPPING_ADDRESS_DEFAULT_VALUES } from '@/lib/constants';
 import Loader from '@/components/shared/Loader';
-import { ArrowRight } from 'lucide-react';
-import { handleUpdateUserAddress } from '@/lib/handlers/user.handlers';
-import { ROUTES } from '@/lib/constants/paths';
 
 type FullNameField = ControllerRenderProps<ShippingAddress, 'fullName'>;
 type StreetAddressField = ControllerRenderProps<

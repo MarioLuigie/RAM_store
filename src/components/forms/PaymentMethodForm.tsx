@@ -7,7 +7,11 @@ import { ControllerRenderProps, SubmitHandler, useForm } from 'react-hook-form';
 // lib
 import { PaymentMethod } from '@/lib/types/payment.types';
 import { PaymentMethodSchema } from '@/lib/utils/validators';
+import { handleUpdateUserPaymentMethod } from '@/lib/handlers/user.handlers';
+import { ROUTES } from '@/lib/constants/paths';
+import { DEFAULT_PAYMENT_METHOD, PAYMENT_METHODS } from '@/lib/constants';
 // components
+import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
 	Form,
@@ -17,13 +21,9 @@ import {
 	FormLabel,
 	FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 // import { SHIPPING_ADDRESS_DEFAULT_VALUES } from '@/lib/constants';
 import Loader from '@/components/shared/Loader';
-import { ArrowRight } from 'lucide-react';
-import { handleUpdateUserPaymentMethod } from '@/lib/handlers/user.handlers';
-import { ROUTES } from '@/lib/constants/paths';
-import { DEFAULT_PAYMENT_METHOD } from '@/lib/constants';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 type typeField = ControllerRenderProps<PaymentMethod, 'type'>;
 
@@ -70,11 +70,25 @@ export default function PaymentMethodForm({
 					<FormField
 						control={form.control}
 						name="type"
-						render={({ field }: { field: typeField }) => (
-							<FormItem className="w-full">
-								<FormLabel>Payment method</FormLabel>
+						render={({ field }: { field: typeField}) => (
+							<FormItem className="space-y-3">
 								<FormControl>
-									<Input placeholder="Enter full name" {...field} />
+									<RadioGroup
+										onValueChange={field.onChange}
+										defaultValue={field.value}
+										className="flex flex-col space-y-1"
+									>
+										{PAYMENT_METHODS.map((paymentMethod) => (
+											<FormItem key={paymentMethod} className="flex items-center space-x-3 space-y-0">
+												<FormControl>
+													<RadioGroupItem value={paymentMethod} />
+												</FormControl>
+												<FormLabel className="font-normal">
+													{paymentMethod}
+												</FormLabel>
+											</FormItem>
+										))}
+									</RadioGroup>
 								</FormControl>
 								<FormMessage />
 							</FormItem>

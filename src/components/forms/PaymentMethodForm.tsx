@@ -54,7 +54,7 @@ export default function PaymentMethodForm({
 			await handleUpdateUserPaymentMethod(
 				preferredPaymentMethodValue,
 				router,
-				ROUTES.PAYMENT_METHOD
+				ROUTES.PLACE_ORDER
 			);
 		});
 	};
@@ -70,7 +70,7 @@ export default function PaymentMethodForm({
 					<FormField
 						control={form.control}
 						name="type"
-						render={({ field }: { field: typeField}) => (
+						render={({ field }: { field: typeField }) => (
 							<FormItem className="space-y-3">
 								<FormControl>
 									<RadioGroup
@@ -79,9 +79,17 @@ export default function PaymentMethodForm({
 										className="flex flex-col space-y-1"
 									>
 										{PAYMENT_METHODS.map((paymentMethod) => (
-											<FormItem key={paymentMethod} className="flex items-center space-x-3 space-y-0">
+											<FormItem
+												key={paymentMethod}
+												className="flex items-center space-x-3 space-y-0"
+											>
 												<FormControl>
-													<RadioGroupItem value={paymentMethod} />
+													<RadioGroupItem
+														value={paymentMethod}
+														checked={
+															field.value === paymentMethod
+														}
+													/>
 												</FormControl>
 												<FormLabel className="font-normal">
 													{paymentMethod}

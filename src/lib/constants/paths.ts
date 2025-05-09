@@ -4,6 +4,7 @@ export const ROUTES = {
 	CART: '/cart',
 	SHIPPING_ADDRESS: '/shipping-address',
 	PAYMENT_METHOD: '/payment-method',
+	PLACE_ORDER: '/place-order',
 	SIGN_IN: '/sign-in',
 	SIGN_OUT: '/sign-out',
 	SIGN_UP: '/sign-up',

@@ -16,7 +16,15 @@ export default async function PaymentMethodPage() {
 	return (
 		<>
 			<CheckoutSteps current={2} />
-			<PaymentMethodForm preferredPaymentMethod={user.paymentMethod} />
+			<div className="max-w-md mx-auto space-y-4">
+				<h1 className="h2-bold mt-4">Payment Method</h1>
+				<p className="text-sm text-muted-foreground">
+					Please select your payment method
+				</p>
+				<div className="mt-6">
+					<PaymentMethodForm preferredPaymentMethod={user.paymentMethod} />
+				</div>
+			</div>
 		</>
 	);
 }

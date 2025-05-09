@@ -1,5 +1,6 @@
 import { ShippingAddress } from '@/lib/types/shipping.types';
-import { updateUserAddress } from '@/lib/actions/user.actions';
+import { PaymentMethod } from '@/lib/types/payment.types';
+import { updateUserAddress, updateUserPaymentMethod } from '@/lib/actions/user.actions';
 import { toast } from 'sonner';
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
@@ -10,6 +11,23 @@ export async function handleUpdateUserAddress(
   redirectPath: string,
 ) {
 	const result = await updateUserAddress(address);
+	const { success, message } = result;
+
+	if (success) {
+		toast.success(message);
+		router.push(redirectPath);
+	} else {
+		toast.error(message);
+	}
+}
+
+// USER UPDATE PAYMENT METHOD HANDLER
+export async function handleUpdateUserPaymentMethod(
+	preferredPaymentMethod: PaymentMethod,
+	router: AppRouterInstance,
+  redirectPath: string,
+) {
+	const result = await updateUserPaymentMethod(preferredPaymentMethod);
 	const { success, message } = result;
 
 	if (success) {

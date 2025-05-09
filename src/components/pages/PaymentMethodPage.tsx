@@ -1,8 +1,10 @@
-export default function PaymentMethodPage() {
+import CheckoutSteps from '@/components/shared/CheckoutSteps';
 
-  return (
-    <div>
-      PAYMENT METHOD ROUTE
-    </div>
-  )
+export default function PaymentMethodPage() {
+	return (
+		<>
+			<CheckoutSteps current={2} />
+			<div>PAYMENT METHOD ROUTE</div>
+		</>
+	);
 }

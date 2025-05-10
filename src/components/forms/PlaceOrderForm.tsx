@@ -6,7 +6,8 @@ import { useRouter } from 'next/navigation';
 import { createOrder } from '@/lib/actions/order.actions';
 // components
 import { Button } from '@/components/ui/button';
-import { Loader, Check } from 'lucide-react';
+import { Check } from 'lucide-react';
+import Loader from '@/components/shared/Loader';
 
 export default function PlaceOrderForm() {
 	const router = useRouter();

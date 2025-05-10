@@ -5,6 +5,7 @@ export const ROUTES = {
 	SHIPPING_ADDRESS: '/shipping-address',
 	PAYMENT_METHOD: '/payment-method',
 	PLACE_ORDER: '/place-order',
+	ORDER: '/order',
 	SIGN_IN: '/sign-in',
 	SIGN_OUT: '/sign-out',
 	SIGN_UP: '/sign-up',

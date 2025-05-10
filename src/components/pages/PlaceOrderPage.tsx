@@ -1,11 +1,27 @@
+// modules
+import { redirect } from 'next/navigation';
 // lib
 import { getCart } from '@/lib/actions/cart.actions';
 import { auth } from '@/config/auth';
-// components
-import CheckoutSteps from '@/components/shared/CheckoutSteps';
 import { getUserById } from '@/lib/actions/user.actions';
-import { redirect } from 'next/navigation';
 import { ROUTES } from '@/lib/constants/paths';
+import { ShippingAddress } from '@/lib/types/shipping.types';
+// components
+import Link from 'next/link';
+import CheckoutSteps from '@/components/shared/CheckoutSteps';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from '@/components/ui/table';
+import Image from 'next/image';
+import { formatCurrency } from '@/lib/utils/utils';
+import StyledPrice from '../content/StyledPrice';
 
 export default async function PlaceOrderPage() {
 	const cart = await getCart();
@@ -18,12 +34,133 @@ export default async function PlaceOrderPage() {
 
 	if (!cart || cart.items.length === 0) redirect(ROUTES.CART);
 	if (!user.address) redirect(ROUTES.SHIPPING_ADDRESS);
-	if (!user.paymentMethod) redirect(ROUTES.PAYMENT_METHOD)
+	if (!user.paymentMethod) redirect(ROUTES.PAYMENT_METHOD);
+
+	const userAddress = user.address as ShippingAddress;
+
+	console.log(userAddress);
 
 	return (
 		<>
 			<CheckoutSteps current={3} />
-			<div>PLACE ORDER</div>
+			<div className="mx-auto space-y-4 mb-4">
+				<h1 className="h2-bold mt-4">Place Order</h1>
+				<p className="text-sm text-muted-foreground">Finalize your order</p>
+			</div>
+			<div className="grid md:grid-cols-3 md:gap-5">
+				<div className="md:col-span-2 overflow-x-auto space-y-4">
+					{/* CARD WITH ADDRESS INFO*/}
+					<Card>
+						<CardContent className="p-4 gap-4">
+							<h2 className="text-xl  mb-3">Shipping Address</h2>
+							<p>{userAddress.fullName}</p>
+							<p>
+								{userAddress.streetAddress}, {userAddress.city}{' '}
+								{userAddress.postalCode}, {userAddress.country}{' '}
+							</p>
+							<div className="mt-3">
+								<Link href={ROUTES.SHIPPING_ADDRESS}>
+									<Button variant="outline" className="cursor-pointer">
+										Edit
+									</Button>
+								</Link>
+							</div>
+						</CardContent>
+					</Card>
+
+					{/* CARD WITH PAYMENT METHOD INFO*/}
+					<Card>
+						<CardContent className="p-4 gap-4">
+							<h2 className="text-xl  mb-3">Payment Method</h2>
+							<p>{user.paymentMethod}</p>
+							<div className="mt-3">
+								<Link href={ROUTES.PAYMENT_METHOD}>
+									<Button variant="outline" className="cursor-pointer">
+										Edit
+									</Button>
+								</Link>
+							</div>
+						</CardContent>
+					</Card>
+
+					{/* CARD WITH ORDER ITEMS INFO*/}
+					<Card>
+						<CardContent className="p-4 gap-4">
+							<h2 className="text-xl  mb-3">Order Items</h2>
+							<Table>
+								<TableHeader>
+									<TableRow>
+										<TableHead>Product</TableHead>
+										<TableHead className="text-center">
+											Quantity
+										</TableHead>
+										<TableHead className="text-right">
+											Price
+										</TableHead>
+									</TableRow>
+								</TableHeader>
+								<TableBody>
+									{cart.items.map((item) => (
+										<TableRow key={item.slug}>
+											<TableCell>
+												<Link
+													href={`${ROUTES.PRODUCT}/${item.slug}`}
+													className="flex items-center gap-5"
+												>
+													<Image
+														src={item.image}
+														alt={item.name}
+														className="w-[45px] h-[45px] flex-shrink-0 rounded-sm"
+														width={45}
+														height={45}
+													/>
+													<p>{item.name}</p>
+												</Link>
+											</TableCell>
+
+											<TableCell className="text-center">
+												{item.qty}
+											</TableCell>
+
+											<TableCell className="text-right">{`${formatCurrency(
+												(Number(item.price) * item.qty).toFixed(2)
+											)}`}</TableCell>
+										</TableRow>
+									))}
+								</TableBody>
+							</Table>
+						</CardContent>
+					</Card>
+				</div>
+
+				<div>
+					<Card>
+						<CardContent className="p-4 gap-4 space-y-4">
+							<div className='space-y-2 text-muted-foreground'>
+								<div className="flex justify-between ">
+									<p>Products Price</p>
+									<p>{formatCurrency(cart.itemsPrice)}</p>
+								</div>
+
+								<div className="flex justify-between ">
+									<p>Tax Price</p>
+									<p>{formatCurrency(cart.taxPrice)}</p>
+								</div>
+
+								<div className="flex justify-between ">
+									<p>Shipping Price</p>
+									<p>{formatCurrency(cart.shippingPrice)}</p>
+								</div>
+							</div>
+
+							<div className="flex justify-between ">
+								<p className='text-xl'>Total Price</p>
+								<StyledPrice price={cart.totalPrice} />
+							</div>
+						</CardContent>
+					</Card>
+				</div>
+			</div>
 		</>
 	);
 }

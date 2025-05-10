@@ -21,7 +21,8 @@ import {
 } from '@/components/ui/table';
 import Image from 'next/image';
 import { formatCurrency } from '@/lib/utils/utils';
-import StyledPrice from '../content/StyledPrice';
+import StyledPrice from '@/components/content/StyledPrice';
+import PlaceOrderForm from '@/components/forms/PlaceOrderForm';
 
 export default async function PlaceOrderPage() {
 	const cart = await getCart();
@@ -157,6 +158,7 @@ export default async function PlaceOrderPage() {
 								<p className='text-xl'>Total Price</p>
 								<StyledPrice price={cart.totalPrice} />
 							</div>
+							<PlaceOrderForm />
 						</CardContent>
 					</Card>
 				</div>

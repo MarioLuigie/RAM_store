@@ -15,8 +15,13 @@ import {
 } from '@/components/ui/sheet';
 import NavUser from '@/components/shared/NavUser';
 import CartBadge from '@/components/content/CartBadge';
+import { CartItem } from '@/lib/types/cart.types';
 
-const MenuItems = () => (
+const MenuItems = ({
+	cartItemsQty
+}: {
+	cartItemsQty: number
+}) => (
 	<>
 		{/* MODE TOGGLE DROPDOWN MENU BUTTON */}
 		<ModeToggle />
@@ -25,8 +30,8 @@ const MenuItems = () => (
 		<Button asChild variant="ghost" aria-label="Go to cart">
 			<Link href={ROUTES.CART}>
 				<div className='flex-center gap-2 relative'>
-					<ShoppingCart />
-					<CartBadge quantity={2} /> Cart
+					<ShoppingCart className='z-20'/>
+					<CartBadge quantity={cartItemsQty} /> Cart
 				</div>
 			</Link>
 		</Button>
@@ -36,13 +41,17 @@ const MenuItems = () => (
 	</>
 );
 
-export default function Menu() {
+export default function Menu({
+	cartItems
+}: {
+	cartItems: CartItem[]
+}) {
 	return (
 		<>
 			{/* DESKTOP MENU */}
 			<nav className="hidden md:flex md:items-center gap-3">
 				{/* MENU CONTENT */}
-				<MenuItems />
+				<MenuItems cartItemsQty={cartItems.length} />
 			</nav>
 
 			{/* MOBILE MENU */}
@@ -56,7 +65,7 @@ export default function Menu() {
 						<SheetDescription></SheetDescription>
 						{/* MENU CONTENT */}
 						<div className="flex flex-col items-start gap-3 w-full px-4">
-							<MenuItems />
+							<MenuItems cartItemsQty={cartItems.length} />
 						</div>
 					</SheetContent>
 				</Sheet>

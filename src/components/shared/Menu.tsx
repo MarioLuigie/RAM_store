@@ -1,19 +1,20 @@
 // modules
-import { EllipsisVertical, ShoppingCart } from 'lucide-react'
+import { EllipsisVertical, ShoppingCart } from 'lucide-react';
 //lib
-import { ROUTES } from '@/lib/constants/paths'
+import { ROUTES } from '@/lib/constants/paths';
 // components
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import ModeToggle from '@/components/shared/ModeToggle'
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import ModeToggle from '@/components/shared/ModeToggle';
 import {
 	Sheet,
 	SheetTrigger,
 	SheetContent,
 	SheetTitle,
 	SheetDescription,
-} from '@/components/ui/sheet'
-import NavUser from '@/components/shared/NavUser'
+} from '@/components/ui/sheet';
+import NavUser from '@/components/shared/NavUser';
+import CartBadge from '@/components/content/CartBadge';
 
 const MenuItems = () => (
 	<>
@@ -21,16 +22,19 @@ const MenuItems = () => (
 		<ModeToggle />
 
 		{/* CART BUTTON */}
-		<Button asChild variant="ghost" aria-label='Go to cart'>
+		<Button asChild variant="ghost" aria-label="Go to cart">
 			<Link href={ROUTES.CART}>
-				<ShoppingCart /> Cart
+				<div className='flex-center gap-2 relative'>
+					<ShoppingCart />
+					<CartBadge quantity={2} /> Cart
+				</div>
 			</Link>
 		</Button>
 
 		{/* SIGN IN BUTTON  OR LOGGED IN USER BUTTONS DROPDOWN MENU - depend on there is the session user or not*/}
 		<NavUser />
 	</>
-)
+);
 
 export default function Menu() {
 	return (
@@ -58,5 +62,5 @@ export default function Menu() {
 				</Sheet>
 			</nav>
 		</>
-	)
+	);
 }

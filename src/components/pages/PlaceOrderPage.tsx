@@ -11,10 +11,9 @@ import Link from 'next/link';
 import CheckoutSteps from '@/components/shared/CheckoutSteps';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { formatCurrency } from '@/lib/utils/utils';
-import StyledPrice from '@/components/content/StyledPrice';
-import PlaceOrderForm from '@/components/forms/PlaceOrderForm';
 import OrderItemsTable from '@/components/content/OrderItemsTable';
+import OrderPrices from '@/components/content/OrderPrices';
+import PlaceOrderForm from '@/components/forms/PlaceOrderForm';
 
 export default async function PlaceOrderPage() {
 	const cart = await getCart();
@@ -87,27 +86,12 @@ export default async function PlaceOrderPage() {
 				<div>
 					<Card>
 						<CardContent className="p-4 gap-4 space-y-4">
-							<div className='space-y-2 text-muted-foreground'>
-								<div className="flex justify-between ">
-									<p>Products Price</p>
-									<p>{formatCurrency(cart.itemsPrice)}</p>
-								</div>
-
-								<div className="flex justify-between ">
-									<p>Tax Price</p>
-									<p>{formatCurrency(cart.taxPrice)}</p>
-								</div>
-
-								<div className="flex justify-between ">
-									<p>Shipping Price</p>
-									<p>{formatCurrency(cart.shippingPrice)}</p>
-								</div>
-							</div>
-
-							<div className="flex justify-between ">
-								<p className='text-xl'>Total Price</p>
-								<StyledPrice price={cart.totalPrice} />
-							</div>
+							<OrderPrices
+								itemsPrice={cart.itemsPrice}
+								shippingPrice={cart.shippingPrice}
+								taxPrice={cart.taxPrice}
+								totalPrice={cart.totalPrice}
+							/>
 							<PlaceOrderForm />
 						</CardContent>
 					</Card>

@@ -4,6 +4,8 @@ import { Order } from '@/lib/types/order.types';
 import { formatDateTime, formatId } from '@/lib/utils/utils';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '../ui/badge';
+import OrderItemsTable from '@/components/content/OrderItemsTable';
+import OrderPrices from './OrderPrices';
 
 export default function OrderDetails({ order }: { order: Order }) {
 	const {
@@ -62,11 +64,22 @@ export default function OrderDetails({ order }: { order: Order }) {
 						</CardContent>
 					</Card>
 
-					{/* ORDER ITEMS */}
+					{/* ORDER ITEMS TABLE*/}
 					<Card>
 						<CardContent className="p-4 gap-4">
-							<h2 className="text-xl pb-4">Order Items</h2>
-							
+							<OrderItemsTable items={orderitems} />
+						</CardContent>
+					</Card>
+
+					{/* ORDER PRICES CARD*/}
+					<Card>
+						<CardContent className="p-4 gap-4 space-y-4">
+							<OrderPrices
+								itemsPrice={itemsPrice}
+								shippingPrice={shippingPrice}
+								taxPrice={taxPrice}
+								totalPrice={totalPrice}
+							/>
 						</CardContent>
 					</Card>
 				</div>

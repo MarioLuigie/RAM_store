@@ -1,7 +1,7 @@
 // modules
 import { Metadata } from 'next';
 // components
-import OrderPage from '@/components/pages/OrderPage';
+import OrderDetailsPage from '@/components/pages/OrderDetailsPage';
 
 export const metadata: Metadata = {
 	title: 'Order',
@@ -16,8 +16,7 @@ export default async function Page({
 
 	return (
 		<>
-			<OrderPage />
-			{id}
+			<OrderDetailsPage orderId={id} />
 		</>
 	);
 }

@@ -12,5 +12,5 @@ export default async function OrderDetailsPage({
 
 	if (!order) notFound();
 
-	return <div>ORDER DETAILS PAGE</div>;
+	return <div>ORDER DETAILS PAGE{order.itemsPrice}</div>;
 }

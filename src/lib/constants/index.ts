@@ -10,6 +10,22 @@ export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || 'RAM';
 export const APP_DESC =
 	process.env.NEXT_PUBLIC_APP_DESC || 'RAM. Interpret as you wish.';
 export const APP_ROUTE_NAME_HOME = 'Home';
+export const LOCALE_CODES = {
+	usa: 'en-US',
+	ger: 'de-DE',
+	pol: 'pl-PL',
+	fra: 'fr-FR',
+	esp: 'es-ES',
+	eng: 'en-GB',
+}
+export const CURRENCY_CODES = {
+	usa: 'USD',
+	ger: 'EUR',
+	pol: 'PLN',
+	fra: 'EUR',
+	esp: 'EUR',
+	eng: 'GBP',
+}
 
 //SERVER
 export const SERVER_URL =

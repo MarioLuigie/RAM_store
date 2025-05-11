@@ -3,6 +3,7 @@ import { twMerge } from 'tailwind-merge';
 import { Decimal } from '@prisma/client/runtime/library';
 import { CartItem } from '../types/cart.types';
 import { Prices } from '../types/products.types';
+import { LOCALE_CODES, CURRENCY_CODES } from '../constants';
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -60,8 +61,8 @@ export function calcPrices(items: CartItem[]) {
 	return prices;
 }
 
-const CURRENCY_FORMATTER = new Intl.NumberFormat('de-DE', {
-	currency: 'EUR',
+const CURRENCY_FORMATTER = new Intl.NumberFormat(LOCALE_CODES.ger, {
+	currency: CURRENCY_CODES.ger,
 	style: 'currency',
 	minimumFractionDigits: 2,
 });
@@ -80,8 +81,8 @@ export function formatCurrency(amount: number | string | null) {
 // Format currency using the formatter and return currency parts e.x for styling items
 export function formatCurrencyParts(
 	amount: number | string,
-	locale = 'de-DE',
-	currencyCode = 'EUR'
+	locale = LOCALE_CODES.ger,
+	currencyCode = CURRENCY_CODES.ger
 ) {
 	const number = typeof amount === 'number' ? amount : Number(amount)
 
@@ -103,3 +104,47 @@ export function formatCurrencyParts(
 	return { currency, integer, fraction, symbolFirst, literal }
 }
 
+// SHORTEN UUID
+export function formatId(id: string) {
+	return `..${id.substring(id.length - 6)}`
+}
+
+// FORMAT DATE AND TIMES
+export const formatDateTime = (dateString: Date) => {
+  const dateTimeOptions: Intl.DateTimeFormatOptions = {
+    month: 'short', // abbreviated month name (e.g., 'Oct')
+    year: 'numeric', // abbreviated month name (e.g., 'Oct')
+    day: 'numeric', // numeric day of the month (e.g., '25')
+    hour: 'numeric', // numeric hour (e.g., '8')
+    minute: 'numeric', // numeric minute (e.g., '30')
+    hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
+  };
+  const dateOptions: Intl.DateTimeFormatOptions = {
+    weekday: 'short', // abbreviated weekday name (e.g., 'Mon')
+    month: 'short', // abbreviated month name (e.g., 'Oct')
+    year: 'numeric', // numeric year (e.g., '2023')
+    day: 'numeric', // numeric day of the month (e.g., '25')
+  };
+  const timeOptions: Intl.DateTimeFormatOptions = {
+    hour: 'numeric', // numeric hour (e.g., '8')
+    minute: 'numeric', // numeric minute (e.g., '30')
+    hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
+  };
+  const formattedDateTime: string = new Date(dateString).toLocaleString(
+    LOCALE_CODES.ger,
+    dateTimeOptions
+  );
+  const formattedDate: string = new Date(dateString).toLocaleString(
+    LOCALE_CODES.ger,
+    dateOptions
+  );
+  const formattedTime: string = new Date(dateString).toLocaleString(
+    LOCALE_CODES.ger,
+    timeOptions
+  );
+  return {
+    dateTime: formattedDateTime,
+    dateOnly: formattedDate,
+    timeOnly: formattedTime,
+  };
+};

@@ -106,7 +106,7 @@ export function formatCurrencyParts(
 
 // SHORTEN UUID
 export function formatId(id: string) {
-	return `..${id.substring(id.length - 6)}`
+	return `...${id.substring(id.length - 6)}`
 }
 
 // FORMAT DATE AND TIMES

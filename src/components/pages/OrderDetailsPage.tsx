@@ -2,6 +2,8 @@
 import { notFound } from 'next/navigation';
 // lib
 import { getOrderById } from '@/lib/actions/order.actions';
+// componnets
+import OrderDetailsTable from '@/components/content/OrderDetailsTable';
 
 export default async function OrderDetailsPage({
 	orderId,
@@ -12,5 +14,11 @@ export default async function OrderDetailsPage({
 
 	if (!order) notFound();
 
-	return <div>ORDER DETAILS PAGE{order.itemsPrice}</div>;
+	return (
+    <div>
+      ORDER DETAILS PAGE
+      {order.itemsPrice}
+      <OrderDetailsTable />
+    </div>
+  )
 }

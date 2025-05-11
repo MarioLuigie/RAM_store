@@ -61,8 +61,8 @@ export function calcPrices(items: CartItem[]) {
 	return prices;
 }
 
-const CURRENCY_FORMATTER = new Intl.NumberFormat(LOCALE_CODES.ger, {
-	currency: CURRENCY_CODES.ger,
+const CURRENCY_FORMATTER = new Intl.NumberFormat(LOCALE_CODES.main, {
+	currency: CURRENCY_CODES.main,
 	style: 'currency',
 	minimumFractionDigits: 2,
 });
@@ -81,8 +81,8 @@ export function formatCurrency(amount: number | string | null) {
 // Format currency using the formatter and return currency parts e.x for styling items
 export function formatCurrencyParts(
 	amount: number | string,
-	locale = LOCALE_CODES.ger,
-	currencyCode = CURRENCY_CODES.ger
+	locale = LOCALE_CODES.main,
+	currencyCode = CURRENCY_CODES.main
 ) {
 	const number = typeof amount === 'number' ? amount : Number(amount)
 
@@ -131,15 +131,15 @@ export const formatDateTime = (dateString: Date) => {
     hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
   };
   const formattedDateTime: string = new Date(dateString).toLocaleString(
-    LOCALE_CODES.ger,
+    LOCALE_CODES.main,
     dateTimeOptions
   );
   const formattedDate: string = new Date(dateString).toLocaleString(
-    LOCALE_CODES.ger,
+    LOCALE_CODES.main,
     dateOptions
   );
   const formattedTime: string = new Date(dateString).toLocaleString(
-    LOCALE_CODES.ger,
+    LOCALE_CODES.main,
     timeOptions
   );
   return {

@@ -11,6 +11,7 @@ export const APP_DESC =
 	process.env.NEXT_PUBLIC_APP_DESC || 'RAM. Interpret as you wish.';
 export const APP_ROUTE_NAME_HOME = 'Home';
 export const LOCALE_CODES = {
+	main: 'de-DE',
 	usa: 'en-US',
 	ger: 'de-DE',
 	pol: 'pl-PL',
@@ -19,6 +20,7 @@ export const LOCALE_CODES = {
 	eng: 'en-GB',
 }
 export const CURRENCY_CODES = {
+	main: 'EUR',
 	usa: 'USD',
 	ger: 'EUR',
 	pol: 'PLN',

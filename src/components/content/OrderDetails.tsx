@@ -34,13 +34,15 @@ export default function OrderDetails({ order }: { order: Order }) {
 						<CardContent className="p-4 gap-4">
 							<h2 className="text-xl pb-4">Payment Method</h2>
 							<p>{paymentMethod}</p>
-							{isPaid ? (
-								<Badge variant="secondary">
-									Paid at {formatDateTime(paidAt!).dateTime}
-								</Badge>
-							) : (
-								<Badge variant="destructive">Not paid</Badge>
-							)}
+							<div className="mt-2">
+								{isPaid ? (
+									<Badge variant="secondary">
+										Paid at {formatDateTime(paidAt!).dateTime}
+									</Badge>
+								) : (
+									<Badge variant="destructive">Not paid</Badge>
+								)}
+							</div>
 						</CardContent>
 					</Card>
 
@@ -55,13 +57,16 @@ export default function OrderDetails({ order }: { order: Order }) {
 							<p>
 								{shippingAddress.postalCode}, {shippingAddress.country}
 							</p>
-							{isDelivered ? (
-								<Badge variant="secondary">
-									Delivered at {formatDateTime(deliveredAt!).dateTime}
-								</Badge>
-							) : (
-								<Badge variant="destructive">Not delivered</Badge>
-							)}
+							<div className="mt-2">
+								{isDelivered ? (
+									<Badge variant="secondary">
+										Delivered at{' '}
+										{formatDateTime(deliveredAt!).dateTime}
+									</Badge>
+								) : (
+									<Badge variant="destructive">Not delivered</Badge>
+								)}
+							</div>
 						</CardContent>
 					</Card>
 

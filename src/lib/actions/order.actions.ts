@@ -110,3 +110,29 @@ export async function createOrder() {
 		};
 	}
 }
+
+// GET ORDER BY ID
+export async function getOrderById(orderId: string) {
+	try {
+		console.log(orderId)
+
+		const data = await prisma.order.findFirst({
+			where: { id: orderId},
+			include: {
+				orderItems: true,
+				
+			}
+		})
+
+		return {
+			success: true,
+			message: 'Order found with successfully'
+		}
+		
+	} catch (error) {
+		return {
+			success: false,
+			message: formatErrorMessages(error),
+		}
+	}
+}

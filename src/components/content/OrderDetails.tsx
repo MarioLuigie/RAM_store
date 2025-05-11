@@ -1,11 +1,12 @@
 'use client';
-
+// lib
 import { Order } from '@/lib/types/order.types';
 import { formatDateTime, formatId } from '@/lib/utils/utils';
+// components
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '../ui/badge';
+import { Badge } from '@/components/ui/badge';
 import OrderItemsTable from '@/components/content/OrderItemsTable';
-import OrderPrices from './OrderPrices';
+import OrderPrices from '@/components/content/OrderPrices';
 
 export default function OrderDetails({ order }: { order: Order }) {
 	const {

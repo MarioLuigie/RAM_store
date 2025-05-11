@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { getOrderById } from '@/lib/actions/order.actions';
 // componnets
 import OrderDetailsTable from '@/components/content/OrderDetailsTable';
+import { ShippingAddress } from '@/lib/types/shipping.types';
 
 export default async function OrderDetailsPage({
 	orderId,
@@ -18,7 +19,10 @@ export default async function OrderDetailsPage({
     <div>
       ORDER DETAILS PAGE
       {order.itemsPrice}
-      <OrderDetailsTable />
+      <OrderDetailsTable order={{
+        ...order,
+        shippingAddress: order.shippingAddress as ShippingAddress,
+      }} />
     </div>
   )
 }

@@ -10,6 +10,7 @@ import { ROUTES } from '../constants/paths';
 import { OrderSchema } from '../utils/validators';
 import { prisma } from '@/lib/db/prisma';
 import { CartItem } from '../types/cart.types';
+import { convertToPlainObject } from '../utils/utils';
 
 // CREATE ORDER AND ORDER ITEMS
 export async function createOrder() {
@@ -94,14 +95,13 @@ export async function createOrder() {
 			return insertedOrder.id;
 		});
 
-    if (!insertedOrderId) throw new Error('Order not created');
+		if (!insertedOrderId) throw new Error('Order not created');
 
 		return {
 			success: true,
 			message: 'Order created successfully',
-      redirectTo: `${ROUTES.ORDER}/${insertedOrderId}`,
+			redirectTo: `${ROUTES.ORDER}/${insertedOrderId}`,
 		};
-
 	} catch (error) {
 		if (isRedirectError(error)) throw new Error();
 		return {
@@ -114,25 +114,31 @@ export async function createOrder() {
 // GET ORDER BY ID
 export async function getOrderById(orderId: string) {
 	try {
-		console.log(orderId)
+		console.log(orderId);
 
 		const data = await prisma.order.findFirst({
-			where: { id: orderId},
+			where: { id: orderId },
 			include: {
-				orderItems: true,
-				
-			}
-		})
+				orderitems: true,
+				user: {
+					select: { name: true, email: true },
+				},
+			},
+		});
+
+		const order = convertToPlainObject(data);
 
 		return {
 			success: true,
-			message: 'Order found with successfully'
-		}
+			data: order,
+			message: 'Order found with successfully',
+		};
 		
 	} catch (error) {
 		return {
 			success: false,
+			data: null,
 			message: formatErrorMessages(error),
-		}
+		};
 	}
 }

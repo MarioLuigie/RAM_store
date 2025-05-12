@@ -33,9 +33,9 @@ export const paypal = {
 			throw new Error(errorMessage);
 		}
 	},
-	capturePayment: async (orderId: string) => {
+	capturePayment: async (paypalOrderId: string) => {
 		const accessToken = await generateAccessToken();
-		const url = `${base}/v2/checkout/orders/${orderId}/capture`;
+		const url = `${base}/v2/checkout/orders/${paypalOrderId}/capture`;
 
 		const res = await fetch(url, {
 			method: 'POST',

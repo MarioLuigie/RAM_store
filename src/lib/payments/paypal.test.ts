@@ -1,5 +1,6 @@
 import { CURRENCY_CODES } from '../constants/index';
 import { generateAccessToken, paypal } from './paypal';
+import { PayPalStatus } from '../constants/enums';
 
 // TEST TO GENERATE ACCESS TOKEN FROM PAYPAL - E2E TEST
 test('generates token from paypal', async () => {
@@ -20,7 +21,7 @@ test('creates a paypal order', async () => {
 
 	expect(orderRes).toHaveProperty('id');
 	expect(orderRes).toHaveProperty('status');
-	expect(orderRes.status).toBe('CREATED');
+	expect(orderRes.status).toBe(PayPalStatus.CREATED);
 });
 
 // TEST TO CAPTURE PAYMENT WITH MOCK ORDER - UNIT TEST
@@ -30,13 +31,13 @@ test('simulate capturing a payment from an order', async () => {
 	const mockCapturePayment = jest
 		.spyOn(paypal, 'capturePayment')
 		.mockResolvedValue({
-			status: 'COMPLETED',
+			status: PayPalStatus.COMPLETED,
 		});
 
 	const captureRes = await paypal.capturePayment(orderId);
 	console.log(captureRes);
 
-	expect(captureRes).toHaveProperty('status', 'COMPLETED');
+	expect(captureRes).toHaveProperty('status', PayPalStatus.COMPLETED);
 
 	mockCapturePayment.mockRestore();
 });

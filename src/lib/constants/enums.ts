@@ -36,3 +36,8 @@ export enum AuthRole {
   GUEST = "guest",
 }
 
+export enum PayPalStatus {
+	COMPLETED = 'COMPLETED',
+	CREATED = 'CREATED'
+}
+

@@ -130,3 +130,11 @@ export const PaymentMethodSchema = z
 		price: currency,
 		qty: z.number(),
 	});
+
+	// SCHEMA FOR PAYMENT RESULT
+	export const PaymentResultSchema = z.object({
+		id: z.string(),
+		status: z.string(),
+		email_address: z.string(),
+		pricePaid: z.string(),
+	});

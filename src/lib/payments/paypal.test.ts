@@ -1,7 +1,7 @@
 import { CURRENCY_CODES } from '../constants/index';
 import { generateAccessToken, paypal } from './paypal';
 
-// TEST TO GENERATE ACCESS TOKEN FROM PAYPAL
+// TEST TO GENERATE ACCESS TOKEN FROM PAYPAL - E2E TEST
 test('generates token from paypal', async () => {
 	const tokenRes = await generateAccessToken();
 	console.log(tokenRes);
@@ -11,7 +11,7 @@ test('generates token from paypal', async () => {
 	expect(typeof CURRENCY_CODES.main).toBe('string');
 });
 
-// TEST TO CREATE A PAYPAL ORDER
+// TEST TO CREATE A PAYPAL ORDER - E2E TEST
 test('creates a paypal order', async () => {
 	const price = 10.0;
 
@@ -23,7 +23,7 @@ test('creates a paypal order', async () => {
 	expect(orderRes.status).toBe('CREATED');
 });
 
-// TEST TO CAPTURE PAYMENT WITH MOCK ORDER
+// TEST TO CAPTURE PAYMENT WITH MOCK ORDER - UNIT TEST
 test('simulate capturing a payment from an order', async () => {
 	const orderId = '100';
 

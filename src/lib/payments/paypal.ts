@@ -33,6 +33,25 @@ export const paypal = {
 			throw new Error(errorMessage);
 		}
 	},
+	capturePayment: async (orderId: string) => {
+		const accessToken = await generateAccessToken();
+		const url = `${base}/v2/checkout/orders/${orderId}/capture`;
+
+		const res = await fetch(url, {
+			method: 'POST',
+			headers: {
+				Authorization: `Bearer ${accessToken}`,
+				'Content-Type': 'application/json',
+			},
+		});
+
+		if (res.ok) {
+			return await res.json();
+		} else {
+			const errorMessage = await res.text();
+			throw new Error(errorMessage);
+		}
+	},
 };
 
 // GENERATE PAYPAL ACCESS TOKEN

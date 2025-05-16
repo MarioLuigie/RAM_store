@@ -104,16 +104,16 @@ export async function updateOrderToPaid({
 	// Get order from db
 	const order = await prisma.order.findFirst({
 		where: { id: orderId },
-    include: {
-      orderitems: true
-    }
+		include: {
+			orderitems: true,
+		},
 	});
 
-  if (!order) throw new Error('Order not found');
+	if (!order) throw new Error('Order not found');
 
-  if (order.isPaid) throw new Error('Order is already paid');
+	if (order.isPaid) throw new Error('Order is already paid');
 
-  // Transaction
+	// Transaction
 }
 
 // S-T-R-I-P-E

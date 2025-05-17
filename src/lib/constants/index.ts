@@ -20,6 +20,16 @@ export const LOCALE_CODES = {
 	esp: 'es-ES',
 	eng: 'en-GB',
 }
+
+export const PAYPAL_LOCALE_CODES = {
+	main: 'de_DE',
+	usa: 'en_US',
+	ger: 'de_DE',
+	pol: 'pl_PL',
+	fra: 'fr_FR',
+	esp: 'es_ES',
+	eng: 'en_GB',
+}
 export const CURRENCY_CODES = {
 	main: 'EUR',
 	usa: 'USD',

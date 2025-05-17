@@ -9,15 +9,17 @@ import {
 import { Order } from '@/lib/types/order.types';
 import { formatDateTime, formatId } from '@/lib/utils/utils';
 import {
-	createPayPalOrder,
-	approvePayPalOrder,
-} from '@/lib/actions/payment.actions';
+	handleCreatePayPalOrder,
+	handleApprovePayPalOrder,
+} from '@/lib/handlers/payment.handlers';
 // components
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import OrderItemsTable from '@/components/content/OrderItemsTable';
 import OrderPrices from '@/components/content/OrderPrices';
 import { PaymentMethod } from '@/lib/constants/enums';
+import { useCustomToast } from '@/lib/hooks/useCustomToast';
+import { CURRENCY_CODES, PAYPAL_LOCALE_CODES } from '@/lib/constants';
 
 export default function OrderDetails({
 	order,
@@ -40,6 +42,19 @@ export default function OrderDetails({
 		paidAt,
 		deliveredAt,
 	} = order;
+
+	const { showCustomToast } = useCustomToast();
+
+	const PrintLoadingState = () => {
+		const [{ isPending, isRejected }] = usePayPalScriptReducer();
+		let status = '';
+		if (isPending) {
+			status = 'Loading PayPal...';
+		} else if (isRejected) {
+			status = 'Error loading PayPal...';
+		}
+		return status;
+	};
 
 	return (
 		<>
@@ -107,9 +122,27 @@ export default function OrderDetails({
 							/>
 							{/* PAYPAL PAYMENT BUTTON */}
 							{!isPaid && paymentMethod === PaymentMethod.PAYPAL && (
-								<div className='mt-8'>
-									<PayPalScriptProvider options={{ clientId: paypalClientId }}>
-										<PayPalButtons />
+								<div className="mt-8">
+									<PayPalScriptProvider
+										options={{
+											clientId: paypalClientId,
+											currency: CURRENCY_CODES.main,
+											locale: PAYPAL_LOCALE_CODES.main
+										}}
+									>
+										<PrintLoadingState />
+										<PayPalButtons
+											createOrder={() =>
+												handleCreatePayPalOrder(id, showCustomToast)
+											}
+											onApprove={(data) =>
+												handleApprovePayPalOrder(
+													id,
+													data,
+													showCustomToast
+												)
+											}
+										/>
 									</PayPalScriptProvider>
 								</div>
 							)}

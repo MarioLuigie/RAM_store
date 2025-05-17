@@ -41,7 +41,7 @@ export enum PayPalStatus {
 	CREATED = 'CREATED',
 }
 
-export enum PayPalMethod {
+export enum PaymentMethod {
 	PAYPAL = 'PayPal',
 	STRIPE = 'Stripe',
 	CASH_ON_DELIVERY = 'CashOnDelivery',

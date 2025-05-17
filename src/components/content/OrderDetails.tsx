@@ -17,6 +17,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import OrderItemsTable from '@/components/content/OrderItemsTable';
 import OrderPrices from '@/components/content/OrderPrices';
+import { PaymentMethod } from '@/lib/constants/enums';
 
 export default function OrderDetails({
 	order,
@@ -105,7 +106,13 @@ export default function OrderDetails({
 								totalPrice={totalPrice}
 							/>
 							{/* PAYPAL PAYMENT BUTTON */}
-							{!isPaid && paymentMethod === }
+							{!isPaid && paymentMethod === PaymentMethod.PAYPAL && (
+								<div className='mt-8'>
+									<PayPalScriptProvider options={{ clientId: paypalClientId }}>
+										<PayPalButtons />
+									</PayPalScriptProvider>
+								</div>
+							)}
 						</CardContent>
 					</Card>
 				</div>

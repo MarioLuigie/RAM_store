@@ -77,7 +77,7 @@ export async function approvePayPalOrder(
 		}
 
 		// Update order to paid in db (isPaid, paidAt - to update)
-		const updatedOrder = await updateOrderToPaid({
+		await updateOrderToPaid({
 			orderId,
 			paymentResult: {
 				id: captureData.id,

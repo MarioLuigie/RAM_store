@@ -7,7 +7,7 @@ import { paypal } from '@/lib/payments/paypal';
 import { formatErrorMessages } from '@/lib/utils/server';
 import { prisma } from '@/lib/db/prisma';
 import { PayPalStatus } from '@/lib/constants/enums';
-import { ROUTES } from '../constants/paths';
+import { ROUTES } from '@/lib/constants/paths';
 
 // P-A-Y-P-A-L
 // CREATE NEW PAYPAL ORDER
@@ -15,7 +15,7 @@ export async function createPayPalOrder(orderId: string) {
 	try {
 		// Get order from db
 		const order = await prisma.order.findFirst({
-			where: { id: orderId },
+			where: { id: orderId }
 		});
 
 		if (order) {

@@ -1,6 +1,7 @@
 // lib
 import { MENU_LABELS } from '@/lib/constants/texts';
 import { ROUTES } from '@/lib/constants/paths';
+import { PayPalMethod } from '@/lib/constants/enums';
 
 // COOKIES
 export const SESSION_CART_ID = 'ram-session-cart-id';
@@ -72,7 +73,7 @@ export const DEFAULT_ACTION_STATE = {
 // PAYMENT METHODS
 export const PAYMENT_METHODS = process.env.PAYMENT_METHODS
 	? process.env.PAYMENT_METHODS.split(', ')
-	: ['PayPal', 'Stripe', 'CashOnDelivery'];
+	: [PayPalMethod.PAYPAL, PayPalMethod.STRIPE, PayPalMethod.CASH_ON_DELIVERY];
 
 export const DEFAULT_PAYMENT_METHOD =
-	process.env.DEFAULT_PAYMENT_METHOD || 'PayPal';
+	process.env.DEFAULT_PAYMENT_METHOD || PayPalMethod.PAYPAL;

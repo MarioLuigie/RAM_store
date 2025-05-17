@@ -30,14 +30,19 @@ export enum AuthTypes {
 }
 
 export enum AuthRole {
-  USER = "user",
-  ADMIN = "admin",
-  MODERATOR = "moderator",
-  GUEST = "guest",
+	USER = 'user',
+	ADMIN = 'admin',
+	MODERATOR = 'moderator',
+	GUEST = 'guest',
 }
 
 export enum PayPalStatus {
 	COMPLETED = 'COMPLETED',
-	CREATED = 'CREATED'
+	CREATED = 'CREATED',
 }
 
+export enum PayPalMethod {
+	PAYPAL = 'PayPal',
+	STRIPE = 'Stripe',
+	CASH_ON_DELIVERY = 'CashOnDelivery',
+}

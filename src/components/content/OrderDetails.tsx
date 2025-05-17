@@ -1,14 +1,30 @@
 'use client';
+// modules
+import {
+	PayPalScriptProvider,
+	PayPalButtons,
+	usePayPalScriptReducer,
+} from '@paypal/react-paypal-js';
 // lib
 import { Order } from '@/lib/types/order.types';
 import { formatDateTime, formatId } from '@/lib/utils/utils';
+import {
+	createPayPalOrder,
+	approvePayPalOrder,
+} from '@/lib/actions/payment.actions';
 // components
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import OrderItemsTable from '@/components/content/OrderItemsTable';
 import OrderPrices from '@/components/content/OrderPrices';
 
-export default function OrderDetails({ order }: { order: Order }) {
+export default function OrderDetails({
+	order,
+	paypalClientId,
+}: {
+	order: Order;
+	paypalClientId: string;
+}) {
 	const {
 		id,
 		orderitems,
@@ -88,6 +104,8 @@ export default function OrderDetails({ order }: { order: Order }) {
 								taxPrice={taxPrice}
 								totalPrice={totalPrice}
 							/>
+							{/* PAYPAL PAYMENT BUTTON */}
+							{!isPaid && paymentMethod === }
 						</CardContent>
 					</Card>
 				</div>

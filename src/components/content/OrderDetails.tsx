@@ -76,8 +76,10 @@ export default function OrderDetails({ order }: { order: Order }) {
 							<OrderItemsTable items={orderitems} />
 						</CardContent>
 					</Card>
+				</div>
 
-					{/* ORDER PRICES CARD*/}
+				{/* ORDER PRICES CARD*/}
+				<div>
 					<Card>
 						<CardContent className="p-4 gap-4 space-y-4">
 							<OrderPrices

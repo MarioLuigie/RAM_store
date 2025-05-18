@@ -12,7 +12,7 @@ export default async function OrdersPage({ page }: { page: string }) {
 		return (
 			<div>
 				<h2 className="text-xl  mb-3">My Orders</h2>
-				<p className='text-center'>Orders not found</p>
+				<p className="text-center">Orders not found</p>
 			</div>
 		);
 	}

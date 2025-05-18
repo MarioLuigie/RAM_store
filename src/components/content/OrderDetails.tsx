@@ -20,6 +20,7 @@ import OrderPrices from '@/components/content/OrderPrices';
 import { PaymentMethod } from '@/lib/constants/enums';
 import { useCustomToast } from '@/lib/hooks/useCustomToast';
 import { CURRENCY_CODES, PAYPAL_LOCALE_CODES } from '@/lib/constants';
+import { Check } from 'lucide-react';
 
 export default function OrderDetails({
 	order,
@@ -68,9 +69,12 @@ export default function OrderDetails({
 							<p>{paymentMethod}</p>
 							<div className="mt-2">
 								{isPaid ? (
-									<Badge variant="secondary">
-										Paid at {formatDateTime(paidAt!).dateTime}
-									</Badge>
+									<div className="flex items-center gap-2">
+										<Badge variant="secondary">
+											Paid at {formatDateTime(paidAt!).dateTime}
+										</Badge>
+										<Check />
+									</div>
 								) : (
 									<Badge variant="destructive">Not paid</Badge>
 								)}
@@ -91,10 +95,13 @@ export default function OrderDetails({
 							</p>
 							<div className="mt-2">
 								{isDelivered ? (
-									<Badge variant="secondary">
-										Delivered at{' '}
-										{formatDateTime(deliveredAt!).dateTime}
-									</Badge>
+									<div className="flex items-center gap-2">
+										<Badge variant="secondary">
+											Delivered at{' '}
+											{formatDateTime(deliveredAt!).dateTime}
+										</Badge>
+										<Check />
+									</div>
 								) : (
 									<Badge variant="destructive">Not delivered</Badge>
 								)}
@@ -127,7 +134,7 @@ export default function OrderDetails({
 										options={{
 											clientId: paypalClientId,
 											currency: CURRENCY_CODES.main,
-											locale: PAYPAL_LOCALE_CODES.main
+											locale: PAYPAL_LOCALE_CODES.main,
 										}}
 									>
 										<PrintLoadingState />

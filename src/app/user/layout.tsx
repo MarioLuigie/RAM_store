@@ -1,6 +1,8 @@
+// components
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import Main from '@/components/layout/Main';
+import MenuAdditional from '@/components/shared/MenuAdditional';
 
 export default function UserLayout({
 	children,
@@ -9,7 +11,9 @@ export default function UserLayout({
 }) {
 	return (
 		<div className="flex flex-col min-h-screen">
-			<Header />
+			<Header>
+				<MenuAdditional className='mt-1'/>
+			</Header>
 			<Main>{children}</Main>
 			<Footer />
 		</div>

@@ -2,6 +2,7 @@
 import { MENU_LABELS } from '@/lib/constants/texts';
 import { ROUTES } from '@/lib/constants/paths';
 import { PaymentMethod } from '@/lib/constants/enums';
+import { ICONS } from '@/lib/constants/icons';
 
 // COOKIES
 export const SESSION_CART_ID = 'ram-session-cart-id';
@@ -21,7 +22,7 @@ export const LOCALE_CODES = {
 	fra: 'fr-FR',
 	esp: 'es-ES',
 	eng: 'en-GB',
-}
+};
 
 export const PAYPAL_LOCALE_CODES = {
 	main: 'de_DE',
@@ -31,7 +32,7 @@ export const PAYPAL_LOCALE_CODES = {
 	fra: 'fr_FR',
 	esp: 'es_ES',
 	eng: 'en_GB',
-}
+};
 export const CURRENCY_CODES = {
 	main: 'EUR',
 	usa: 'USD',
@@ -40,14 +41,17 @@ export const CURRENCY_CODES = {
 	fra: 'EUR',
 	esp: 'EUR',
 	eng: 'GBP',
-}
+};
 
 //SERVER
 export const SERVER_URL =
 	process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000';
 
-// MAIN MENU ITEMS
-export const MENU_ITEMS = [{ label: MENU_LABELS.HOME, path: ROUTES.HOME }];
+// ADDITIONAL MENU ITEMS
+export const MENU_ITEMS_ADDITIONAL = [
+	{ label: MENU_LABELS.PROFILE, path: ROUTES.PROFILE, iconPath: ICONS.USER.path },
+	{ label: MENU_LABELS.ORDERS, path: ROUTES.ORDERS, iconPath: ICONS.ORDERS.path },
+];
 
 // PRODUCTS
 export const LATEST_PRODUCTS_LIMIT =
@@ -85,7 +89,11 @@ export const DEFAULT_ACTION_STATE = {
 // PAYMENT METHODS
 export const PAYMENT_METHODS = process.env.PAYMENT_METHODS
 	? process.env.PAYMENT_METHODS.split(', ')
-	: [PaymentMethod.PAYPAL, PaymentMethod.STRIPE, PaymentMethod.CASH_ON_DELIVERY];
+	: [
+			PaymentMethod.PAYPAL,
+			PaymentMethod.STRIPE,
+			PaymentMethod.CASH_ON_DELIVERY,
+	  ];
 
 export const DEFAULT_PAYMENT_METHOD =
 	process.env.DEFAULT_PAYMENT_METHOD || PaymentMethod.PAYPAL;

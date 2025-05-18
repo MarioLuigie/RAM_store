@@ -13,7 +13,7 @@ export default async function Header({
 	return (
 		<header className="w-full border-b">
 			<div className="wrapper flex-between">
-				<div className='flex items-center gap-4'>
+				<div className='flex items-center gap-8'>
 					<Logo />
 					{children}
 				</div>

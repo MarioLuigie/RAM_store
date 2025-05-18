@@ -1,5 +1,6 @@
-// MAIN MENU
+// ADDITIONAL MENU
 export const MENU_LABELS = {
-	HOME: 'home',
+	PROFILE: 'Profile',
+	ORDERS: 'Orders',
 }
 

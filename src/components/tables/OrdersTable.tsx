@@ -15,12 +15,9 @@ import { Check } from 'lucide-react';
 
 export default function OrdersTable({
 	orders,
-	totalPages,
 }: {
 	orders: Order[];
-	totalPages: number;
 }) {
-  console.log(totalPages)
 	return (
 		<div className="overflow-x-auto">
 			<Table>

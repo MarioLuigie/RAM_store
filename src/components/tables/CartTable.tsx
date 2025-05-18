@@ -15,7 +15,7 @@ import {
 // import { ChangeProductQuantityServer } from '@/components/content/ChangeProductQuantityServer';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ChangeProductQuantity } from './ChangeProductQuantity';
+import { ChangeProductQuantity } from '@/components/content/ChangeProductQuantity';
 import { formatCurrency } from '@/lib/utils/utils';
 import SubtotalPanel from '@/components/content/SubtotalPanel';
 

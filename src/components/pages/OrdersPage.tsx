@@ -1,23 +1,26 @@
 // lib
-import { getOrders } from "@/lib/actions/order.actions";
-import { formatCurrency, formatDateTime, formatId } from "@/lib/utils/utils";
-import OrdersTable from "@/components/tables/OrdersTable";
+import { getOrders } from '@/lib/actions/order.actions';
+import OrdersTable from '@/components/tables/OrdersTable';
 
-export default async function OrdersPage({
-  page
-}: {
-  page: string
-}) {
-  const { success, data, message } = await getOrders({
-    limit: 2,
-    page: Number(page) || 1,
-  });
+export default async function OrdersPage({ page }: { page: string }) {
+	const { success, data } = await getOrders({
+		limit: 2,
+		page: Number(page) || 1,
+	});
 
-  console.log("ORDERS:", data?.orders)
+	if (!success || !data || !data.orders) {
+		return (
+			<div>
+				<h2 className="text-xl  mb-3">My Orders</h2>
+				<p className='text-center'>Orders not found</p>
+			</div>
+		);
+	}
 
-  return (
-    <div>
-      <OrdersTable />
-    </div>
-  )
+	return (
+		<div>
+			<h2 className="text-xl  mb-3">My Orders</h2>
+			<OrdersTable orders={data.orders} totalPages={data.totalPages} />
+		</div>
+	);
 }

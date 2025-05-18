@@ -12,6 +12,7 @@ import { prisma } from '@/lib/db/prisma';
 import { CartItem } from '../types/cart.types';
 import { convertToPlainObject } from '../utils/utils';
 import { PAGE_SIZE } from '../constants';
+import { Order } from '../types/order.types';
 
 // CREATE ORDER AND ORDER ITEMS
 export async function createOrder() {
@@ -144,48 +145,126 @@ export async function getOrderById(orderId: string) {
 }
 
 // GET USER`S ORDERS
+// export async function getOrders({
+// 	limit = PAGE_SIZE,
+// 	page,
+// }: {
+// 	limit?: number;
+// 	page: number;
+// }) {
+// 	try {
+// 		const session = await auth();
+
+// 		if (!session) throw new Error('User is not authenticated');
+
+// 		// Orders list
+// 		const orders = await prisma.order.findMany({
+// 			where: { userId: session?.user?.id },
+// 			orderBy: {
+// 				createdAt: 'desc',
+// 			},
+// 			take: limit,
+// 			skip: (page - 1) * limit,
+// 		});
+
+// 		// Orders number
+// 		const dataCount = await prisma.order.count({
+// 			where: { userId: session?.user?.id },
+// 		});
+
+// 		const totalPages = Math.ceil(dataCount / limit);
+
+// 		return {
+// 			success: true,
+// 			data: {
+// 				orders,
+// 				totalPages,
+// 			},
+// 			message: 'Orders founded successfully',
+// 		};
+// 	} catch (error) {
+// 		return {
+// 			success: false,
+// 			message: formatErrorMessages(error),
+// 		};
+// 	}
+// }
+
 export async function getOrders({
-	limit = PAGE_SIZE,
-	page,
+  limit = PAGE_SIZE,
+  page,
 }: {
-	limit?: number;
-	page: number;
+  limit?: number;
+  page: number;
 }) {
-	try {
-		const session = await auth();
+  try {
+    const session = await auth();
 
-		if (!session) throw new Error('User is not authenticated');
+    if (!session || !session.user?.id) {
+      throw new Error('User is not authenticated');
+    }
 
-		// Orders list
-		const orders = await prisma.order.findMany({
-			where: { userId: session?.user?.id },
-			orderBy: {
-				createdAt: 'desc',
-			},
-			take: limit,
-			skip: (page - 1) * limit,
-		});
+    // Pobierz zamówienia
+    const ordersFromDb = await prisma.order.findMany({
+      where: { userId: session.user.id },
+      orderBy: { createdAt: 'desc' },
+      take: limit,
+      skip: (page - 1) * limit,
+      include: {
+        orderitems: true,
+        user: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+      },
+    });
 
-		// Orders number
-		const dataCount = await prisma.order.count({
-			where: { userId: session?.user?.id }
-		})
+    // Przekonwertuj i zweryfikuj dane
+    const typedOrders: Order[] = ordersFromDb.map((order) => {
+      const parsed = OrderSchema.parse({
+        userId: order.userId,
+        paymentMethod: order.paymentMethod,
+        shippingAddress: order.shippingAddress,
+        itemsPrice: order.itemsPrice.toString(),
+        shippingPrice: order.shippingPrice.toString(),
+        taxPrice: order.taxPrice.toString(),
+        totalPrice: order.totalPrice.toString(),
+      });
 
-		const totalPages = Math.ceil(dataCount / limit);
+      return {
+        ...parsed,
+        id: order.id,
+        createdAt: order.createdAt,
+        isPaid: order.isPaid,
+        paidAt: order.paidAt,
+        isDelivered: order.isDelivered,
+        deliveredAt: order.deliveredAt,
+        orderitems: order.orderitems,
+        user: order.user,
+      };
+    });
 
-		return {
-			success: true,
-			data: {
-				orders,
-				totalPages,
-			},
-			message: 'Orders founded successfully'
-		}
+    const dataCount = await prisma.order.count({
+      where: { userId: session.user.id },
+    });
 
-	} catch (error) {
-		return {
-			success: false,
-			message: formatErrorMessages(error),
-		}
-	}
+    const totalPages = Math.ceil(dataCount / limit);
+
+    return {
+      success: true,
+      data: {
+        orders: typedOrders,
+        totalPages,
+      },
+      message: 'Orders fetched successfully',
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: formatErrorMessages(error),
+    };
+  }
 }
+

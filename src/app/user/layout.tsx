@@ -1,9 +1,17 @@
-import { APP_NAME } from '@/lib/constants';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
+import Main from '@/components/layout/Main';
 
 export default function UserLayout({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
-	return <>{children} USER LAYOUT</>;
+	return (
+		<div className="flex flex-col min-h-screen">
+			<Header />
+			<Main>{children}</Main>
+			<Footer />
+		</div>
+	);
 }

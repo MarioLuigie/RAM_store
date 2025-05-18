@@ -1,11 +1,11 @@
 // modules
 import {
-	BadgeCheck,
 	Bell,
 	ChevronsUpDown,
 	CreditCard,
 	LogOut,
 	Sparkles,
+	UserIcon,
 } from 'lucide-react'
 // lib
 import { signOutUser } from '@/lib/actions/user.actions'
@@ -79,12 +79,12 @@ export default function LoggedInUserButton({ user }: { user: User }) {
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
 					<DropdownMenuItem className="cursor-pointer">
-						<BadgeCheck />
-						Account
+						<UserIcon />
+						User Profile
 					</DropdownMenuItem>
 					<DropdownMenuItem className="cursor-pointer">
 						<CreditCard />
-						Billing
+						Order History
 					</DropdownMenuItem>
 					<DropdownMenuItem className="cursor-pointer">
 						<Bell />

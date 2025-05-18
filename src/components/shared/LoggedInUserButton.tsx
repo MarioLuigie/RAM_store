@@ -6,11 +6,11 @@ import {
 	LogOut,
 	Sparkles,
 	UserIcon,
-} from 'lucide-react'
+} from 'lucide-react';
 // lib
-import { signOutUser } from '@/lib/actions/user.actions'
+import { signOutUser } from '@/lib/actions/user.actions';
 // components
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -19,14 +19,16 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { User } from 'next-auth'
+} from '@/components/ui/dropdown-menu';
+import { User } from 'next-auth';
+import Link from 'next/link';
+import { ROUTES } from '@/lib/constants/paths';
 
 export default function LoggedInUserButton({ user }: { user: User }) {
-	let fallbackMark: string = 'A'
+	let fallbackMark: string = 'A';
 
 	if (user?.name) {
-		fallbackMark = user?.name.charAt(0)
+		fallbackMark = user?.name.charAt(0);
 	}
 
 	return (
@@ -79,12 +81,22 @@ export default function LoggedInUserButton({ user }: { user: User }) {
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
 					<DropdownMenuItem className="cursor-pointer">
-						<UserIcon />
-						User Profile
+						<Link
+							href={ROUTES.PROFILE}
+							className="flex items-center gap-2"
+						>
+							<UserIcon />
+							User Profile
+						</Link>
 					</DropdownMenuItem>
 					<DropdownMenuItem className="cursor-pointer">
-						<CreditCard />
-						Order History
+						<Link
+							href={ROUTES.ORDERS}
+							className="flex items-center gap-2"
+						>
+							<CreditCard />
+							Order History
+						</Link>
 					</DropdownMenuItem>
 					<DropdownMenuItem className="cursor-pointer">
 						<Bell />
@@ -102,5 +114,5 @@ export default function LoggedInUserButton({ user }: { user: User }) {
 				</form>
 			</DropdownMenuContent>
 		</DropdownMenu>
-	)
+	);
 }

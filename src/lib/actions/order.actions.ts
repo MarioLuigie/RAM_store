@@ -11,6 +11,7 @@ import { OrderSchema } from '../utils/validators';
 import { prisma } from '@/lib/db/prisma';
 import { CartItem } from '../types/cart.types';
 import { convertToPlainObject } from '../utils/utils';
+import { PAGE_SIZE } from '../constants';
 
 // CREATE ORDER AND ORDER ITEMS
 export async function createOrder() {
@@ -133,12 +134,58 @@ export async function getOrderById(orderId: string) {
 			data: order,
 			message: 'Order found with successfully',
 		};
-		
 	} catch (error) {
 		return {
 			success: false,
 			data: null,
 			message: formatErrorMessages(error),
 		};
+	}
+}
+
+// GET USER`S ORDERS
+export async function getOrders({
+	limit = PAGE_SIZE,
+	page,
+}: {
+	limit?: number;
+	page: number;
+}) {
+	try {
+		const session = await auth();
+
+		if (!session) throw new Error('User is not authenticated');
+
+		// Orders list
+		const orders = await prisma.order.findMany({
+			where: { userId: session?.user?.id },
+			orderBy: {
+				createdAt: 'desc',
+			},
+			take: limit,
+			skip: (page - 1) * limit,
+		});
+
+		// Orders number
+		const dataCount = await prisma.order.count({
+			where: { userId: session?.user?.id }
+		})
+
+		const totalPages = Math.ceil(dataCount / limit);
+
+		return {
+			success: true,
+			data: {
+				orders,
+				totalPages,
+			},
+			message: 'Orders founded successfully'
+		}
+
+	} catch (error) {
+		return {
+			success: false,
+			message: formatErrorMessages(error),
+		}
 	}
 }

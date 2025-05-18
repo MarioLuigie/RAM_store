@@ -4,6 +4,31 @@ import { Decimal } from '@prisma/client/runtime/library';
 import { CartItem } from '../types/cart.types';
 import { Prices } from '../types/products.types';
 import { LOCALE_CODES, CURRENCY_CODES } from '../constants';
+import qs from 'query-string';
+
+// Build the pagination links
+export function buildUrlQuery({
+	params,
+	key,
+	value,
+}: {
+	params: string;
+	key: string;
+	value: string | null;
+}) {
+	const query = qs.parse(params);
+	query[key] = value;
+
+	return qs.stringifyUrl(
+		{
+			url: window.location.pathname,
+			query,
+		},
+		{
+			skipNull: true,
+		}
+	);
+}
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -84,67 +109,67 @@ export function formatCurrencyParts(
 	locale = LOCALE_CODES.main,
 	currencyCode = CURRENCY_CODES.main
 ) {
-	const number = typeof amount === 'number' ? amount : Number(amount)
+	const number = typeof amount === 'number' ? amount : Number(amount);
 
 	const formatter = new Intl.NumberFormat(locale, {
 		style: 'currency',
 		currency: currencyCode,
-	})
+	});
 
-	const parts = formatter.formatToParts(number)
+	const parts = formatter.formatToParts(number);
 
-	const currency = parts.find(p => p.type === 'currency')?.value || ''
-	const integer = parts.find(p => p.type === 'integer')?.value || '0'
-	const fraction = parts.find(p => p.type === 'fraction')?.value || ''
-	const literal = parts.find(p => p.type === 'decimal')?.value || ''
+	const currency = parts.find((p) => p.type === 'currency')?.value || '';
+	const integer = parts.find((p) => p.type === 'integer')?.value || '0';
+	const fraction = parts.find((p) => p.type === 'fraction')?.value || '';
+	const literal = parts.find((p) => p.type === 'decimal')?.value || '';
 	const symbolFirst =
-		parts.findIndex(p => p.type === 'currency') <
-		parts.findIndex(p => p.type === 'integer')
+		parts.findIndex((p) => p.type === 'currency') <
+		parts.findIndex((p) => p.type === 'integer');
 
-	return { currency, integer, fraction, symbolFirst, literal }
+	return { currency, integer, fraction, symbolFirst, literal };
 }
 
 // SHORTEN UUID
 export function formatId(id: string) {
-	return `...${id.substring(id.length - 6)}`
+	return `...${id.substring(id.length - 6)}`;
 }
 
 // FORMAT DATE AND TIMES
 export const formatDateTime = (dateString: Date) => {
-  const dateTimeOptions: Intl.DateTimeFormatOptions = {
-    month: 'short', // abbreviated month name (e.g., 'Oct')
-    year: 'numeric', // abbreviated year name (e.g., '25')
-    day: 'numeric', // numeric day of the month (e.g., '25')
-    hour: 'numeric', // numeric hour (e.g., '8')
-    minute: 'numeric', // numeric minute (e.g., '30')
-    hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
-  };
-  const dateOptions: Intl.DateTimeFormatOptions = {
-    weekday: 'short', // abbreviated weekday name (e.g., 'Mon')
-    month: 'short', // abbreviated month name (e.g., 'Oct')
-    year: 'numeric', // numeric year (e.g., '2023')
-    day: 'numeric', // numeric day of the month (e.g., '25')
-  };
-  const timeOptions: Intl.DateTimeFormatOptions = {
-    hour: 'numeric', // numeric hour (e.g., '8')
-    minute: 'numeric', // numeric minute (e.g., '30')
-    hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
-  };
-  const formattedDateTime: string = new Date(dateString).toLocaleString(
-    LOCALE_CODES.main,
-    dateTimeOptions
-  );
-  const formattedDate: string = new Date(dateString).toLocaleString(
-    LOCALE_CODES.main,
-    dateOptions
-  );
-  const formattedTime: string = new Date(dateString).toLocaleString(
-    LOCALE_CODES.main,
-    timeOptions
-  );
-  return {
-    dateTime: formattedDateTime,
-    dateOnly: formattedDate,
-    timeOnly: formattedTime,
-  };
+	const dateTimeOptions: Intl.DateTimeFormatOptions = {
+		month: 'short', // abbreviated month name (e.g., 'Oct')
+		year: 'numeric', // abbreviated year name (e.g., '25')
+		day: 'numeric', // numeric day of the month (e.g., '25')
+		hour: 'numeric', // numeric hour (e.g., '8')
+		minute: 'numeric', // numeric minute (e.g., '30')
+		hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
+	};
+	const dateOptions: Intl.DateTimeFormatOptions = {
+		weekday: 'short', // abbreviated weekday name (e.g., 'Mon')
+		month: 'short', // abbreviated month name (e.g., 'Oct')
+		year: 'numeric', // numeric year (e.g., '2023')
+		day: 'numeric', // numeric day of the month (e.g., '25')
+	};
+	const timeOptions: Intl.DateTimeFormatOptions = {
+		hour: 'numeric', // numeric hour (e.g., '8')
+		minute: 'numeric', // numeric minute (e.g., '30')
+		hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
+	};
+	const formattedDateTime: string = new Date(dateString).toLocaleString(
+		LOCALE_CODES.main,
+		dateTimeOptions
+	);
+	const formattedDate: string = new Date(dateString).toLocaleString(
+		LOCALE_CODES.main,
+		dateOptions
+	);
+	const formattedTime: string = new Date(dateString).toLocaleString(
+		LOCALE_CODES.main,
+		timeOptions
+	);
+	return {
+		dateTime: formattedDateTime,
+		dateOnly: formattedDate,
+		timeOnly: formattedTime,
+	};
 };

@@ -15,7 +15,7 @@ import {
 // components
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import OrderItemsTable from '@/components/content/OrderItemsTable';
+import OrderItemsTable from '@/components/tables/OrderItemsTable';
 import OrderPrices from '@/components/content/OrderPrices';
 import { PaymentMethod } from '@/lib/constants/enums';
 import { useCustomToast } from '@/lib/hooks/useCustomToast';

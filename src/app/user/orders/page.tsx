@@ -6,9 +6,15 @@ import { APP_ROUTE_NAME_ORDERS } from '@/lib/constants';
 import OrdersPage from '@/components/pages/OrdersPage';
 
 export const metadata: Metadata = {
-	title: APP_ROUTE_NAME_ORDERS,
+	title: `My ${APP_ROUTE_NAME_ORDERS}`,
 };
 
-export default function Page() {
-	return <OrdersPage />;
+export default async function Page({
+	searchParams,
+}: {
+	searchParams: Promise<{ page: string }>
+}) {
+	const { page } = await searchParams;
+
+	return <OrdersPage page={page} />;
 }

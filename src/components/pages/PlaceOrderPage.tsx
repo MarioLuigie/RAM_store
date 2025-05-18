@@ -11,7 +11,7 @@ import Link from 'next/link';
 import CheckoutSteps from '@/components/shared/CheckoutSteps';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import OrderItemsTable from '@/components/content/OrderItemsTable';
+import OrderItemsTable from '@/components/tables/OrderItemsTable';
 import OrderPrices from '@/components/content/OrderPrices';
 import PlaceOrderForm from '@/components/forms/PlaceOrderForm';
 

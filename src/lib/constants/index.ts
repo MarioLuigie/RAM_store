@@ -14,6 +14,8 @@ export const APP_DESC =
 export const APP_ROUTE_NAME_HOME = 'Home';
 export const APP_ROUTE_NAME_ORDERS = 'Orders';
 export const APP_ROUTE_NAME_CART = 'Cart';
+export const APP_ROUTE_NAME_PROFILE = 'Profile';
+
 export const LOCALE_CODES = {
 	main: 'de-DE',
 	usa: 'en-US',

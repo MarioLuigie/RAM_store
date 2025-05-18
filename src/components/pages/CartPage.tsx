@@ -2,7 +2,7 @@
 import { getCart } from '@/lib/actions/cart.actions';
 import { ROUTES } from '@/lib/constants/paths';
 // components
-import CartTable from '@/components/content/CartTable';
+import CartTable from '@/components/tables/CartTable';
 import Link from 'next/link';
 
 export default async function CartPage() {

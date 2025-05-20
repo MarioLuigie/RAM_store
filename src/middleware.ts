@@ -78,8 +78,20 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-	matcher: ['/((?!api|_next|.*\\..*).*)'],
-}
+	matcher: [
+		'/shipping-address',
+		'/payment-method',
+		'/place-order',
+		'/profile',
+		'/user/:path*',
+		'/order/:path*',
+		'/admin/:path*',
+	],
+};
+
+// export const config = {
+// 	matcher: ['/((?!api|_next|.*\\..*).*)'],
+// }
 
 // request.nextUrl - {
 //   href: 'http://localhost:3000/sign-in?callbackUrl=%2Fshipping-address',

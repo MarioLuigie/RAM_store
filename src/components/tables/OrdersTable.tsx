@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/table';
 import { Order } from '@/lib/types/order.types';
 import { formatCurrency, formatDateTime, formatId } from '@/lib/utils/utils';
-import { Badge } from '../ui/badge';
+import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { ROUTES } from '@/lib/constants/paths';
 import { Check } from 'lucide-react';

@@ -57,7 +57,7 @@ export async function handleUpdateProfile(
 
 	const {
 		success,
-		data: updatedUser,
+		data,
 		message,
 	} = await updateProfile(updateProfileValues);
 
@@ -66,7 +66,7 @@ export async function handleUpdateProfile(
 			...session,
 			user: {
 				...session?.user,
-				name: updatedUser?.name ?? session.user.name,
+				name: data?.name ?? session.user.name,
 			},
 		};
 

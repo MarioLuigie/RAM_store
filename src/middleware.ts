@@ -3,56 +3,61 @@ import { SESSION_CART_ID } from '@/lib/constants';
 import { getToken } from 'next-auth/jwt';
 import { ROUTES } from '@/lib/constants/paths';
 
-
 const protectedPaths = [
-  /^\/shipping-address/,
-  /^\/payment-method/,
-  /^\/place-order/,
-  /^\/profile/,
-  /^\/user\/.*/,
-  /^\/order\/.*/,
-  /^\/admin/,
+	/^\/shipping-address/,
+	/^\/payment-method/,
+	/^\/place-order/,
+	/^\/profile/,
+	/^\/user\/.*/,
+	/^\/order\/.*/,
+	/^\/admin/,
 ];
 
 export async function middleware(request: NextRequest) {
 	const url = request.nextUrl;
-  const pathname = url.pathname;
+	const pathname = url.pathname;
 
 	// 🔒 Sprawdzenie, czy ścieżka jest chroniona
 	// CHECK IF PATH/ROUTE IS AUTHENTICATED
-	const requiresAuth = protectedPaths.some((pattern) => pattern.test(pathname));
+	const requiresAuth = protectedPaths.some((pattern) =>
+		pattern.test(pathname)
+	);
 
 	if (requiresAuth) {
-    const token = await getToken({
+		const token = await getToken({
 			req: request,
 			secret: process.env.NEXTAUTH_SECRET,
 		});
-    const isAuthenticated = !!token;
+		const isAuthenticated = !!token;
 
-    if (!isAuthenticated) {
-      const signInUrl = new URL(ROUTES.SIGN_IN, request.url);
-      signInUrl.searchParams.set('callbackUrl', pathname); // umożliwia redirect po zalogowaniu
-      return NextResponse.redirect(signInUrl);
-    }
-  }
+		console.log('middleware hit:', pathname);
+		console.log('token:', token);
+		console.log('isAuthenticated:', isAuthenticated);
+
+		if (!isAuthenticated) {
+			const signInUrl = new URL(ROUTES.SIGN_IN, request.url);
+			signInUrl.searchParams.set('callbackUrl', pathname); // umożliwia redirect po zalogowaniu
+			return NextResponse.redirect(signInUrl);
+		}
+	}
 
 	// 🍪 Zarządzanie sesją koszyka (Twoja logika)
 	// SESSION CART`S MANAGMENT
-	const newRequestHeaders = new Headers(request.headers)
+	const newRequestHeaders = new Headers(request.headers);
 
-	const hasSessionCartId = request.cookies.has(SESSION_CART_ID)
+	const hasSessionCartId = request.cookies.has(SESSION_CART_ID);
 
 	if (!hasSessionCartId) {
-		const sessionCartId = crypto.randomUUID()
+		const sessionCartId = crypto.randomUUID();
 		// console.log('Nowy sessionCartId:', sessionCartId)
 
-		newRequestHeaders.set(SESSION_CART_ID, sessionCartId)
+		newRequestHeaders.set(SESSION_CART_ID, sessionCartId);
 
 		const response = NextResponse.next({
 			request: {
 				headers: newRequestHeaders,
 			},
-		})
+		});
 
 		response.cookies.set({
 			name: SESSION_CART_ID,
@@ -61,32 +66,25 @@ export async function middleware(request: NextRequest) {
 			maxAge: 60 * 60 * 24 * 30,
 			httpOnly: true,
 			sameSite: 'lax',
-		})
+		});
 
-		return response
+		return response;
 	}
 
 	// Nawet jeśli cookie istnieje, dodaj je do headers
-	const existingCartId = request.cookies.get(SESSION_CART_ID)!.value
-	newRequestHeaders.set(SESSION_CART_ID, existingCartId)
+	const existingCartId = request.cookies.get(SESSION_CART_ID)!.value;
+	newRequestHeaders.set(SESSION_CART_ID, existingCartId);
 
 	return NextResponse.next({
 		request: {
 			headers: newRequestHeaders,
 		},
-	})
+	});
 }
 
 export const config = {
-  matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|api|sign-in|sign-up|.*\\..*).*)',
-  ],
+	matcher: ['/((?!api|_next|.*\\..*).*)'],
 };
-
-
-// export const config = {
-// 	matcher: ['/((?!api|_next|.*\\..*).*)'],
-// }
 
 // request.nextUrl - {
 //   href: 'http://localhost:3000/sign-in?callbackUrl=%2Fshipping-address',

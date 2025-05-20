@@ -10,6 +10,7 @@ import { UpdateProfile } from '@/lib/types/user.types';
 import { updateProfile } from '@/lib/actions/user.actions';
 import { Session } from 'next-auth';
 
+
 // USER UPDATE ADDRESS HANDLER
 export async function handleUpdateUserAddress(
 	address: ShippingAddress,
@@ -48,7 +49,8 @@ export async function handleUpdateUserPaymentMethod(
 export async function handleUpdateProfile(
 	updateProfileValues: UpdateProfile,
 	session: Session | null,
-	update: (data?: Partial<Session>) => Promise<Session | null>
+	update: (data?: Session) => Promise<Session | null>,
+	router: AppRouterInstance
 ) {
 	if (!session || !session.user) {
 		toast.error('You must be logged in to update your profile.');
@@ -66,11 +68,13 @@ export async function handleUpdateProfile(
 			...session,
 			user: {
 				...session?.user,
-				name: data?.name ?? session.user.name,
+				name: data?.name,
 			},
 		};
 
 		await update(sessionToUpdate);
+		router.refresh();
+		// window.location.reload();
 
 		toast.success(message);
 	} else {

@@ -5,6 +5,9 @@ import { useTransition } from 'react';
 import { useSession } from 'next-auth/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ArrowRight } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+
 // lib
 import { UpdateProfile } from '@/lib/types/user.types';
 import { UpdateProfileSchema } from '@/lib/utils/validators';
@@ -24,6 +27,7 @@ import Loader from '@/components/shared/Loader';
 
 export default function ProfileForm() {
 	const { data: session, update } = useSession();
+	const router: AppRouterInstance = useRouter();
 
 	const form = useForm<UpdateProfile>({
 		resolver: zodResolver(UpdateProfileSchema),
@@ -37,11 +41,16 @@ export default function ProfileForm() {
 
 	// ON SUBMIT HANDLER
 	const onSubmit: SubmitHandler<UpdateProfile> = async (
-	updateProfileValues: UpdateProfile
+		updateProfileValues: UpdateProfile
 	) => {
 		startTransition(async () => {
-      await handleUpdateProfile(updateProfileValues, session, update);
-    });
+			await handleUpdateProfile(
+				updateProfileValues,
+				session,
+				update,
+				router
+			);
+		});
 	};
 
 	return (

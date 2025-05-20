@@ -83,7 +83,15 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-	matcher: ['/((?!api|_next|.*\\..*).*)'],
+	matcher: [
+		/^\/shipping-address/,
+		/^\/payment-method/,
+		/^\/place-order/,
+		/^\/profile/,
+		/^\/user\/.*/,
+		/^\/order\/.*/,
+		/^\/admin/,
+	],
 };
 
 // request.nextUrl - {

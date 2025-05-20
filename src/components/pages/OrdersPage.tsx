@@ -5,7 +5,6 @@ import Pagination from '@/components/shared/Pagination';
 
 export default async function OrdersPage({ page }: { page: string }) {
 	const { success, data } = await getOrders({
-		limit: 2,
 		page: Number(page) || 1,
 	});
 

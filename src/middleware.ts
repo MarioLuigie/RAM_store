@@ -84,15 +84,16 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
 	matcher: [
-		/^\/shipping-address/,
-		/^\/payment-method/,
-		/^\/place-order/,
-		/^\/profile/,
-		/^\/user\/.*/,
-		/^\/order\/.*/,
-		/^\/admin/,
+		'/shipping-address',
+		'/payment-method',
+		'/place-order',
+		'/profile',
+		'/user/:path*',
+		'/order/:path*',
+		'/admin/:path*',
 	],
 };
+
 
 // request.nextUrl - {
 //   href: 'http://localhost:3000/sign-in?callbackUrl=%2Fshipping-address',

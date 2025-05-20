@@ -89,7 +89,7 @@ export default function ProfileForm() {
 					<Button
 						type="submit"
 						disabled={isPending}
-						className="cursor-pointer"
+						className="cursor-pointer min-w-40"
 						aria-label="Continue"
 					>
 						{isPending ? (

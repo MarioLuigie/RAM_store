@@ -78,16 +78,11 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-	matcher: [
-		'/shipping-address',
-		'/payment-method',
-		'/place-order',
-		'/profile',
-		'/user/:path*',
-		'/order/:path*',
-		'/admin/:path*',
-	],
+  matcher: [
+    '/((?!_next/static|_next/image|favicon.ico|api|sign-in|sign-up|.*\\..*).*)',
+  ],
 };
+
 
 // export const config = {
 // 	matcher: ['/((?!api|_next|.*\\..*).*)'],

@@ -23,7 +23,7 @@ export default function OrdersTable({
 			<Table>
 				<TableHeader>
 					<TableRow>
-						<TableHead>Id</TableHead>
+						<TableHead>Product Id</TableHead>
 						<TableHead>Created at</TableHead>
 						<TableHead>Total Price</TableHead>
 						<TableHead>Paid at</TableHead>

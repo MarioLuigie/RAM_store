@@ -1,12 +1,15 @@
 'use client';
-import { UpdateProfile } from '@/lib/types/user.types';
-import { UpdateProfileSchema } from '@/lib/utils/validators';
+// modules
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTransition } from 'react';
-// modules
 import { useSession } from 'next-auth/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ArrowRight } from 'lucide-react';
+// lib
+import { UpdateProfile } from '@/lib/types/user.types';
+import { UpdateProfileSchema } from '@/lib/utils/validators';
+import { handleUpdateProfile } from '@/lib/handlers/user.handlers';
+// components
 import { Button } from '@/components/ui/button';
 import {
 	Form,
@@ -34,11 +37,11 @@ export default function ProfileForm() {
 
 	// ON SUBMIT HANDLER
 	const onSubmit: SubmitHandler<UpdateProfile> = async (
-		profileValues: UpdateProfile
+	updateProfileValues: UpdateProfile
 	) => {
-		console.log(profileValues);
-
-		startTransition(async () => {});
+		startTransition(async () => {
+      await handleUpdateProfile(updateProfileValues, session, update);
+    });
 	};
 
 	return (

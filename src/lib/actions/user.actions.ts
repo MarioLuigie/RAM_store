@@ -207,9 +207,13 @@ export async function updateUserPaymentMethod(data: PaymentMethod) {
 }
 
 // UPDATE THE USER PROFILE
-export async function updateUserProfile(user: { name: string; email: string }) {
+export async function updateProfile(user: { name: string; email: string }) {
 	try {
 		const session = await auth();
+
+		if (!session?.user?.id) {
+			throw new Error('Unauthorized');
+		}
 
 		const currentUser = await prisma.user.findFirst({
 			where: { id: session?.user?.id },
@@ -234,7 +238,6 @@ export async function updateUserProfile(user: { name: string; email: string }) {
 			},
 			message: 'User profile updated successfully',
 		};
-
 	} catch (error) {
 		return {
 			success: false,

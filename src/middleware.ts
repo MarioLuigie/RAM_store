@@ -24,21 +24,30 @@ export async function middleware(request: NextRequest) {
 	);
 
 	if (requiresAuth) {
+		// const token = await getToken({
+		// 	req: request,
+		// 	secret: process.env.NEXTAUTH_SECRET,
+		// });
+
 		const token = await getToken({
 			req: request,
 			secret: process.env.NEXTAUTH_SECRET,
+			cookieName:
+				process.env.NODE_ENV === 'production'
+					? '__Secure-next-auth.session-token'
+					: 'next-auth.session-token',
 		});
 		const isAuthenticated = !!token;
-	
-				if (!isAuthenticated) {
+
+		if (!isAuthenticated) {
 			const signInUrl = new URL(ROUTES.SIGN_IN, request.url);
 			signInUrl.searchParams.set('callbackUrl', pathname); // umożliwia redirect po zalogowaniu
 			return NextResponse.redirect(signInUrl);
 		}
 	}
-	
-// 🍪 Zarządzanie sesją koszyka (Twoja logika)
-// SESSION CART`S MANAGMENT
+
+	// 🍪 Zarządzanie sesją koszyka (Twoja logika)
+	// SESSION CART`S MANAGMENT
 	const newRequestHeaders = new Headers(request.headers);
 
 	const hasSessionCartId = request.cookies.has(SESSION_CART_ID);

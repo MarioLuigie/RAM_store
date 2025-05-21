@@ -23,28 +23,22 @@ export async function middleware(request: NextRequest) {
 		pattern.test(pathname)
 	);
 
-	console.log('REQUIRES AUTH:', requiresAuth);
-
 	if (requiresAuth) {
 		const token = await getToken({
 			req: request,
 			secret: process.env.NEXTAUTH_SECRET,
 		});
 		const isAuthenticated = !!token;
-
-		console.log('middleware hit:', pathname);
-		console.log('token:', token);
-		console.log('isAuthenticated:', isAuthenticated);
-
-		if (!isAuthenticated) {
+	
+				if (!isAuthenticated) {
 			const signInUrl = new URL(ROUTES.SIGN_IN, request.url);
 			signInUrl.searchParams.set('callbackUrl', pathname); // umożliwia redirect po zalogowaniu
 			return NextResponse.redirect(signInUrl);
 		}
 	}
-
-	// 🍪 Zarządzanie sesją koszyka (Twoja logika)
-	// SESSION CART`S MANAGMENT
+	
+// 🍪 Zarządzanie sesją koszyka (Twoja logika)
+// SESSION CART`S MANAGMENT
 	const newRequestHeaders = new Headers(request.headers);
 
 	const hasSessionCartId = request.cookies.has(SESSION_CART_ID);
@@ -85,10 +79,99 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-	matcher: [
-	],
+	matcher: ['/((?!api|_next|.*\\..*).*)'],
 };
 
+// import { NextResponse, NextRequest } from 'next/server';
+// import { SESSION_CART_ID } from '@/lib/constants';
+// import { getToken } from 'next-auth/jwt';
+// import { ROUTES } from '@/lib/constants/paths';
+
+// const protectedPaths = [
+// 	/^\/shipping-address/,
+// 	/^\/payment-method/,
+// 	/^\/place-order/,
+// 	/^\/profile/,
+// 	/^\/user\/.*/,
+// 	/^\/order\/.*/,
+// 	/^\/admin/,
+// ];
+
+// export async function middleware(request: NextRequest) {
+// 	const url = request.nextUrl;
+// 	const pathname = url.pathname;
+
+// 	// 🔒 Sprawdzenie, czy ścieżka jest chroniona
+// 	// CHECK IF PATH/ROUTE IS AUTHENTICATED
+// 	const requiresAuth = protectedPaths.some((pattern) =>
+// 		pattern.test(pathname)
+// 	);
+
+// 	console.log('REQUIRES AUTH:', requiresAuth);
+
+// 	if (requiresAuth) {
+// 		const token = await getToken({
+// 			req: request,
+// 			secret: process.env.NEXTAUTH_SECRET,
+// 		});
+// 		const isAuthenticated = !!token;
+
+// 		console.log('middleware hit:', pathname);
+// 		console.log('token:', token);
+// 		console.log('isAuthenticated:', isAuthenticated);
+
+// 		if (!isAuthenticated) {
+// 			const signInUrl = new URL(ROUTES.SIGN_IN, request.url);
+// 			signInUrl.searchParams.set('callbackUrl', pathname); // umożliwia redirect po zalogowaniu
+// 			return NextResponse.redirect(signInUrl);
+// 		}
+// 	}
+
+// 	// 🍪 Zarządzanie sesją koszyka (Twoja logika)
+// 	// SESSION CART`S MANAGMENT
+// 	const newRequestHeaders = new Headers(request.headers);
+
+// 	const hasSessionCartId = request.cookies.has(SESSION_CART_ID);
+
+// 	if (!hasSessionCartId) {
+// 		const sessionCartId = crypto.randomUUID();
+// 		// console.log('Nowy sessionCartId:', sessionCartId)
+
+// 		newRequestHeaders.set(SESSION_CART_ID, sessionCartId);
+
+// 		const response = NextResponse.next({
+// 			request: {
+// 				headers: newRequestHeaders,
+// 			},
+// 		});
+
+// 		response.cookies.set({
+// 			name: SESSION_CART_ID,
+// 			value: sessionCartId,
+// 			path: '/',
+// 			maxAge: 60 * 60 * 24 * 30,
+// 			httpOnly: true,
+// 			sameSite: 'lax',
+// 		});
+
+// 		return response;
+// 	}
+
+// 	// Nawet jeśli cookie istnieje, dodaj je do headers
+// 	const existingCartId = request.cookies.get(SESSION_CART_ID)!.value;
+// 	newRequestHeaders.set(SESSION_CART_ID, existingCartId);
+
+// 	return NextResponse.next({
+// 		request: {
+// 			headers: newRequestHeaders,
+// 		},
+// 	});
+// }
+
+// export const config = {
+// 	matcher: [
+// 	],
+// };
 
 // request.nextUrl - {
 //   href: 'http://localhost:3000/sign-in?callbackUrl=%2Fshipping-address',

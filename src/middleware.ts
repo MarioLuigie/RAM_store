@@ -86,13 +86,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
 	matcher: [
-		'/shipping-address',
-		'/payment-method',
-		'/place-order',
-		'/profile',
-		'/user/:path*',
-		'/order/:path*',
-		'/admin/:path*',
 	],
 };
 

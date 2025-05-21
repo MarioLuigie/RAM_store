@@ -34,7 +34,7 @@ export async function middleware(request: NextRequest) {
 			secret: process.env.NEXTAUTH_SECRET,
 			cookieName:
 				process.env.NODE_ENV === 'production'
-					? '__Secure-next-auth.session-token'
+					? '__Secure-authjs.session-token'
 					: 'next-auth.session-token',
 		});
 		const isAuthenticated = !!token;

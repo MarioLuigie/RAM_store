@@ -23,6 +23,8 @@ export async function middleware(request: NextRequest) {
 		pattern.test(pathname)
 	);
 
+	console.log('REQUIRES AUTH:', requiresAuth);
+
 	if (requiresAuth) {
 		const token = await getToken({
 			req: request,

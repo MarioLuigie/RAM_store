@@ -82,7 +82,7 @@ export default function LoggedInUserButton({ user }: { user: User }) {
 				<DropdownMenuGroup>
 					<DropdownMenuItem className="cursor-pointer">
 						<Link
-							href={ROUTES.PROFILE}
+							href={ROUTES.USER_PROFILE}
 							className="flex items-center gap-2"
 						>
 							<UserIcon />
@@ -91,7 +91,7 @@ export default function LoggedInUserButton({ user }: { user: User }) {
 					</DropdownMenuItem>
 					<DropdownMenuItem className="cursor-pointer">
 						<Link
-							href={ROUTES.ORDERS}
+							href={ROUTES.USER_ORDERS}
 							className="flex items-center gap-2"
 						>
 							<ShoppingBag />

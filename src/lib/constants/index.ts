@@ -53,8 +53,8 @@ export const SERVER_URL =
 
 // ADDITIONAL MENU ITEMS
 export const MENU_ITEMS_ADDITIONAL = [
-	{ label: MENU_LABELS.PROFILE, path: ROUTES.PROFILE, iconPath: ICONS.USER.path },
-	{ label: MENU_LABELS.ORDERS, path: ROUTES.ORDERS, iconPath: ICONS.ORDERS.path },
+	{ label: MENU_LABELS.PROFILE, path: ROUTES.USER_PROFILE, iconPath: ICONS.USER.path },
+	{ label: MENU_LABELS.ORDERS, path: ROUTES.USER_ORDERS, iconPath: ICONS.ORDERS.path },
 ];
 
 // PRODUCTS

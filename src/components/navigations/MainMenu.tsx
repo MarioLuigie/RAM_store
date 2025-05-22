@@ -13,15 +13,11 @@ import {
 	SheetTitle,
 	SheetDescription,
 } from '@/components/ui/sheet';
-import NavUser from '@/components/shared/NavUser';
+import NavUser from '@/components/navigations/partials/NavUser';
 import CartBadge from '@/components/content/CartBadge';
 import { CartItem } from '@/lib/types/cart.types';
 
-const MenuItems = ({
-	cartItemsQty
-}: {
-	cartItemsQty: number
-}) => (
+const MenuItems = ({ cartItemsQty }: { cartItemsQty: number }) => (
 	<>
 		{/* MODE/DARK/LIGHT/TOGGLE DROPDOWN MENU BUTTON */}
 		<ModeToggle />
@@ -29,8 +25,8 @@ const MenuItems = ({
 		{/* CART BUTTON */}
 		<Button asChild variant="ghost" aria-label="Go to cart">
 			<Link href={ROUTES.CART}>
-				<div className='flex-center gap-2 relative'>
-					<ShoppingCart className='z-20'/>
+				<div className="flex-center gap-2 relative">
+					<ShoppingCart className="z-20" />
 					<CartBadge quantity={cartItemsQty} /> Cart
 				</div>
 			</Link>
@@ -41,11 +37,7 @@ const MenuItems = ({
 	</>
 );
 
-export default function MainMenu({
-	cartItems
-}: {
-	cartItems: CartItem[]
-}) {
+export default function MainMenu({ cartItems }: { cartItems: CartItem[] }) {
 	return (
 		<>
 			{/* DESKTOP MENU */}

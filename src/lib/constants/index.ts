@@ -52,7 +52,7 @@ export const SERVER_URL =
 	process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000';
 
 // ADDITIONAL MENU ITEMS
-export const MENU_ITEMS_ADDITIONAL = [
+export const USER_MENU_ITEMS = [
 	{ label: MENU_LABELS.PROFILE, path: ROUTES.USER_PROFILE, iconPath: ICONS.USER.path },
 	{ label: MENU_LABELS.ORDERS, path: ROUTES.USER_ORDERS, iconPath: ICONS.ORDERS.path },
 ];

@@ -3,10 +3,10 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils/utils';
 import React from 'react';
-import { MENU_ITEMS_ADDITIONAL } from '@/lib/constants';
+import { USER_MENU_ITEMS } from '@/lib/constants';
 import { ICON_MAP } from '@/lib/constants/icons';
 
-export default function MenuAdditional({
+export default function UserMenu({
 	className,
 	...props
 }: React.HTMLAttributes<HTMLElement>) {
@@ -14,7 +14,7 @@ export default function MenuAdditional({
 
 	return (
 		<nav className={cn('flex items-center gap-4', className)} {...props}>
-			{MENU_ITEMS_ADDITIONAL.map((item) => {
+			{USER_MENU_ITEMS.map((item) => {
 				const Icon = ICON_MAP[item.label];
 				return (
 					<Link

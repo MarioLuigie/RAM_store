@@ -1,6 +1,6 @@
 // components
 import Logo from '@/components/shared/Logo';
-import MainMenu from '@/components/shared/MainMenu';
+import MainMenu from '@/components/navigations/MainMenu';
 import { getCart } from '@/lib/actions/cart.actions';
 
 export default async function Header({

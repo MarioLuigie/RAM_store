@@ -176,27 +176,42 @@ export const config = {
 				const isWhiteList = USER_WHITE_LIST.includes(user.email);
 
 				if (isWhiteList) {
-					const dbUser = await prisma.user.findUnique({
-						where: { id: user.id },
-						select: { role: true },
-					});
-
-					if (dbUser?.role !== AuthRole.ADMIN) {
-						await prisma.user.update({
+					try {
+						const dbUser = await prisma.user.findUnique({
 							where: { id: user.id },
-							data: { role: AuthRole.ADMIN },
+							select: { role: true },
 						});
 
-						await prisma.roleChangeLog.create({
-							data: {
-								userId: user.id,
-								email: user.email!,
-								newRole: AuthRole.ADMIN,
-							},
-						});
+						if (!dbUser) {
+							throw new Error(
+								`Critical error: User with id ${user.id} not found in DB.`
+							);
+						}
+
+						if (dbUser.role !== AuthRole.ADMIN) {
+							await prisma.user.update({
+								where: { id: user.id },
+								data: { role: AuthRole.ADMIN },
+							});
+
+							await prisma.roleChangeLog.create({
+								data: {
+									userId: user.id,
+									email: user.email!,
+									oldRole: dbUser.role,
+									newRole: AuthRole.ADMIN,
+								},
+							});
+						}
+
+						token.role = AuthRole.ADMIN;
+					} catch (error) {
+						console.error(
+							'[auth][jwt] Error assigning admin role:',
+							error
+						);
+						token.role = AuthRole.USER; // fallback role for safety
 					}
-
-					token.role = AuthRole.ADMIN;
 				} else {
 					token.role = user.role;
 				}

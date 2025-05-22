@@ -1,8 +1,9 @@
+// components
+import AdminUsersPage from "@/components/pages/admin/AdminUsersPage"
+
 export default function Page() {
 
   return (
-    <div>
-      USERS
-    </div>
+    <AdminUsersPage />
   )
 }

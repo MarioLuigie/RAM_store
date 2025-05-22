@@ -1,8 +1,9 @@
+// components
+import AdminOrdersPage from "@/components/pages/admin/AdminOrdersPage"
+
 export default function Page() {
 
   return (
-    <div>
-      ORDERS
-    </div>
+    <AdminOrdersPage />
   )
 }

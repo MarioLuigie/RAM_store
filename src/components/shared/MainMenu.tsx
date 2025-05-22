@@ -23,7 +23,7 @@ const MenuItems = ({
 	cartItemsQty: number
 }) => (
 	<>
-		{/* MODE TOGGLE DROPDOWN MENU BUTTON */}
+		{/* MODE/DARK/LIGHT/TOGGLE DROPDOWN MENU BUTTON */}
 		<ModeToggle />
 
 		{/* CART BUTTON */}
@@ -41,7 +41,7 @@ const MenuItems = ({
 	</>
 );
 
-export default function Menu({
+export default function MainMenu({
 	cartItems
 }: {
 	cartItems: CartItem[]

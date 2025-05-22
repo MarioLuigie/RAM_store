@@ -1,6 +1,6 @@
 // components
 import Logo from '@/components/shared/Logo';
-import Menu from '@/components/shared/Menu';
+import MainMenu from '@/components/shared/MainMenu';
 import { getCart } from '@/lib/actions/cart.actions';
 
 export default async function Header({
@@ -17,7 +17,7 @@ export default async function Header({
 					<Logo />
 					{children}
 				</div>
-				<Menu cartItems={cart?.items || []} />
+				<MainMenu cartItems={cart?.items || []} />
 			</div>
 		</header>
 	);

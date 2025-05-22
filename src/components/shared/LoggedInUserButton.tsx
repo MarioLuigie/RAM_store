@@ -70,6 +70,7 @@ export default function LoggedInUserButton({ user }: { user: User }) {
 					</div>
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />
+				
 				<DropdownMenuGroup>
 					<DropdownMenuItem className="cursor-pointer">
 						<Sparkles className="text-yellow-500" />
@@ -78,6 +79,7 @@ export default function LoggedInUserButton({ user }: { user: User }) {
 						</p>
 					</DropdownMenuItem>
 				</DropdownMenuGroup>
+
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
 					<DropdownMenuItem className="cursor-pointer">

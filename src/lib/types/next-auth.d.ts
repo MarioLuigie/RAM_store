@@ -28,12 +28,12 @@ declare module 'next-auth/jwt' {
 	}
 }
 //DEFAULT SESSION FROM NEXT AUTH - SIMPLY DEFINITION
-// interface DefaultSession {
-//   user?: {
-//     name?: string | null;
-//     email?: string | null;
-//     image?: string | null;
-//   };
-//   expires: string;
-// }
+interface DefaultSession {
+  user?: {
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+  };
+  expires: string;
+}
 

@@ -101,6 +101,8 @@ import { compareSync } from 'bcrypt-ts-edge';
 import type { NextAuthConfig } from 'next-auth';
 import { cookies } from 'next/headers';
 import { SESSION_CART_ID } from '@/lib/constants';
+import { USER_WHITE_LIST } from '@/lib/constants';
+import { AuthRole } from '@/lib/constants/enums';
 
 export const config = {
 	pages: {
@@ -170,7 +172,19 @@ export const config = {
 			// Asign user fields to token
 			if (user) {
 				token.id = user.id;
-				token.role = user.role;
+
+				if (USER_WHITE_LIST.includes(user.email)) {
+					if (user.role !== AuthRole.ADMIN) {
+						await prisma.user.update({
+							where: { id: user.id },
+							data: { role: AuthRole.ADMIN },
+						});
+					}
+					token.role = AuthRole.ADMIN;
+				} else {
+					token.role = user.role;
+				}
+
 				// When user does not have a name use the email (default name in db model is NO_NAME)
 				if (user.name === 'NO_NAME') {
 					token.name = user.email!.split('@')[0];

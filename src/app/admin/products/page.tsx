@@ -1,5 +1,11 @@
-// components
-import AdminProductsPage from "@/components/pages/admin/AdminProductsPage"
+// modules
+import { Metadata } from 'next';// components
+import AdminProductsPage from "@/components/pages/admin/AdminProductsPage";
+import { APP_ROUTE_NAME_PRODUCTS } from '@/lib/constants';
+
+export const metadata: Metadata = {
+  title: `${APP_ROUTE_NAME_PRODUCTS}`,
+};
 
 export default function Page() {
 

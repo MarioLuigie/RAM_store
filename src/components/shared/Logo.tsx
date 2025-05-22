@@ -16,7 +16,7 @@ export default function Logo() {
 					width={48}
 					height={48}
 					priority
-					className="dark:hidden" // only visibility in light theme
+					className="dark:hidden min-w-[48px] min-h-[48px]" // only visibility in light theme
 				/>
 				<Image
 					src={ICONS.LOGO_DARK.path}
@@ -24,7 +24,7 @@ export default function Logo() {
 					width={48}
 					height={48}
 					priority
-					className="hidden dark:block" // only visibility in dark theme
+					className="hidden dark:block min-w-[48px] min-h-[48px]" // only visibility in dark theme
 				/>
 				<span className="hidden sm:block ml-3 text-2xl font-bold">
 					{APP_NAME}

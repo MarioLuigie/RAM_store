@@ -14,6 +14,7 @@ export const APP_DESC =
 export const APP_ROUTE_NAME_HOME = 'Home';
 export const APP_ROUTE_NAME_ORDERS = 'Orders';
 export const APP_ROUTE_NAME_CART = 'Cart';
+export const APP_ROUTE_NAME_PROFILE = 'Profile';
 export const APP_ROUTE_NAME_PRODUCTS = 'Products';
 export const APP_ROUTE_NAME_USERS = 'Users';
 export const APP_ROUTE_NAME_OVERVIEW = 'Overview';

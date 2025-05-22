@@ -1,7 +1,7 @@
 // modules
 import {
 	Bell,
-	ChevronsUpDown,
+	ChevronDown,
 	LogOut,
 	Sparkles,
 	UserIcon,
@@ -45,7 +45,7 @@ export default function LoggedInUserButton({ user }: { user: User }) {
 						<span className="truncate font-semibold">{user?.name}</span>
 						<span className="truncate text-xs">{user?.email}</span>
 					</div>
-					<ChevronsUpDown className="ml-auto size-4" />
+					<ChevronDown className="ml-auto size-4" />
 				</div>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent

@@ -35,7 +35,7 @@ export default function ModeToggle() {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button variant="ghost" aria-label='Change theme'>
+				<Button variant="ghost" aria-label='Change theme' className='cursor-pointer'>
 					{theme === Theme.SYSTEM ? (
 						<SunMoon />
 					) : theme === Theme.DARK ? (

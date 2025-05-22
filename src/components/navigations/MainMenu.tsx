@@ -23,7 +23,7 @@ const MenuItems = ({ cartItemsQty }: { cartItemsQty: number }) => (
 		<ModeToggle />
 
 		{/* CART BUTTON */}
-		<Button asChild variant="ghost" aria-label="Go to cart">
+		<Button asChild variant="ghost" aria-label="Go to cart" className='px-1 py-0.5'>
 			<Link href={ROUTES.CART}>
 				<div className="flex-center gap-2 relative">
 					<ShoppingCart className="z-20" />
@@ -41,7 +41,7 @@ export default function MainMenu({ cartItems }: { cartItems: CartItem[] }) {
 	return (
 		<>
 			{/* DESKTOP MENU */}
-			<nav className="hidden md:flex md:items-center gap-3">
+			<nav className="hidden md:flex md:items-center gap-1">
 				{/* MENU CONTENT */}
 				<MenuItems cartItemsQty={cartItems.length} />
 			</nav>

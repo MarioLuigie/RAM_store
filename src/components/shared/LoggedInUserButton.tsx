@@ -33,7 +33,7 @@ export default function LoggedInUserButton({ user }: { user: User }) {
 
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger asChild>
+			<DropdownMenuTrigger asChild className='min-w-52'>
 				<div className="flex-center gap-3 px-2 py-1 rounded-md cursor-pointer">
 					<Avatar className="h-8 w-8 rounded-lg">
 						{/* <AvatarImage src={user?.avatar} alt={user?.name} /> */}

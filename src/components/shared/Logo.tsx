@@ -8,7 +8,7 @@ import Image from 'next/image'
 
 export default function Logo() {
 	return (
-		<div className="flex-start">
+		<div className="flex-start sm:min-w-36">
 			<Link href={ROUTES.HOME} className="flex-start">
 				<Image
 					src={ICONS.LOGO_LIGHT.path}

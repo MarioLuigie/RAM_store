@@ -3,6 +3,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import Main from '@/components/layout/Main';
 import AdminMenu from '@/components/navigations/AdminMenu';
+import SearchField from '@/components/shared/SearchField';
 
 export default function AdminLayout({
 	children,
@@ -13,6 +14,7 @@ export default function AdminLayout({
 		<div className="flex flex-col min-h-screen">
 			<Header>
 				<AdminMenu className="mt-1" />
+				<SearchField />
 			</Header>
 			<Main>{children}</Main>
 			<Footer />

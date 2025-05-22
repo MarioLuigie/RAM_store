@@ -173,13 +173,29 @@ export const config = {
 			if (user) {
 				token.id = user.id;
 
-				if (USER_WHITE_LIST.includes(user.email)) {
-					if (user.role !== AuthRole.ADMIN) {
+				const isWhiteList = USER_WHITE_LIST.includes(user.email);
+
+				if (isWhiteList) {
+					const dbUser = await prisma.user.findUnique({
+						where: { id: user.id },
+						select: { role: true },
+					});
+
+					if (dbUser?.role !== AuthRole.ADMIN) {
 						await prisma.user.update({
 							where: { id: user.id },
 							data: { role: AuthRole.ADMIN },
 						});
+
+						await prisma.roleChangeLog.create({
+							data: {
+								userId: user.id,
+								email: user.email!,
+								newRole: AuthRole.ADMIN,
+							},
+						});
 					}
+
 					token.role = AuthRole.ADMIN;
 				} else {
 					token.role = user.role;

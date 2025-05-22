@@ -109,3 +109,6 @@ export const PAYMENT_METHODS = process.env.PAYMENT_METHODS
 
 export const DEFAULT_PAYMENT_METHOD =
 	process.env.DEFAULT_PAYMENT_METHOD || PaymentMethod.PAYPAL;
+
+export const USER_WHITE_LIST = process.env.USER_WHITE_LIST?.split(',') ?? [];
+

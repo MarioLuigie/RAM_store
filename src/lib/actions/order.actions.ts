@@ -13,6 +13,7 @@ import { CartItem } from '../types/cart.types';
 import { convertToPlainObject } from '../utils/utils';
 import { PAGE_SIZE } from '../constants';
 import { Order } from '../types/order.types';
+import { Prisma } from '@prisma/client';
 
 // CREATE ORDER AND ORDER ITEMS
 export async function createOrder() {
@@ -191,80 +192,140 @@ export async function getOrderById(orderId: string) {
 // }
 
 export async function getOrders({
-  limit = PAGE_SIZE,
-  page,
+	limit = PAGE_SIZE,
+	page,
 }: {
-  limit?: number;
-  page: number;
+	limit?: number;
+	page: number;
 }) {
-  try {
-    const session = await auth();
+	try {
+		const session = await auth();
 
-    if (!session || !session.user?.id) {
-      throw new Error('User is not authenticated');
-    }
+		if (!session || !session.user?.id) {
+			throw new Error('User is not authenticated');
+		}
 
-    // Pobierz zamówienia
-    const ordersFromDb = await prisma.order.findMany({
-      where: { userId: session.user.id },
-      orderBy: { createdAt: 'desc' },
-      take: limit,
-      skip: (page - 1) * limit,
-      include: {
-        orderitems: true,
-        user: {
-          select: {
-            name: true,
-            email: true,
-          },
-        },
-      },
-    });
+		// Pobierz zamówienia
+		const ordersFromDb = await prisma.order.findMany({
+			where: { userId: session.user.id },
+			orderBy: { createdAt: 'desc' },
+			take: limit,
+			skip: (page - 1) * limit,
+			include: {
+				orderitems: true,
+				user: {
+					select: {
+						name: true,
+						email: true,
+					},
+				},
+			},
+		});
 
-    // Przekonwertuj i zweryfikuj dane
-    const typedOrders: Order[] = ordersFromDb.map((order) => {
-      const parsed = OrderSchema.parse({
-        userId: order.userId,
-        paymentMethod: order.paymentMethod,
-        shippingAddress: order.shippingAddress,
-        itemsPrice: order.itemsPrice.toString(),
-        shippingPrice: order.shippingPrice.toString(),
-        taxPrice: order.taxPrice.toString(),
-        totalPrice: order.totalPrice.toString(),
-      });
+		// Przekonwertuj i zweryfikuj dane
+		const typedOrders: Order[] = ordersFromDb.map((order) => {
+			const parsed = OrderSchema.parse({
+				userId: order.userId,
+				paymentMethod: order.paymentMethod,
+				shippingAddress: order.shippingAddress,
+				itemsPrice: order.itemsPrice.toString(),
+				shippingPrice: order.shippingPrice.toString(),
+				taxPrice: order.taxPrice.toString(),
+				totalPrice: order.totalPrice.toString(),
+			});
 
-      return {
-        ...parsed,
-        id: order.id,
-        createdAt: order.createdAt,
-        isPaid: order.isPaid,
-        paidAt: order.paidAt,
-        isDelivered: order.isDelivered,
-        deliveredAt: order.deliveredAt,
-        orderitems: order.orderitems,
-        user: order.user,
-      };
-    });
+			return {
+				...parsed,
+				id: order.id,
+				createdAt: order.createdAt,
+				isPaid: order.isPaid,
+				paidAt: order.paidAt,
+				isDelivered: order.isDelivered,
+				deliveredAt: order.deliveredAt,
+				orderitems: order.orderitems,
+				user: order.user,
+			};
+		});
 
-    const dataCount = await prisma.order.count({
-      where: { userId: session.user.id },
-    });
+		const dataCount = await prisma.order.count({
+			where: { userId: session.user.id },
+		});
 
-    const totalPages = Math.ceil(dataCount / limit);
+		const totalPages = Math.ceil(dataCount / limit);
 
-    return {
-      success: true,
-      data: {
-        orders: typedOrders,
-        totalPages,
-      },
-      message: 'Orders fetched successfully',
-    };
-  } catch (error) {
-    return {
-      success: false,
-      message: formatErrorMessages(error),
-    };
-  }
+		return {
+			success: true,
+			data: {
+				orders: typedOrders,
+				totalPages,
+			},
+			message: 'Orders fetched successfully',
+		};
+	} catch (error) {
+		return {
+			success: false,
+			message: formatErrorMessages(error),
+		};
+	}
 }
 
+type SalesData = {
+	month: string;
+	totalSales: number;
+}[];
+
+// GET ORDERS SUMMARY DATA FOR ADMIN
+export async function getOrderSummary() {
+	try {
+		// Get counts for each resource
+		const ordersCount = await prisma.order.count();
+		const productsCount = await prisma.product.count();
+		const usersCount = await prisma.user.count();
+
+		// Calculate the total sales
+		const totalSales = await prisma.order.aggregate({
+			_sum: { totalPrice: true },
+		});
+
+		// Get monthly sales
+		const salesDataRaw = await prisma.$queryRaw<
+			Array<{ month: string; totalSales: Prisma.Decimal }>
+		>`SELECT to_char("createdAt", 'MM/YY') as "month", sum("totalPrice") as "totalSales" FROM "Order" GROUP BY to_char("createdAt", 'MM/YY')`;
+
+		const salesData: SalesData = salesDataRaw.map((entry) => ({
+			month: entry.month,
+			totalSales: Number(entry.totalSales),
+		}));
+
+		// Get latest sales
+		const latestSales = await prisma.order.findMany({
+			orderBy: { createdAt: 'desc' },
+			include: {
+				user: {
+					select: {
+						name: true,
+					},
+				},
+			},
+			take: 6,
+		});
+
+		return {
+			success: true,
+			data: {
+				ordersCount,
+				productsCount,
+				usersCount,
+				totalSales,
+				latestSales,
+				salesData,
+			},
+			message: 'Order summary created successfully',
+		};
+	} catch (error) {
+		return {
+			success: false,
+			message: formatErrorMessages(error),
+		};
+	}
+}

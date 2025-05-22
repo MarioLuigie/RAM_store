@@ -50,21 +50,22 @@ model Cart {
 
 // PRISMA MODEL FOR USERS
 model User {
-  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name          String    @default("NO_NAME")
-  email         String    @unique(map: "user_email_idx")
-  emailVerified DateTime? @db.Timestamp(6)
-  password      String?
-  role          String    @default("user")
-  address       Json?     @db.Json
-  paymentMethod String?
-  image         String?
-  createdAt     DateTime  @default(now()) @db.Timestamp(6)
-  updatedAt     DateTime  @updatedAt
-  account       Account[]
-  session       Session[]
-  Cart          Cart[]
-  Order         Order[]
+  id             String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name           String          @default("NO_NAME")
+  email          String          @unique(map: "user_email_idx")
+  emailVerified  DateTime?       @db.Timestamp(6)
+  password       String?
+  role           String          @default("user")
+  address        Json?           @db.Json
+  paymentMethod  String?
+  image          String?
+  createdAt      DateTime        @default(now()) @db.Timestamp(6)
+  updatedAt      DateTime        @updatedAt
+  account        Account[]
+  session        Session[]
+  Cart           Cart[]
+  Order          Order[]
+  roleChangeLogs RoleChangeLog[]
 }
 
 model Account {
@@ -137,4 +138,14 @@ model OrderItem {
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@id([orderId, productId], map: "orderitems_orderId_productId_pk")
+}
+
+model RoleChangeLog {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId    String?   @db.Uuid
+  email     String
+  newRole   String
+  changedAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
 }

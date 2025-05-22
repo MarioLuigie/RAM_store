@@ -2,10 +2,10 @@
 import {
 	Bell,
 	ChevronsUpDown,
-	CreditCard,
 	LogOut,
 	Sparkles,
 	UserIcon,
+	ShoppingBag,
 } from 'lucide-react';
 // lib
 import { signOutUser } from '@/lib/actions/user.actions';
@@ -94,8 +94,8 @@ export default function LoggedInUserButton({ user }: { user: User }) {
 							href={ROUTES.ORDERS}
 							className="flex items-center gap-2"
 						>
-							<CreditCard />
-							Order History
+							<ShoppingBag />
+							Orders History
 						</Link>
 					</DropdownMenuItem>
 					<DropdownMenuItem className="cursor-pointer">

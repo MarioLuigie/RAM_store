@@ -48,7 +48,7 @@ export default function OrdersTable({
 										<Check size={18} />
 									</div>
 								) : (
-									<Badge className="bg-red-500">Not paid</Badge>
+									<Badge variant="destructive">Not paid</Badge>
 								)}
 							</TableCell>
 							<TableCell>
@@ -60,7 +60,7 @@ export default function OrdersTable({
 										<Check size={18} />
 									</div>
 								) : (
-									<Badge className="bg-red-500">Not delivered</Badge>
+									<Badge variant="destructive">Not delivered</Badge>
 								)}
 							</TableCell>
 							<TableCell>

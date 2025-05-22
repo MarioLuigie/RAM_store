@@ -11,6 +11,10 @@ export const ROUTES = {
 	SIGN_IN: '/sign-in',
 	SIGN_OUT: '/sign-out',
 	SIGN_UP: '/sign-up',
+	ADMIN_OVERVIEW: '/admin/overview',
+	ADMIN_USERS: '/admin/overview',
+	ADMIN_ORDERS: '/admin/overview',
+	ADMIN_PRODUCTS: '/admin/overview',
 }
 
 export const ICONS_PATH = {

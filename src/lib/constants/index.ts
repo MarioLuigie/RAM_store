@@ -1,5 +1,5 @@
 // lib
-import { MENU_LABELS } from '@/lib/constants/texts';
+import { USER_MENU_LABELS, ADMIN_MENU_LABELS } from '@/lib/constants/texts';
 import { ROUTES } from '@/lib/constants/paths';
 import { PaymentMethod } from '@/lib/constants/enums';
 import { ICONS } from '@/lib/constants/icons';
@@ -51,10 +51,18 @@ export const CURRENCY_CODES = {
 export const SERVER_URL =
 	process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000';
 
-// ADDITIONAL MENU ITEMS
+// USER MENU ITEMS
 export const USER_MENU_ITEMS = [
-	{ label: MENU_LABELS.PROFILE, path: ROUTES.USER_PROFILE, iconPath: ICONS.USER.path },
-	{ label: MENU_LABELS.ORDERS, path: ROUTES.USER_ORDERS, iconPath: ICONS.ORDERS.path },
+	{ label: USER_MENU_LABELS.PROFILE, path: ROUTES.USER_PROFILE, iconPath: ICONS.USER.path },
+	{ label: USER_MENU_LABELS.ORDERS, path: ROUTES.USER_ORDERS, iconPath: ICONS.ORDERS.path },
+];
+
+// ADMIN MENU ITEMS
+export const ADMIN_MENU_ITEMS = [
+	{ label: ADMIN_MENU_LABELS.OVERVIEW, path: ROUTES.ADMIN_OVERVIEW, iconPath: ICONS.USER.path },
+	{ label: ADMIN_MENU_LABELS.USERS, path: ROUTES.ADMIN_USERS, iconPath: ICONS.ORDERS.path },
+	{ label: ADMIN_MENU_LABELS.PRODUCTS, path: ROUTES.ADMIN_PRODUCTS, iconPath: ICONS.ORDERS.path },
+	{ label: ADMIN_MENU_LABELS.ORDERS, path: ROUTES.ADMIN_ORDERS, iconPath: ICONS.ORDERS.path },
 ];
 
 // PRODUCTS

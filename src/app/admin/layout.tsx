@@ -2,7 +2,7 @@
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import Main from '@/components/layout/Main';
-import UserMenu from '@/components/navigations/UserMenu';
+import AdminMenu from '@/components/navigations/AdminMenu';
 
 export default function AdminLayout({
 	children,
@@ -12,7 +12,7 @@ export default function AdminLayout({
 	return (
 		<div className="flex flex-col min-h-screen">
 			<Header>
-				<UserMenu className="mt-1" />
+				<AdminMenu className="mt-1" />
 			</Header>
 			<Main>{children}</Main>
 			<Footer />

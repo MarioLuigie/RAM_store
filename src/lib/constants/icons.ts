@@ -1,8 +1,8 @@
 // modules
-import { ShoppingBag, UserIcon } from 'lucide-react';
+import { ShoppingBag, UserIcon, PanelsTopLeft, Shirt } from 'lucide-react';
 // lib
 import { ICONS_PATH } from '@/lib/constants/paths';
-import { MENU_LABELS } from '@/lib/constants/texts';
+import { USER_MENU_LABELS, ADMIN_MENU_LABELS } from '@/lib/constants/texts';
 
 export const ICONS = {
 	LOGO_LIGHT: {
@@ -39,7 +39,14 @@ export const ICONS = {
 	},
 };
 
-export const ICON_MAP: Record<string, React.ElementType> = {
-  [MENU_LABELS.ORDERS]: ShoppingBag,
-  [MENU_LABELS.PROFILE]: UserIcon,
+export const USER_MENU_ICON_MAP: Record<string, React.ElementType> = {
+  [USER_MENU_LABELS.ORDERS]: ShoppingBag,
+  [USER_MENU_LABELS.PROFILE]: UserIcon,
+};
+
+export const ADMIN_MENU_ICON_MAP: Record<string, React.ElementType> = {
+  [ADMIN_MENU_LABELS.OVERVIEW]: PanelsTopLeft,
+  [ADMIN_MENU_LABELS.USERS]: UserIcon,
+  [ADMIN_MENU_LABELS.PRODUCTS]: Shirt,
+  [ADMIN_MENU_LABELS.ORDERS]: ShoppingBag,
 };

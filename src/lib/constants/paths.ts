@@ -12,9 +12,9 @@ export const ROUTES = {
 	USER_ORDERS: '/user/orders',
 	USER_PROFILE: '/user/profile',
 	ADMIN_OVERVIEW: '/admin/overview',
-	ADMIN_USERS: '/admin/overview',
-	ADMIN_ORDERS: '/admin/overview',
-	ADMIN_PRODUCTS: '/admin/overview',
+	ADMIN_USERS: '/admin/users',
+	ADMIN_PRODUCTS: '/admin/products',
+	ADMIN_ORDERS: '/admin/orders',
 }
 
 export const ICONS_PATH = {

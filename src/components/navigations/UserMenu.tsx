@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils/utils';
 import React from 'react';
 import { USER_MENU_ITEMS } from '@/lib/constants';
-import { ICON_MAP } from '@/lib/constants/icons';
+import { USER_MENU_ICON_MAP } from '@/lib/constants/icons';
 
 export default function UserMenu({
 	className,
@@ -15,7 +15,7 @@ export default function UserMenu({
 	return (
 		<nav className={cn('flex items-center gap-4', className)} {...props}>
 			{USER_MENU_ITEMS.map((item) => {
-				const Icon = ICON_MAP[item.label];
+				const Icon = USER_MENU_ICON_MAP[item.label];
 				return (
 					<Link
 						key={item.path}

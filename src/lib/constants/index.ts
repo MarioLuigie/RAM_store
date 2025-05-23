@@ -17,7 +17,7 @@ export const APP_ROUTE_NAME_CART = 'Cart';
 export const APP_ROUTE_NAME_PROFILE = 'Profile';
 export const APP_ROUTE_NAME_PRODUCTS = 'Products';
 export const APP_ROUTE_NAME_USERS = 'Users';
-export const APP_ROUTE_NAME_OVERVIEW = 'Overview';
+export const APP_ROUTE_NAME_OVERVIEW = 'Admin Dashboard';
 
 export const PAGE_SIZE = Number(process.env.PAGE_SIZE) || 6;
 

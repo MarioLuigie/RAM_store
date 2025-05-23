@@ -19,7 +19,7 @@ export default function Footer() {
 	return (
 		<footer className="flex flex-col items-center border-t">
 			<div className="wrapper max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 pb-10">
-				{/* About */}
+				{/* ABOUT */}
 				<div>
 					<h3 className="text-xl font-semibold mb-4">About</h3>
 					<p className="text-sm leading-6">
@@ -28,7 +28,7 @@ export default function Footer() {
 					</p>
 				</div>
 
-				{/* Navigation */}
+				{/* NAVIGATION */}
 				<div>
 					<h3 className="text-xl font-semibold mb-4">Navigation</h3>
 					<ul className="space-y-2 text-sm">
@@ -63,7 +63,7 @@ export default function Footer() {
 					</ul>
 				</div>
 
-				{/* Kontakt */}
+				{/* CONTACT */}
 				<div>
 					<h3 className="text-xl font-semibold mb-4">Contact</h3>
 					<ul className="space-y-3 text-sm">
@@ -79,7 +79,7 @@ export default function Footer() {
 					</ul>
 				</div>
 
-				{/* Newsletter i certyfikaty */}
+				{/* NEWSLETTER AND SECURITY BADGES */}
 				<div>
 					<h3 className="text-xl font-semibold mb-4">Newsletter</h3>
 					<form className="flex flex-col gap-3">
@@ -96,7 +96,7 @@ export default function Footer() {
 						</Button>
 					</form>
 
-					{/* Social media */}
+					{/* SOCIAL MEDIA */}
 					<div className="flex space-x-4 mt-6 text-gray-400">
 						<Link href="#">
 							<Facebook size={20} />
@@ -109,7 +109,7 @@ export default function Footer() {
 						</Link>
 					</div>
 
-					{/* Security badges */}
+					{/* SECURITY BADGES*/}
 					<div className="flex flex-col gap-2 mt-6 text-sm text-gray-400">
 						<div className="flex items-center gap-2">
 							<ShieldCheck size={18} /> Secure Shopping

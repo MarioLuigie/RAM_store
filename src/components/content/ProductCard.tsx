@@ -21,7 +21,7 @@ export default function ProductCard({ product }: { product: Product }) {
 					<CardTitle>{product.name}</CardTitle>
 					<CardDescription>{product.description}</CardDescription>
 				</div>
-				<Link href={`${ROUTES.PRODUCT}/${product.slug}`}>
+				<Link href={`${ROUTES.PRODUCT}/${product.slug}`} className='w-full flex-center'>
 					<Image
 						src={product.images[0]}
 						alt={product.name}

@@ -1,5 +1,5 @@
 // modules
-import { ShoppingBag, UserIcon, PanelsTopLeft, Shirt } from 'lucide-react';
+import { ShoppingBag, UserIcon, PanelsTopLeft, Barcode } from 'lucide-react';
 // lib
 import { ICONS_PATH } from '@/lib/constants/paths';
 import { USER_MENU_LABELS, ADMIN_MENU_LABELS } from '@/lib/constants/texts';
@@ -47,6 +47,6 @@ export const USER_MENU_ICON_MAP: Record<string, React.ElementType> = {
 export const ADMIN_MENU_ICON_MAP: Record<string, React.ElementType> = {
   [ADMIN_MENU_LABELS.OVERVIEW]: PanelsTopLeft,
   [ADMIN_MENU_LABELS.USERS]: UserIcon,
-  [ADMIN_MENU_LABELS.PRODUCTS]: Shirt,
+  [ADMIN_MENU_LABELS.PRODUCTS]: Barcode,
   [ADMIN_MENU_LABELS.ORDERS]: ShoppingBag,
 };

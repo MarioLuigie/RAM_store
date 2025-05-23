@@ -103,6 +103,13 @@ export function formatCurrency(amount: number | string | null) {
 	}
 }
 
+// Format Number
+const NUMBER_FORMATTER = new Intl.NumberFormat(LOCALE_CODES.main);
+
+export function formatNumber(number: number) {
+	return NUMBER_FORMATTER.format(number);
+}
+
 // Format currency using the formatter and return currency parts e.x for styling items
 export function formatCurrencyParts(
 	amount: number | string,

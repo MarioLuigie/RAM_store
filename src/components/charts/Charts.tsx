@@ -1,14 +1,11 @@
 'use client';
 
-type SalesDataProps = {
-	month: string;
-	totalSales: number
-}[];
+import { SalesData } from "@/lib/types/admin.types";
 
 export default function Charts({
 	data: { salesData },
 }: {
-	data: { salesData: SalesDataProps };
+	data: { salesData: SalesData };
 }) {
 	return <div>{salesData[0].month}</div>;
 }

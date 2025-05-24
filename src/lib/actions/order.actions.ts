@@ -191,6 +191,7 @@ export async function getOrderById(orderId: string) {
 // 	}
 // }
 
+// GET USER ORDERS - ONLY TO USER PANEL
 export async function getOrders({
 	limit = PAGE_SIZE,
 	page,
@@ -273,6 +274,42 @@ type SalesData = {
 	month: string;
 	totalSales: number;
 }[];
+
+// GET ALL ORDERS TO THE ADMIN PANEL
+export async function getAllOrders({
+	limit = PAGE_SIZE,
+	page,
+}: {
+	limit?: number,
+	page: number,
+}) {
+	try {
+		const orders = await prisma.order.findMany({
+			orderBy: { createdAt: 'desc' },
+			take: limit,
+			skip: (page - 1) * limit,
+			include: { user: { select: { name: true }}}
+		})
+
+		const ordersCount = await prisma.order.count();
+		
+		const totalPages = Math.ceil(ordersCount / limit);
+
+		return {
+			success: true,
+			data: {
+				orders,
+				totalPages,
+			},
+			message: 'Orders downloaded successfully'
+		}
+	} catch (error) {
+		return {
+			success: false,
+			message: formatErrorMessages(error),
+		}
+	}
+}
 
 // GET ORDERS SUMMARY DATA FOR ADMIN
 export async function getOrderSummary() {

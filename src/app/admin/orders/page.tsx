@@ -6,7 +6,7 @@ import { APP_ROUTE_NAME_ORDERS } from '@/lib/constants';
 import AdminOrdersPage from "@/components/pages/admin/AdminOrdersPage";
 
 export const metadata: Metadata = {
-  title: `${APP_ROUTE_NAME_ORDERS}`,
+  title: `Admin ${APP_ROUTE_NAME_ORDERS}`,
 };
 
 export default function Page() {

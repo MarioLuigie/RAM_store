@@ -4,7 +4,7 @@ import AdminProductsPage from "@/components/pages/admin/AdminProductsPage";
 import { APP_ROUTE_NAME_PRODUCTS } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: `${APP_ROUTE_NAME_PRODUCTS}`,
+  title: `Admin ${APP_ROUTE_NAME_PRODUCTS}`,
 };
 
 export default function Page() {

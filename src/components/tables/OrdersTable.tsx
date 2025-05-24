@@ -16,14 +16,15 @@ import { Check } from 'lucide-react';
 export default function OrdersTable({
 	orders,
 }: {
-	orders: Order[];
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	orders: Order[] | any[];
 }) {
 	return (
 		<div className="overflow-x-auto">
 			<Table>
 				<TableHeader>
 					<TableRow>
-						<TableHead>Product Id</TableHead>
+						<TableHead>Order Id</TableHead>
 						<TableHead>Created at</TableHead>
 						<TableHead>Total Price</TableHead>
 						<TableHead>Paid at</TableHead>

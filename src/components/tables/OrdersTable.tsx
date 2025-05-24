@@ -12,6 +12,7 @@ import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { ROUTES } from '@/lib/constants/paths';
 import { Check } from 'lucide-react';
+import { Button } from '../ui/button';
 
 export default function OrdersTable({
 	orders,
@@ -65,9 +66,11 @@ export default function OrdersTable({
 								)}
 							</TableCell>
 							<TableCell>
-								<Link href={`${ROUTES.ORDER}/${order.id}`}>
-									<span className="px-4 py-2">Details</span>
-								</Link>
+								<Button className='cursor-pointer'>
+									<Link href={`${ROUTES.ORDER}/${order.id}`}>
+										Details
+									</Link>
+								</Button>
 							</TableCell>
 						</TableRow>
 					))}

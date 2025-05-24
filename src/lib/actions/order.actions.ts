@@ -14,6 +14,7 @@ import { convertToPlainObject } from '../utils/utils';
 import { PAGE_SIZE } from '../constants';
 import { Order } from '../types/order.types';
 import { Prisma } from '@prisma/client';
+import { revalidatePath } from 'next/cache';
 
 // CREATE ORDER AND ORDER ITEMS
 export async function createOrder() {
@@ -364,5 +365,27 @@ export async function getOrderSummary() {
 			success: false,
 			message: formatErrorMessages(error),
 		};
+	}
+}
+
+// DELETE ORDER
+export async function deleteOrder(orderId: string) {
+	try {
+		await prisma.order.delete({
+			where: { id: orderId }
+		});
+
+		revalidatePath(ROUTES.ADMIN_ORDERS);
+
+		return {
+			success: true,
+			message: 'Order deleted successfully',
+		}
+		
+	} catch (error) {
+		return {
+			success: false,
+			message: formatErrorMessages(error),
+		}
 	}
 }

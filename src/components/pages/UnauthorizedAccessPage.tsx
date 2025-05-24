@@ -1,4 +1,4 @@
-export default function UnauthorizedPage() {
+export default function UnauthorizedAccessPage() {
 
   return (
     <div>

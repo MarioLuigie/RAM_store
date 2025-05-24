@@ -23,7 +23,7 @@ export default function RedirectCard({
 
         <div className="mt-6 p-6 rounded-lg shadow-md text-center">
           <h1 className="text-4xl font-bold mb-4">{title}</h1>
-          <p className="text-[#383638] text-lg">
+          <p className="text-[color:var(--gray-dynamic)] text-lg">
             {desc}
           </p>
           <Button variant="outline" className="mt-6" aria-label='Back to Home'>

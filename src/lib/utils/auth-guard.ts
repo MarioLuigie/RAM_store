@@ -7,7 +7,7 @@ export async function requireAdmin() {
   const session = await auth();
 
   if (session?.user?.role !== AuthRole.ADMIN) {
-    redirect(ROUTES.UNAUTHORIZED);
+    redirect(ROUTES.UNAUTHORIZED_ACCESS);
   }
 
   return session;

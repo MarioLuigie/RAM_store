@@ -7,9 +7,7 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table';
-import { auth } from '@/config/auth';
 import { getOrderSummary } from '@/lib/actions/order.actions';
-import { AuthRole } from '@/lib/constants/enums';
 import { ROUTES } from '@/lib/constants/paths';
 import {
 	formatCurrency,
@@ -19,14 +17,10 @@ import {
 import { BadgeEuro, Barcode, CreditCard, Users } from 'lucide-react';
 import Link from 'next/link';
 import Charts from '@/components/charts/Charts';
+import { requireAdmin } from '@/lib/utils/auth-guard';
 
 export default async function AdminOverviewPage() {
-	const session = await auth();
-	const isAdmin = session?.user?.role === AuthRole.ADMIN;
-
-	if (!isAdmin) {
-		throw new Error('User is not authorized');
-	}
+	await requireAdmin();
 
 	const { success, data: summary, message } = await getOrderSummary();
 

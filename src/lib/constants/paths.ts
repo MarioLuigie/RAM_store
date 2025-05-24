@@ -15,7 +15,7 @@ export const ROUTES = {
 	ADMIN_USERS: '/admin/users',
 	ADMIN_PRODUCTS: '/admin/products',
 	ADMIN_ORDERS: '/admin/orders',
-	UNAUTHORIZED: '/unauthorized',
+	UNAUTHORIZED_ACCESS: '/unauthorized-access',
 }
 
 export const ICONS_PATH = {

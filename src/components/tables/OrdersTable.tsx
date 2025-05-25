@@ -13,6 +13,8 @@ import Link from 'next/link';
 import { ROUTES } from '@/lib/constants/paths';
 import { Check } from 'lucide-react';
 import { Button } from '../ui/button';
+import DeleteDialog from '@/components/dialogs/DeleteDialog';
+import { deleteOrder } from '@/lib/actions/order.actions';
 
 export default function OrdersTable({
 	orders,
@@ -65,12 +67,16 @@ export default function OrdersTable({
 									<Badge variant="destructive">Not delivered</Badge>
 								)}
 							</TableCell>
-							<TableCell>
-								<Button className='cursor-pointer'>
+							<TableCell className='flex-center gap-4'>
+								<Button className="cursor-pointer">
 									<Link href={`${ROUTES.ORDER}/${order.id}`}>
 										Details
 									</Link>
 								</Button>
+								<DeleteDialog
+									id={order.id}
+									action={deleteOrder}
+								/>
 							</TableCell>
 						</TableRow>
 					))}

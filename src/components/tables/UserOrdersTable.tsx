@@ -12,11 +12,9 @@ import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { ROUTES } from '@/lib/constants/paths';
 import { Check } from 'lucide-react';
-import { Button } from '../ui/button';
-import DeleteDialog from '@/components/dialogs/DeleteDialog';
-import { deleteOrder } from '@/lib/actions/order.actions';
+import { Button } from '@/components/ui/button';
 
-export default function OrdersTable({
+export default function UserOrdersTable({
 	orders,
 }: {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -73,7 +71,6 @@ export default function OrdersTable({
 										Details
 									</Link>
 								</Button>
-								<DeleteDialog id={order.id} action={deleteOrder} />
 							</TableCell>
 						</TableRow>
 					))}

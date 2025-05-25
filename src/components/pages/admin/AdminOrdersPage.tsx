@@ -11,7 +11,7 @@ export default async function AdminOrdersPage({
 	await requireAdmin();
 
 	const { success, data } = await getAllOrders({
-		limit: 2,
+		limit: 6,
 		page: Number(page),
 	});
 

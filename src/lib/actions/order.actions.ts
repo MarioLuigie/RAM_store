@@ -15,6 +15,8 @@ import { PAGE_SIZE } from '../constants';
 import { Order } from '../types/order.types';
 import { Prisma } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
+import { PaymentResult } from '../types/payment.types';
+// import { ShippingAddress } from '../types/shipping.types';
 
 // CREATE ORDER AND ORDER ITEMS
 export async function createOrder() {
@@ -281,19 +283,19 @@ export async function getAllOrders({
 	limit = PAGE_SIZE,
 	page,
 }: {
-	limit?: number,
-	page: number,
+	limit?: number;
+	page: number;
 }) {
 	try {
 		const orders = await prisma.order.findMany({
 			orderBy: { createdAt: 'desc' },
 			take: limit,
 			skip: (page - 1) * limit,
-			include: { user: { select: { name: true }}}
-		})
+			include: { user: { select: { name: true } } },
+		});
 
 		const ordersCount = await prisma.order.count();
-		
+
 		const totalPages = Math.ceil(ordersCount / limit);
 
 		return {
@@ -302,13 +304,13 @@ export async function getAllOrders({
 				orders,
 				totalPages,
 			},
-			message: 'Orders downloaded successfully'
-		}
+			message: 'Orders downloaded successfully',
+		};
 	} catch (error) {
 		return {
 			success: false,
 			message: formatErrorMessages(error),
-		}
+		};
 	}
 }
 
@@ -372,7 +374,7 @@ export async function getOrderSummary() {
 export async function deleteOrder(orderId: string) {
 	try {
 		await prisma.order.delete({
-			where: { id: orderId }
+			where: { id: orderId },
 		});
 
 		revalidatePath(ROUTES.ADMIN_ORDERS);
@@ -380,12 +382,124 @@ export async function deleteOrder(orderId: string) {
 		return {
 			success: true,
 			message: 'Order deleted successfully',
-		}
-		
+		};
 	} catch (error) {
 		return {
 			success: false,
 			message: formatErrorMessages(error),
-		}
+		};
 	}
+}
+
+// UPDATE ORDER TO PAID
+export async function updateOrderToPaid({
+	orderId,
+	paymentResult,
+}: {
+	orderId: string;
+	paymentResult?: PaymentResult;
+}) {
+	// Get order from database
+	const order = await prisma.order.findFirst({
+		where: {
+			id: orderId,
+		},
+		include: {
+			orderitems: true,
+		},
+	});
+
+	if (!order) throw new Error('Order not found');
+
+	if (order.isPaid) throw new Error('Order is already paid');
+
+	// Transaction to update order and account for product stock
+	await prisma.$transaction(async (tx) => {
+		// Iterate over products and update stock
+		for (const item of order.orderitems) {
+			await tx.product.update({
+				where: { id: item.productId },
+				data: { stock: { increment: -item.qty } },
+			});
+		}
+
+		// Set the order to paid
+		await tx.order.update({
+			where: { id: orderId },
+			data: {
+				isPaid: true,
+				paidAt: new Date(),
+				paymentResult,
+			},
+		});
+	});
+
+	// Get updated order after transaction
+	const updatedOrder = await prisma.order.findFirst({
+		where: { id: orderId },
+		include: {
+			orderitems: true,
+			user: { select: { name: true, email: true } },
+		},
+	});
+
+	if (!updatedOrder) throw new Error('Order not found');
+
+	// @TODO
+
+	// sendPurchaseReceipt({
+	// 	order: {
+	// 		...updatedOrder,
+	// 		shippingAddress: updatedOrder.shippingAddress as ShippingAddress,
+	// 		paymentResult: updatedOrder.paymentResult as PaymentResult,
+	// 	},
+	// });
+}
+
+//UPDATE COD ORDER TO PAID
+export async function updateOrderToPaidCOD(orderId: string) {
+	try {
+		await updateOrderToPaid({ orderId });
+		revalidatePath(`${ROUTES.ORDER}/${orderId}`);
+		return {
+			success: true,
+			message: 'Order marked as paid',
+		};
+	} catch (error) {
+		return {
+			sucess: false,
+			message: formatErrorMessages(error),
+		};
+	}
+}
+
+//UPDATE COD ORDER TO DELIVERD
+export async function deliverOrder(orderId: string) {
+  try {
+    const order = await prisma.order.findFirst({
+      where: {
+        id: orderId,
+      },
+    });
+
+    if (!order) throw new Error('Order not found');
+    if (!order.isPaid) throw new Error('Order is not paid');
+
+    await prisma.order.update({
+      where: { id: orderId },
+      data: {
+        isDelivered: true,
+        deliveredAt: new Date(),
+      },
+    });
+
+    revalidatePath(`/order/${orderId}`);
+
+    return {
+      success: true,
+      message: 'Order has been marked delivered',
+    };
+  } catch (error) {
+    return { success: false, message: formatErrorMessages(error) };
+  }
 }

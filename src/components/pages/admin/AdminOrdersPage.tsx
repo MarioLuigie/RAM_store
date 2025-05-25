@@ -1,6 +1,6 @@
 import { requireAdmin } from '@/lib/utils/auth-guard';
 import { getAllOrders } from '@/lib/actions/order.actions';
-import OrdersTable from '@/components/tables/OrdersTable';
+import AdminOrdersTable from '@/components/tables/AdminOrdersTable';
 import Pagination from '@/components/shared/Pagination';
 
 export default async function AdminOrdersPage({
@@ -26,7 +26,7 @@ export default async function AdminOrdersPage({
 
 	return (
 		<>
-			<OrdersTable orders={data.orders} />
+			<AdminOrdersTable orders={data.orders} />
 			{data.totalPages > 1 && (
 				<Pagination page={Number(page) || 1} totalPages={data.totalPages} />
 			)}

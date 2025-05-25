@@ -16,7 +16,7 @@ import { Button } from '../ui/button';
 import DeleteDialog from '@/components/dialogs/DeleteDialog';
 import { deleteOrder } from '@/lib/actions/order.actions';
 
-export default function OrdersTable({
+export default function AdminOrdersTable({
 	orders,
 }: {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

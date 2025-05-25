@@ -163,6 +163,54 @@ export async function updateOrderToPaid({
 	if (!updatedOrder) throw new Error('Order not found');
 }
 
+//UPDATE COD ORDER TO PAID
+export async function updateOrderToPaidCOD(orderId: string) {
+	try {
+		await updateOrderToPaid({ orderId });
+		revalidatePath(`${ROUTES.ORDER}/${orderId}`);
+		return {
+			success: true,
+			message: 'Order marked as paid',
+		};
+	} catch (error) {
+		return {
+			success: false,
+			message: formatErrorMessages(error),
+		};
+	}
+}
+
+//UPDATE COD ORDER TO DELIVERD
+export async function updateOrderToDeliverCOD(orderId: string) {
+  try {
+    const order = await prisma.order.findFirst({
+      where: {
+        id: orderId,
+      },
+    });
+
+    if (!order) throw new Error('Order not found');
+    if (!order.isPaid) throw new Error('Order is not paid');
+
+    await prisma.order.update({
+      where: { id: orderId },
+      data: {
+        isDelivered: true,
+        deliveredAt: new Date(),
+      },
+    });
+
+		revalidatePath(`${ROUTES.ORDER}/${orderId}`);
+
+    return {
+      success: true,
+      message: 'Order has been marked delivered',
+    };
+  } catch (error) {
+    return { success: false, message: formatErrorMessages(error) };
+  }
+}
+
 // S-T-R-I-P-E
 
 // Example captured payment for order captureData

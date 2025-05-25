@@ -5,6 +5,7 @@ import { getOrderById } from '@/lib/actions/order.actions';
 // componnets
 import OrderDetails from '@/components/content/OrderDetails';
 import { ShippingAddress } from '@/lib/types/shipping.types';
+import { checkIsAdmin } from '@/lib/utils/server';
 
 export default async function OrderDetailsPage({
 	orderId,
@@ -15,6 +16,8 @@ export default async function OrderDetailsPage({
 
 	if (!order) notFound();
 
+	const isAdmin = await checkIsAdmin();
+
 	return (
 		<>
 			<OrderDetails
@@ -23,6 +26,7 @@ export default async function OrderDetailsPage({
 					shippingAddress: order.shippingAddress as ShippingAddress,
 				}}
 				paypalClientId={process.env.PAYPAL_CLIENT_ID || 'sb'}
+				isAdmin={isAdmin}
 			/>
 		</>
 	);

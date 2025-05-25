@@ -22,14 +22,14 @@ export async function checkIsAdmin(): Promise<{
 	if (!session || !session.user || !session.user.role) {
 		return {
 			isAdmin: false,
-			message: 'Brak sesji lub użytkownika',
+			message: 'Not found user session',
 		};
 	}
 
 	if (session.user.role !== AuthRole.ADMIN) {
 		return {
 			isAdmin: false,
-			message: 'Użytkownik nie jest adminem',
+			message: 'User is not the admin',
 		};
 	}
 

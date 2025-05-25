@@ -5,7 +5,7 @@ import { getOrderById } from '@/lib/actions/order.actions';
 // componnets
 import OrderDetails from '@/components/content/OrderDetails';
 import { ShippingAddress } from '@/lib/types/shipping.types';
-import { checkIsAdmin } from '@/lib/utils/server';
+import { checkIsAdmin } from '@/lib/utils/auth-guard';
 
 export default async function OrderDetailsPage({
 	orderId,
@@ -16,7 +16,7 @@ export default async function OrderDetailsPage({
 
 	if (!order) notFound();
 
-	const isAdmin = await checkIsAdmin();
+	const { isAdmin } = await checkIsAdmin();
 
 	return (
 		<>

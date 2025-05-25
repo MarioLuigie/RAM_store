@@ -180,8 +180,8 @@ export async function updateOrderToPaidCOD(orderId: string) {
 	}
 }
 
-//UPDATE COD ORDER TO DELIVERD
-export async function updateOrderToDeliverCOD(orderId: string) {
+//UPDATE COD ORDER TO DELIVERED
+export async function updateOrderToDeliveredCOD(orderId: string) {
   try {
     const order = await prisma.order.findFirst({
       where: {

@@ -32,7 +32,7 @@ export default function AdminOrdersTable({
 						<TableHead>Total Price</TableHead>
 						<TableHead>Paid at</TableHead>
 						<TableHead>Delivered at</TableHead>
-						<TableHead>Actions</TableHead>
+						<TableHead className="text-center">Actions</TableHead>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
@@ -67,8 +67,8 @@ export default function AdminOrdersTable({
 									<Badge variant="destructive">Not delivered</Badge>
 								)}
 							</TableCell>
-							<TableCell className="flex-center gap-4">
-								<Button className="cursor-pointer">
+							<TableCell className="flex-center gap-2">
+								<Button className="cursor-pointer" variant='outline'>
 									<Link href={`${ROUTES.ORDER}/${order.id}`}>
 										Details
 									</Link>

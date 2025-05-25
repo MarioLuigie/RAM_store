@@ -26,6 +26,7 @@ export default async function AdminOrdersPage({
 
 	return (
 		<>
+			<h2 className="text-xl  mb-3">All Orders</h2>
 			<AdminOrdersTable orders={data.orders} />
 			{data.totalPages > 1 && (
 				<Pagination page={Number(page) || 1} totalPages={data.totalPages} />

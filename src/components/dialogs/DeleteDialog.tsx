@@ -13,6 +13,8 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
+import { formatId } from '@/lib/utils/utils';
 
 type DeleteDialogProps = {
 	id: string;
@@ -37,20 +39,23 @@ export default function DeleteDialog({ id, action }: DeleteDialogProps) {
 
 	return (
 		<AlertDialog>
-			<AlertDialogTrigger className="cursor-pointer">
-				Delete
+			<AlertDialogTrigger asChild>
+				<Button>Delete</Button>
 			</AlertDialogTrigger>
 			<AlertDialogContent>
 				<AlertDialogHeader>
 					<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
 					<AlertDialogDescription>
 						This action cannot be undone. This will permanently delete
-						order and remove from our servers.
+						order <span className='font-medium'>{formatId(id)}</span> and remove from our servers.
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogCancel>Cancel</AlertDialogCancel>
-					<AlertDialogAction onClick={handleDeleteClick} disabled={isPending}>
+					<AlertDialogAction
+						onClick={handleDeleteClick}
+						disabled={isPending}
+					>
 						Delete
 					</AlertDialogAction>
 				</AlertDialogFooter>

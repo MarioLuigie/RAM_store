@@ -1,6 +1,8 @@
 import { z } from 'zod';
 import { formatNumberWithDecimalToString } from '@/lib/utils/utils';
-import { PAYMENT_METHODS } from '../constants';
+import { PAYMENT_METHODS, PRODUCT_DEFAULT_VALUES } from '../constants';
+import { ActionTypes } from '@/lib/constants/enums';
+import { Product } from '../types/products.types';
 
 // SCHEMA FOR SIGN IN FORM
 export const SignInFormSchema = z
@@ -107,7 +109,6 @@ export const PaymentMethodSchema = z
 		message: 'Invalid payment method',
 	});
 
-
 // SCHEMA FOR INSERTING ORDER
 export const OrderSchema = z.object({
 	userId: z.string().min(1, 'User is required'),
@@ -116,7 +117,7 @@ export const OrderSchema = z.object({
 	taxPrice: currency,
 	totalPrice: currency,
 	paymentMethod: z.string().refine((data) => PAYMENT_METHODS.includes(data), {
-		message: 'Invalid payment method'
+		message: 'Invalid payment method',
 	}),
 	shippingAddress: ShippingAddressSchema,
 });
@@ -163,3 +164,26 @@ export const CreateProductSchema = z.object({
 export const UpdateProductSchema = CreateProductSchema.extend({
 	id: z.string().min(1, 'Id is required'),
 });
+
+export function getProductFormSchema(actionType: ActionTypes) {
+	switch (actionType) {
+		case ActionTypes.CREATE:
+			return CreateProductSchema;
+		case ActionTypes.UPDATE:
+			return UpdateProductSchema;
+	}
+}
+
+export function getProductFormDefaultValues(
+	actionType: ActionTypes,
+	product: Product | null | undefined
+) {
+	if (actionType === ActionTypes.CREATE) {
+		return PRODUCT_DEFAULT_VALUES;
+	}
+
+	if (actionType === ActionTypes.UPDATE && product) {
+		return product;
+	}
+	return PRODUCT_DEFAULT_VALUES;
+}

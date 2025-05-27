@@ -1,4 +1,4 @@
-import CreateProductPage from '@/components/pages/admin/AdminCreateProductPage';
+import AdminCreateProductPage from '@/components/pages/admin/AdminCreateProductPage';
 // modules
 import { Metadata } from 'next';
 // lib
@@ -9,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-	return <CreateProductPage />;
+	return <AdminCreateProductPage />;
 }

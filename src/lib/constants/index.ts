@@ -95,7 +95,7 @@ export const PRODUCT_DEFAULT_VALUES = {
 		category: '',
 		brand: '',
 		description: '',
-		stock: '0',
+		stock: 0, // @"0" in course !!!
 		images: [],
 		banner: null,
 		price: '0',

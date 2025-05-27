@@ -158,3 +158,8 @@ export const AddProductSchema = z.object({
 	banner: z.string().nullable(),
 	price: currency,
 });
+
+// SCHEMA FOR UPDATING PRODUCT
+export const UpdateProductSchema = AddProductSchema.extend({
+	id: z.string().min(1, 'Id is required'),
+});

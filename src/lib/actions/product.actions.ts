@@ -1,12 +1,16 @@
-'use server'
+'use server';
 // modules
 // import { PrismaClient, Prisma } from '@prisma/client'
-import { Prisma } from '@prisma/client'
-import { prisma } from '@/lib/db/prisma' // global app prisma client
+import { Prisma } from '@prisma/client';
+import { prisma } from '@/lib/db/prisma'; // global app prisma client
 // lib
-import { LATEST_PRODUCTS_LIMIT } from '@/lib/constants'
-import { safeNormalizeProducts, safeNormalizeProduct } from '@/lib/utils/server'
-import { Product } from '@/lib/types/products.types'
+import { LATEST_PRODUCTS_LIMIT, PAGE_SIZE } from '@/lib/constants';
+import {
+	safeNormalizeProducts,
+	safeNormalizeProduct,
+	formatErrorMessages,
+} from '@/lib/utils/server';
+import { Product } from '@/lib/types/products.types';
 
 // CREATE PRISMA CLIENT
 // const prisma = new PrismaClient()
@@ -18,25 +22,25 @@ export async function getLatestProducts(): Promise<IDataResult<Product[]>> {
 		const data = await prisma.product.findMany({
 			take: LATEST_PRODUCTS_LIMIT,
 			orderBy: { createdAt: 'desc' },
-		})
+		});
 
 		return {
 			success: true,
 			data: safeNormalizeProducts(data),
-		}
+		};
 	} catch (error: unknown) {
 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
-			console.error('Prisma error:', error.message, error.code)
+			console.error('Prisma error:', error.message, error.code);
 		} else if (error instanceof Error) {
-			console.error('General error:', error.message)
+			console.error('General error:', error.message);
 		} else {
-			console.error('Unknown error:', error)
+			console.error('Unknown error:', error);
 		}
 
 		return {
 			success: false,
 			data: [] as Product[],
-		} // DONT RETURN EMPTY OBJECT FORCED AS Product type!
+		}; // DONT RETURN EMPTY OBJECT FORCED AS Product type!
 	}
 }
 
@@ -47,30 +51,29 @@ export async function getProductBySlug(
 	try {
 		const data = await prisma.product.findFirst({
 			where: { slug: slug },
-		})
+		});
 
 		if (!data) {
-			throw new Error(`Product with slug "${slug}" not found`)
+			throw new Error(`Product with slug "${slug}" not found`);
 		}
 
 		return {
 			success: true,
 			data: safeNormalizeProduct(data),
-		}
-
+		};
 	} catch (error: unknown) {
 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
-			console.error('Prisma error:', error.message, error.code)
+			console.error('Prisma error:', error.message, error.code);
 		} else if (error instanceof Error) {
-			console.error('General error:', error.message)
+			console.error('General error:', error.message);
 		} else {
-			console.error('Unknown error:', error)
+			console.error('Unknown error:', error);
 		}
 
 		return {
 			success: false,
 			data: {} as Product,
-		} // DONT RETURN EMPTY OBJECT FORCED AS Product type!
+		}; // DONT RETURN EMPTY OBJECT FORCED AS Product type!
 	}
 }
 
@@ -85,30 +88,70 @@ export async function getProductsBySlugs(
 					in: slugs,
 				},
 			},
-		})
+		});
 
 		if (!data || data.length === 0) {
-			throw new Error(`No products found for the provided slugs`)
+			throw new Error(`No products found for the provided slugs`);
 		}
 
-		const normalized = data.map((item) => safeNormalizeProduct(item))
+		const normalized = data.map((item) => safeNormalizeProduct(item));
 
 		return {
 			success: true,
 			data: normalized,
-		}
+		};
 	} catch (error: unknown) {
 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
-			console.error('Prisma error:', error.message, error.code)
+			console.error('Prisma error:', error.message, error.code);
 		} else if (error instanceof Error) {
-			console.error('General error:', error.message)
+			console.error('General error:', error.message);
 		} else {
-			console.error('Unknown error:', error)
+			console.error('Unknown error:', error);
 		}
 
 		return {
 			success: false,
 			data: [],
-		}
+		};
+	}
+}
+
+// GET ALL PRODUCTS
+export async function getProducts({
+	page,
+	query,
+	category,
+	limit = PAGE_SIZE,
+}: {
+	page: number;
+	query: string;
+	category: string;
+	limit?: number;
+}) {
+	try {
+		console.log(page, query, category, limit);
+
+		const products = await prisma.product.findMany({
+			skip: (page - 1) * limit,
+			take: limit,
+		});
+
+		const productsCount = await prisma.product.count();
+
+		const totalPages = Math.ceil(productsCount / limit);
+
+		return {
+			success: true,
+			data: {
+				products,
+				totalPages,
+			},
+			message: 'Products found successfully',
+		};
+	} catch (error) {
+		return {
+			success: false,
+			message: formatErrorMessages(error),
+		};
 	}
 }

@@ -87,6 +87,22 @@ export const SIGNUP_DEFAULT_VALUES = {
 	confirmPassword: '',
 };
 
+// DEFAULT VALUES FOR PRODUCT
+export const PRODUCT_DEFAULT_VALUES = {
+		name: '',
+		slug: '',
+		category: '',
+		brand: '',
+		description: '',
+		stock: '0',
+		images: [],
+		banner: null,
+		price: '0',
+		rating: '0',
+		numReviews: '0',
+		isFeatured: false,
+}
+
 // DEFAULT VALUES FOR SIGNUP FORM
 export const SHIPPING_ADDRESS_DEFAULT_VALUES = {
 	fullName: '',

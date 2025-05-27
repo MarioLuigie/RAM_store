@@ -10,7 +10,7 @@ import {
 	safeNormalizeProduct,
 	formatErrorMessages,
 } from '@/lib/utils/server';
-import { AddProduct, Product, UpdateProduct } from '@/lib/types/products.types';
+import { CreateProduct, Product, UpdateProduct } from '@/lib/types/products.types';
 import { revalidatePath } from 'next/cache';
 import { ROUTES } from '@/lib/constants/paths';
 import { CreateProductSchema, UpdateProductSchema } from '../utils/validators';
@@ -187,7 +187,7 @@ export async function deleteProduct(productId: string) {
 }
 
 // CREATE PRODUCT
-export async function createProduct(data: AddProduct) {
+export async function createProduct(data: CreateProduct) {
 	try {
 		const product = CreateProductSchema.parse(data);
 		await prisma.product.create({

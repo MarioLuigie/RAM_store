@@ -7,7 +7,7 @@ export type Product = z.infer<typeof ProductSchema> & {
 	createdAt: Date;
 };
 
-export type AddProduct = z.infer<typeof CreateProductSchema>;
+export type CreateProduct = z.infer<typeof CreateProductSchema>;
 export type UpdateProduct = z.infer<typeof UpdateProductSchema>;
 
 export type Prices = {

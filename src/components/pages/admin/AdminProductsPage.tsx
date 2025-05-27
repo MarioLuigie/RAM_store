@@ -1,5 +1,10 @@
 import { requireAdmin } from '@/lib/utils/auth-guard';
 import { getProducts } from '@/lib/actions/product.actions';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { ROUTES } from '@/lib/constants/paths';
+import { Plus } from 'lucide-react';
+import AdminProductsTable from '@/components/tables/AdminProductsTable';
 
 type AdminProductsPageProps = {
 	page: number;
@@ -12,25 +17,27 @@ export default async function AdminProductsPage({
 	query,
 	category,
 }: AdminProductsPageProps) {
-	console.log(page, query, category);
-
-	const {
-		success,
-		data,
-	} = await getProducts({
+	const { success, data } = await getProducts({
 		page,
 		query,
 		category,
 	});
 
-	console.log("DATA", data!.products, data!.totalPages)
+	if (!success || !data) throw new Error('Products not found');
 
 	await requireAdmin();
 	return (
 		<div className="space-y-2">
 			<div className="flex-between">
 				<h1 className="text-xl  mb-3">Products</h1>
+				<Button asChild variant="default">
+					<Link href={ROUTES.ADMIN_PRODUCTS_CREATE}>
+						<Plus />
+						Create
+					</Link>
+				</Button>
 			</div>
+			<AdminProductsTable products={data.products} />
 		</div>
 	);
 }

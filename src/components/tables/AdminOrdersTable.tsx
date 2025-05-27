@@ -12,7 +12,7 @@ import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { ROUTES } from '@/lib/constants/paths';
 import { Check } from 'lucide-react';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 import DeleteDialog from '@/components/dialogs/DeleteDialog';
 import { deleteOrder } from '@/lib/actions/order.actions';
 

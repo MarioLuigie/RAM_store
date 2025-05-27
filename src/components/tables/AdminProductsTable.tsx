@@ -46,8 +46,8 @@ export default function AdminProductsTable({
               <TableCell>{product.rating}</TableCell>
               <TableCell className="flex-center gap-2">
                 <Button asChild className="cursor-pointer" variant='outline'>
-                  <Link href={`${ROUTES.ORDER}/${product.id}`}>
-                    Details
+                  <Link href={`${ROUTES.ADMIN_PRODUCTS}/${product.id}`}>
+                    Edit
                   </Link>
                 </Button>
                 <DeleteDialog id={product.id} action={deleteProduct} />

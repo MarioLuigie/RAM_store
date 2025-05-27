@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ROUTES } from '@/lib/constants/paths';
 import { Plus } from 'lucide-react';
 import AdminProductsTable from '@/components/tables/AdminProductsTable';
+import Pagination from '@/components/shared/Pagination';
 
 type AdminProductsPageProps = {
 	page: number;
@@ -38,6 +39,9 @@ export default async function AdminProductsPage({
 				</Button>
 			</div>
 			<AdminProductsTable products={data.products} />
+			{data.totalPages > 1 && (
+				<Pagination page={Number(page) || 1} totalPages={data.totalPages} />
+			)}
 		</div>
 	);
 }

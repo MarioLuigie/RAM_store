@@ -12,7 +12,7 @@ import Link from 'next/link';
 import { ROUTES } from '@/lib/constants/paths';
 import { Button } from '@/components/ui/button';
 import DeleteDialog from '@/components/dialogs/DeleteDialog';
-import { deleteOrder } from '@/lib/actions/order.actions';
+import { deleteProduct } from '@/lib/actions/product.actions';
 
 export default function AdminProductsTable({
   products,
@@ -50,7 +50,7 @@ export default function AdminProductsTable({
                     Details
                   </Link>
                 </Button>
-                <DeleteDialog id={product.id} action={deleteOrder} />
+                <DeleteDialog id={product.id} action={deleteProduct} />
               </TableCell>
             </TableRow>
           ))}

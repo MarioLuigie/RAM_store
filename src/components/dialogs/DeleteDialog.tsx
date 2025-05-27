@@ -47,7 +47,7 @@ export default function DeleteDialog({ id, action }: DeleteDialogProps) {
 					<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
 					<AlertDialogDescription>
 						This action cannot be undone. This will permanently delete
-						order <span className='font-medium'>{formatId(id)}</span> and remove from our servers.
+						item <span className='font-medium'>{formatId(id)}</span> and remove from our servers.
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 				<AlertDialogFooter>

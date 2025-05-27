@@ -11,6 +11,8 @@ import {
 	formatErrorMessages,
 } from '@/lib/utils/server';
 import { Product } from '@/lib/types/products.types';
+import { revalidatePath } from 'next/cache';
+import { ROUTES } from '@/lib/constants/paths';
 
 // CREATE PRISMA CLIENT
 // const prisma = new PrismaClient()
@@ -147,6 +149,27 @@ export async function getProducts({
 				totalPages,
 			},
 			message: 'Products found successfully',
+		};
+	} catch (error) {
+		return {
+			success: false,
+			message: formatErrorMessages(error),
+		};
+	}
+}
+
+// DELETE PRODUCT
+export async function deleteProduct(productId: string) {
+	try {
+		await prisma.product.delete({
+			where: { id: productId },
+		});
+
+		revalidatePath(ROUTES.ADMIN_PRODUCTS);
+
+		return {
+			success: true,
+			message: 'Product deleted successfully',
 		};
 	} catch (error) {
 		return {

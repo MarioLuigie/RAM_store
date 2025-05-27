@@ -68,7 +68,7 @@ export default function AdminOrdersTable({
 								)}
 							</TableCell>
 							<TableCell className="flex-center gap-2">
-								<Button className="cursor-pointer" variant='outline'>
+								<Button asChild className="cursor-pointer" variant='outline'>
 									<Link href={`${ROUTES.ORDER}/${order.id}`}>
 										Details
 									</Link>

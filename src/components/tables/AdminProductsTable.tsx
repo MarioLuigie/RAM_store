@@ -45,7 +45,7 @@ export default function AdminProductsTable({
               <TableCell>{product.stock}</TableCell>
               <TableCell>{product.rating}</TableCell>
               <TableCell className="flex-center gap-2">
-                <Button className="cursor-pointer" variant='outline'>
+                <Button asChild className="cursor-pointer" variant='outline'>
                   <Link href={`${ROUTES.ORDER}/${product.id}`}>
                     Details
                   </Link>

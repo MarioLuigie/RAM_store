@@ -46,3 +46,8 @@ export enum PaymentMethod {
 	STRIPE = 'Stripe',
 	CASH_ON_DELIVERY = 'CashOnDelivery',
 }
+
+export enum ActionTypes {
+	CREATE = 'CREATE',
+	UPDATE = 'UPDATE',
+}

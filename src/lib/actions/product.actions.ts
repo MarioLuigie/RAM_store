@@ -10,9 +10,10 @@ import {
 	safeNormalizeProduct,
 	formatErrorMessages,
 } from '@/lib/utils/server';
-import { Product } from '@/lib/types/products.types';
+import { AddProduct, Product, UpdateProduct } from '@/lib/types/products.types';
 import { revalidatePath } from 'next/cache';
 import { ROUTES } from '@/lib/constants/paths';
+import { AddProductSchema, UpdateProductSchema } from '../utils/validators';
 
 // CREATE PRISMA CLIENT
 // const prisma = new PrismaClient()
@@ -162,7 +163,7 @@ export async function getProducts({
 export async function deleteProduct(productId: string) {
 	try {
 		const productToDelete = await prisma.product.findFirst({
-			where: { id: productId }
+			where: { id: productId },
 		});
 
 		if (!productToDelete) throw new Error('Product not found');
@@ -176,6 +177,57 @@ export async function deleteProduct(productId: string) {
 		return {
 			success: true,
 			message: 'Product deleted successfully',
+		};
+	} catch (error) {
+		return {
+			success: false,
+			message: formatErrorMessages(error),
+		};
+	}
+}
+
+// CREATE PRODUCT
+export async function createProduct(data: AddProduct) {
+	try {
+		const product = AddProductSchema.parse(data);
+		await prisma.product.create({
+			data: product,
+		});
+
+		revalidatePath(ROUTES.ADMIN_PRODUCTS);
+
+		return {
+			success: true,
+			message: 'Product created successfully',
+		};
+	} catch (error) {
+		return {
+			success: false,
+			message: formatErrorMessages(error),
+		};
+	}
+}
+
+// UPDATE PRODUCT
+export async function updateProduct(data: UpdateProduct) {
+	try {
+		const product = UpdateProductSchema.parse(data);
+
+		const productExists = await prisma.product.findFirst({
+			where: { id: product.id}
+		});
+
+		if (!productExists) throw new Error('Product not found');
+
+		await prisma.product.update({
+			where: { id: product.id },
+			data: product,
+		});
+
+		revalidatePath(ROUTES.ADMIN_PRODUCTS);
+		return {
+			success: true,
+			message: 'Product updated successfully',
 		};
 	} catch (error) {
 		return {

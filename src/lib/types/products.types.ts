@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { AddProductSchema, ProductSchema, UpdateProductSchema } from '@/lib/utils/validators';
+import { CreateProductSchema, ProductSchema, UpdateProductSchema } from '@/lib/utils/validators';
 
 // TYPE FOR PRODUCT IN APP
 export type Product = z.infer<typeof ProductSchema> & {
@@ -7,7 +7,7 @@ export type Product = z.infer<typeof ProductSchema> & {
 	createdAt: Date;
 };
 
-export type AddProduct = z.infer<typeof AddProductSchema>;
+export type AddProduct = z.infer<typeof CreateProductSchema>;
 export type UpdateProduct = z.infer<typeof UpdateProductSchema>;
 
 export type Prices = {

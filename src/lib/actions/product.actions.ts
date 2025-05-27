@@ -13,7 +13,7 @@ import {
 import { AddProduct, Product, UpdateProduct } from '@/lib/types/products.types';
 import { revalidatePath } from 'next/cache';
 import { ROUTES } from '@/lib/constants/paths';
-import { AddProductSchema, UpdateProductSchema } from '../utils/validators';
+import { CreateProductSchema, UpdateProductSchema } from '../utils/validators';
 
 // CREATE PRISMA CLIENT
 // const prisma = new PrismaClient()
@@ -189,7 +189,7 @@ export async function deleteProduct(productId: string) {
 // CREATE PRODUCT
 export async function createProduct(data: AddProduct) {
 	try {
-		const product = AddProductSchema.parse(data);
+		const product = CreateProductSchema.parse(data);
 		await prisma.product.create({
 			data: product,
 		});

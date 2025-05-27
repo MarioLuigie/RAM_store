@@ -146,7 +146,7 @@ export const UpdateProfileSchema = z.object({
 });
 
 // SCHEMA FOR INSERTING/ADDING PRODUCTS
-export const AddProductSchema = z.object({
+export const CreateProductSchema = z.object({
 	name: z.string().min(3, 'Name must be at least 3 characters'),
 	slug: z.string().min(3, 'Slug must be at least 3 characters'),
 	category: z.string().min(3, 'Category must be at least 3 characters'),
@@ -160,6 +160,6 @@ export const AddProductSchema = z.object({
 });
 
 // SCHEMA FOR UPDATING PRODUCT
-export const UpdateProductSchema = AddProductSchema.extend({
+export const UpdateProductSchema = CreateProductSchema.extend({
 	id: z.string().min(1, 'Id is required'),
 });

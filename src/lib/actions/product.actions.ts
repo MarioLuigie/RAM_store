@@ -161,6 +161,12 @@ export async function getProducts({
 // DELETE PRODUCT
 export async function deleteProduct(productId: string) {
 	try {
+		const productToDelete = await prisma.product.findFirst({
+			where: { id: productId }
+		});
+
+		if (!productToDelete) throw new Error('Product not found');
+
 		await prisma.product.delete({
 			where: { id: productId },
 		});

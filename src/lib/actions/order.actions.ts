@@ -372,6 +372,12 @@ export async function getOrderSummary() {
 // DELETE ORDER
 export async function deleteOrder(orderId: string) {
 	try {
+		const orderToDelete = await prisma.order.findFirst({
+			where: { id: orderId },
+		});
+
+		if (!orderToDelete) throw new Error('Order not found');
+		
 		await prisma.order.delete({
 			where: { id: orderId },
 		});
@@ -389,5 +395,3 @@ export async function deleteOrder(orderId: string) {
 		};
 	}
 }
-
-

@@ -169,6 +169,8 @@ export async function deleteProduct(productId: string) {
 
 		if (!productToDelete) throw new Error('Product not found');
 
+		
+
 		await prisma.product.delete({
 			where: { id: productId },
 		});

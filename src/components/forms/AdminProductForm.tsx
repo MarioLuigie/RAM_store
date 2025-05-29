@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { z } from 'zod';
-import { useTransition } from 'react';
+import { useTransition, useState } from 'react';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 // lib
 import { ActionTypes } from '@/lib/constants/enums';
@@ -36,6 +36,7 @@ import {
 import { UploadDropzone } from '@/lib/uploads/uploadthing';
 import { Card, CardContent } from '../ui/card';
 import Image from 'next/image';
+import { XIcon } from 'lucide-react';
 
 type AdminProductFormProps = {
 	actionType: ActionTypes;
@@ -48,6 +49,9 @@ export default function AdminProductForm({
 	productId,
 	product,
 }: AdminProductFormProps) {
+	const [uploadedFiles, setUploadedFiles] = useState<Record<string, string>>(
+		{}
+	);
 	const router: AppRouterInstance = useRouter();
 	const { showCustomToast } = useCustomToast();
 	const [isPending, startTransition] = useTransition();
@@ -144,7 +148,7 @@ export default function AdminProductForm({
 												/>
 												<Button
 													type="button"
-													className="px-4 py-1 mt-4"
+													className="px-4 py-1 mt-4 cursor-pointer"
 													onClick={() =>
 														form.setValue(
 															'slug',
@@ -261,26 +265,120 @@ export default function AdminProductForm({
 										<Card>
 											<CardContent className="space-y-2 mt-2 min-h-48">
 												<div className="flex-center space-x-2">
-													{images.map((image: string) => (
-														<Image
-															key={image}
-															src={image}
-															alt="product image"
-															className="w-20 h-20 object-cover object-center rounded-sm"
-															width={100}
-															height={100}
-														/>
-													))}
+													{images.map(
+														(image: string, index: number) => (
+															<div
+																key={image}
+																className="relative group w-20 h-20 rounded-sm overflow-hidden"
+															>
+																<Image
+																	src={image}
+																	alt="product image"
+																	className="w-full h-full object-cover object-center rounded-sm transition duration-300"
+																	width={100}
+																	height={100}
+																/>
+																<div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300" />
+																<button
+																	type="button"
+																	className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition duration-300 bg-black/70 text-white rounded-full p-1 cursor-pointer"
+																	onClick={async () => {
+																		const removedUrl =
+																			images[index];
+
+																		const newImages =
+																			images.filter(
+																				(_, i) =>
+																					i !== index
+																			);
+																		form.setValue(
+																			'images',
+																			newImages
+																		);
+
+																		const key =
+																			uploadedFiles[
+																				removedUrl
+																			];
+
+																		if (key) {
+																			await fetch(
+																				'/api/uploadthing/delete',
+																				{
+																					method: 'POST',
+																					body: JSON.stringify(
+																						{ key }
+																					),
+																				}
+																			);
+
+																			setUploadedFiles(
+																				(prev) => {
+																					const newMap = {
+																						...prev,
+																					};
+																					delete newMap[
+																						removedUrl
+																					];
+																					return newMap;
+																				}
+																			);
+																		}
+																	}}
+																	aria-label="Remove image"
+																>
+																	<XIcon className="w-4 h-4" />
+																</button>
+															</div>
+														)
+													)}
 													<FormControl>
 														<UploadDropzone
+															className="cursor-pointer"
+															onBeforeUploadBegin={(files) =>
+																files.map((file) => {
+																	const extension = file.name
+																		.split('.')
+																		.pop();
+																	const uniqueName = `${Date.now()}-${Math.random()
+																		.toString(36)
+																		.substring(
+																			2
+																		)}.${extension}`;
+																	return new File(
+																		[file],
+																		uniqueName,
+																		{ type: file.type }
+																	);
+																})
+															}
 															endpoint="imageUploader"
 															onClientUploadComplete={(
-																res: { url: string }[]
+																res: {
+																	url: string;
+																	key: string;
+																}[]
 															) => {
+																const newUrls = res.map(
+																	(file) => file.url
+																);
+																const newMap =
+																	Object.fromEntries(
+																		res.map((file) => [
+																			file.url,
+																			file.key,
+																		])
+																	);
+
 																form.setValue('images', [
 																	...images,
-																	res[0].url,
+																	...newUrls,
 																]);
+
+																setUploadedFiles((prev) => ({
+																	...prev,
+																	...newMap,
+																}));
 															}}
 															onUploadError={(error) => {
 																showCustomToast(
@@ -288,11 +386,11 @@ export default function AdminProductForm({
 																	false
 																);
 															}}
-															// className="ut-button:text-black ut-button:dark:text-white ut-label:text-black ut-label:dark:text-white ut-button:bg-blue-100 ut-button:dark:bg-zinc-800"
 															appearance={{
 																container:
-																	'bg-white dark:bg-zinc-800 p-4 border rounded',
-																uploadIcon: 'text-zinc-800 dark:text-zinc-600',
+																	'bg-zinc-100 dark:bg-zinc-800 p-4 border rounded w-[270px] aspect-square',
+																uploadIcon:
+																	'text-zinc-800 dark:text-zinc-600 w-[100px]',
 																label: 'text-black dark:text-white',
 																allowedContent:
 																	'text-sm text-gray-400',

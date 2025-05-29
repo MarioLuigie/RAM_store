@@ -27,6 +27,7 @@ import {
 import { Input } from '@/components/ui/input';
 import Loader from '@/components/shared/Loader';
 import { ArrowRight } from 'lucide-react';
+import slugify from 'slugify';
 
 type AdminProductFormProps = {
 	actionType: ActionTypes;
@@ -55,9 +56,11 @@ export default function AdminProductForm({
 		productFormValues: z.infer<typeof ProductFormSchema>
 	) => {
 		startTransition(async () => {
-      ((productFormValues) => {console.log(productFormValues)})(productFormValues)
-      console.log(productId)
-    });
+			((productFormValues) => {
+				console.log(productFormValues);
+			})(productFormValues);
+			console.log(productId);
+		});
 	};
 
 	return (
@@ -77,7 +80,10 @@ export default function AdminProductForm({
 									<FormItem className="w-full">
 										<FormLabel>Name</FormLabel>
 										<FormControl>
-											<Input placeholder="Name" {...field} />
+											<Input
+												placeholder="Enter product name"
+												{...field}
+											/>
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -94,7 +100,26 @@ export default function AdminProductForm({
 									<FormItem className="w-full">
 										<FormLabel>Slug</FormLabel>
 										<FormControl>
-											<Input placeholder="Slug" {...field} />
+											<div className="relative">
+												<Input
+													placeholder="Enter slug"
+													{...field}
+												/>
+												<Button
+													type="button"
+													className="px-4 py-1 mt-4"
+													onClick={() =>
+														form.setValue(
+															'slug',
+															slugify(form.getValues('name'), {
+																lower: true,
+															})
+														)
+													}
+												>
+													Generate
+												</Button>
+											</div>
 										</FormControl>
 										<FormMessage />
 									</FormItem>

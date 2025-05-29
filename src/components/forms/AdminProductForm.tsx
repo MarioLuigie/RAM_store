@@ -138,7 +138,7 @@ export default function AdminProductForm({
 									<FormItem className="w-full">
 										<FormLabel>Category</FormLabel>
 										<FormControl>
-											<Input placeholder="Category" {...field} />
+											<Input placeholder="Enter product category" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -155,7 +155,7 @@ export default function AdminProductForm({
 									<FormItem className="w-full">
 										<FormLabel>Brand</FormLabel>
 										<FormControl>
-											<Input placeholder="Brand" {...field} />
+											<Input placeholder="Enter product brand" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -174,7 +174,7 @@ export default function AdminProductForm({
 									<FormItem className="w-full">
 										<FormLabel>Price</FormLabel>
 										<FormControl>
-											<Input placeholder="Price" {...field} />
+											<Input placeholder="Enter product price" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -191,7 +191,7 @@ export default function AdminProductForm({
 									<FormItem className="w-full">
 										<FormLabel>Stock</FormLabel>
 										<FormControl>
-											<Input placeholder="Stock" {...field} />
+											<Input placeholder="Enter product stock" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -248,7 +248,7 @@ export default function AdminProductForm({
 									<FormItem className="w-full">
 										<FormLabel>Description</FormLabel>
 										<FormControl>
-											<Input placeholder="Description" {...field} />
+											<Input placeholder="Enter product description" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>

@@ -48,6 +48,6 @@ export enum PaymentMethod {
 }
 
 export enum ActionTypes {
-	CREATE = 'CREATE',
-	UPDATE = 'UPDATE',
+	CREATE = 'Create',
+	UPDATE = 'Update',
 }

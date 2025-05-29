@@ -28,6 +28,7 @@ import { Input } from '@/components/ui/input';
 import Loader from '@/components/shared/Loader';
 import { ArrowRight } from 'lucide-react';
 import slugify from 'slugify';
+import { Textarea } from '../ui/textarea';
 
 type AdminProductFormProps = {
 	actionType: ActionTypes;
@@ -66,7 +67,10 @@ export default function AdminProductForm({
 	return (
 		<>
 			<h1 className="text-xl  mb-3">
-				{actionType === ActionTypes.CREATE ? 'Create' : 'Update'} Product
+				{actionType === ActionTypes.CREATE
+					? ActionTypes.CREATE
+					: ActionTypes.UPDATE}{' '}
+				Product
 			</h1>
 			<Form {...form}>
 				<form className="space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
@@ -138,7 +142,10 @@ export default function AdminProductForm({
 									<FormItem className="w-full">
 										<FormLabel>Category</FormLabel>
 										<FormControl>
-											<Input placeholder="Enter product category" {...field} />
+											<Input
+												placeholder="Enter product category"
+												{...field}
+											/>
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -155,7 +162,10 @@ export default function AdminProductForm({
 									<FormItem className="w-full">
 										<FormLabel>Brand</FormLabel>
 										<FormControl>
-											<Input placeholder="Enter product brand" {...field} />
+											<Input
+												placeholder="Enter product brand"
+												{...field}
+											/>
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -174,7 +184,10 @@ export default function AdminProductForm({
 									<FormItem className="w-full">
 										<FormLabel>Price</FormLabel>
 										<FormControl>
-											<Input placeholder="Enter product price" {...field} />
+											<Input
+												placeholder="Enter product price"
+												{...field}
+											/>
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -191,7 +204,10 @@ export default function AdminProductForm({
 									<FormItem className="w-full">
 										<FormLabel>Stock</FormLabel>
 										<FormControl>
-											<Input placeholder="Enter product stock" {...field} />
+											<Input
+												placeholder="Enter product stock"
+												{...field}
+											/>
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -248,7 +264,11 @@ export default function AdminProductForm({
 									<FormItem className="w-full">
 										<FormLabel>Description</FormLabel>
 										<FormControl>
-											<Input placeholder="Enter product description" {...field} />
+											<Textarea
+												placeholder="Enter product description"
+												{...field}
+												className="min-h-[130px] resize-none"
+											/>
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -264,7 +284,9 @@ export default function AdminProductForm({
 							disabled={isPending}
 							className="cursor-pointer min-w-26"
 							aria-label={
-								actionType === ActionTypes.CREATE ? 'Create' : 'Update'
+								actionType === ActionTypes.CREATE
+									? ActionTypes.CREATE
+									: ActionTypes.UPDATE
 							}
 						>
 							{isPending ? (
@@ -272,7 +294,9 @@ export default function AdminProductForm({
 							) : (
 								<ArrowRight />
 							)}
-							{actionType === ActionTypes.CREATE ? 'Create' : 'Update'}
+							{actionType === ActionTypes.CREATE
+								? ActionTypes.CREATE
+								: ActionTypes.UPDATE}
 						</Button>
 					</div>
 				</form>

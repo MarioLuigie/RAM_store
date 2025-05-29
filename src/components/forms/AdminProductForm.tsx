@@ -33,6 +33,9 @@ import {
 	handleCreateProduct,
 	handleUpdateProduct,
 } from '@/lib/handlers/product.handlers';
+import { UploadDropzone } from '@/lib/uploads/uploadthing';
+import { Card, CardContent } from '../ui/card';
+import Image from 'next/image';
 
 type AdminProductFormProps = {
 	actionType: ActionTypes;
@@ -61,6 +64,8 @@ export default function AdminProductForm({
 		resolver: zodResolver(ProductFormSchema),
 		defaultValues: productFormDefaultValues,
 	});
+
+	const images = form.watch('images');
 
 	// ON SUBMIT HANDLER
 	const onSubmit: SubmitHandler<z.infer<typeof ProductFormSchema>> = async (
@@ -246,21 +251,85 @@ export default function AdminProductForm({
 
 					<div className="flex flex-col md:flex-row gap-5 w-full">
 						{/* IMAGES */}
-						{/* <div className="flex flex-col gap-5 w-full">
+						<div className="flex flex-col gap-5 w-full">
 							<FormField
 								control={form.control}
 								name="images"
-								render={({ field }) => (
+								render={() => (
 									<FormItem className="w-full">
 										<FormLabel>Images</FormLabel>
-										<FormControl>
-											<Input placeholder="Images" {...field} />
-										</FormControl>
+										<Card>
+											<CardContent className="space-y-2 mt-2 min-h-48">
+												<div className="flex-center space-x-2">
+													{images.map((image: string) => (
+														<Image
+															key={image}
+															src={image}
+															alt="product image"
+															className="w-20 h-20 object-cover object-center rounded-sm"
+															width={100}
+															height={100}
+														/>
+													))}
+													<FormControl>
+														<UploadDropzone
+															endpoint="imageUploader"
+															onClientUploadComplete={(
+																res: { url: string }[]
+															) => {
+																form.setValue('images', [
+																	...images,
+																	res[0].url,
+																]);
+															}}
+															onUploadError={(error) => {
+																showCustomToast(
+																	`ERROR! ${error.message}`,
+																	false
+																);
+															}}
+															// className="ut-button:text-black ut-button:dark:text-white ut-label:text-black ut-label:dark:text-white ut-button:bg-blue-100 ut-button:dark:bg-zinc-800"
+															appearance={{
+																container:
+																	'bg-white dark:bg-zinc-800 p-4 border rounded',
+																uploadIcon: 'text-zinc-800 dark:text-zinc-600',
+																label: 'text-black dark:text-white',
+																allowedContent:
+																	'text-sm text-gray-400',
+																button: ({ isUploading }) =>
+																	isUploading
+																		? 'opacity-50 cursor-not-allowed'
+																		: 'bg-zinc-800 dark:bg-zinc-100 text-white dark:text-zinc-900 px-4 py-2 cursor-pointer',
+															}}
+														/>
+
+														{/* <UploadButton
+															className="p-4 border-2 rounded-md dark:text-red-400 text-blue-300"
+															endpoint="imageUploader"
+															onClientUploadComplete={(
+																res: { url: string }[]
+															) => {
+																form.setValue('images', [
+																	...images,
+																	res[0].url,
+																]);
+															}}
+															onUploadError={(error: Error) => {
+																showCustomToast(
+																	`ERROR! ${error.message}`,
+																	false
+																);
+															}}
+														/> */}
+													</FormControl>
+												</div>
+											</CardContent>
+										</Card>
 										<FormMessage />
 									</FormItem>
 								)}
 							/>
-						</div> */}
+						</div>
 					</div>
 
 					<div className="flex flex-col md:flex-row gap-5 w-full">

@@ -1,3 +1,5 @@
+import { ControllerRenderProps } from 'react-hook-form';
+import { PaymentMethod } from './payment.types';
 // Api Results
 declare interface IResult<T> {
 	success: boolean
@@ -44,3 +46,5 @@ declare type PageProps = {
 // 	id: string
 // 	avatar?: string
 // }
+
+declare type TypeFieldRHF = ControllerRenderProps<PaymentMethod, 'type'>;

@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ControllerRenderProps, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 // lib
 import { PaymentMethod } from '@/lib/types/payment.types';
 import { PaymentMethodSchema } from '@/lib/utils/validators';
@@ -24,8 +24,9 @@ import {
 // import { SHIPPING_ADDRESS_DEFAULT_VALUES } from '@/lib/constants';
 import Loader from '@/components/shared/Loader';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { TypeFieldRHF } from '@/lib/types';
 
-type typeField = ControllerRenderProps<PaymentMethod, 'type'>;
+// type typeField = ControllerRenderProps<PaymentMethod, 'type'>;
 
 export default function PaymentMethodForm({
 	preferredPaymentMethod,
@@ -70,7 +71,7 @@ export default function PaymentMethodForm({
 					<FormField
 						control={form.control}
 						name="type"
-						render={({ field }: { field: typeField }) => (
+						render={({ field }: { field: TypeFieldRHF }) => (
 							<FormItem className="space-y-3">
 								<FormControl>
 									<RadioGroup

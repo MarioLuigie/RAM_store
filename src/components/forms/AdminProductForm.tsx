@@ -2,14 +2,14 @@
 // modules
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { z } from 'zod';
 import { useTransition } from 'react';
-// import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 // lib
 import { ActionTypes } from '@/lib/constants/enums';
-import { Product } from '@/lib/types/products.types';
-// import { useCustomToast } from '@/lib/hooks/useCustomToast';
+import { Product, UpdateProduct } from '@/lib/types/products.types';
+import { useCustomToast } from '@/lib/hooks/useCustomToast';
 import {
 	getProductFormDefaultValues,
 	getProductFormSchema,
@@ -29,6 +29,10 @@ import Loader from '@/components/shared/Loader';
 import { ArrowRight } from 'lucide-react';
 import slugify from 'slugify';
 import { Textarea } from '../ui/textarea';
+import {
+	handleCreateProduct,
+	handleUpdateProduct,
+} from '@/lib/handlers/product.handlers';
 
 type AdminProductFormProps = {
 	actionType: ActionTypes;
@@ -41,15 +45,21 @@ export default function AdminProductForm({
 	productId,
 	product,
 }: AdminProductFormProps) {
-	// const router: AppRouterInstance = useRouter();
-	// const { showCustomToast } = useCustomToast();
+	const router: AppRouterInstance = useRouter();
+	const { showCustomToast } = useCustomToast();
 	const [isPending, startTransition] = useTransition();
+	const isCreating = actionType === ActionTypes.CREATE;
+	const isUpdating = actionType === ActionTypes.UPDATE;
 
 	const ProductFormSchema = getProductFormSchema(actionType);
+	const productFormDefaultValues = getProductFormDefaultValues(
+		actionType,
+		product
+	);
 
 	const form = useForm<z.infer<typeof ProductFormSchema>>({
 		resolver: zodResolver(ProductFormSchema),
-		defaultValues: getProductFormDefaultValues(actionType, product),
+		defaultValues: productFormDefaultValues,
 	});
 
 	// ON SUBMIT HANDLER
@@ -57,10 +67,28 @@ export default function AdminProductForm({
 		productFormValues: z.infer<typeof ProductFormSchema>
 	) => {
 		startTransition(async () => {
-			((productFormValues) => {
-				console.log(productFormValues);
-			})(productFormValues);
-			console.log(productId);
+			// CREATE PRODUCT
+			if (isCreating) {
+				await handleCreateProduct(
+					productFormValues,
+					showCustomToast,
+					router
+				);
+			}
+
+			// UPDATE PRODUCT
+			if (isUpdating) {
+				await handleUpdateProduct(
+					productId,
+					productFormValues as UpdateProduct,
+					showCustomToast,
+					router
+				);
+			}
+
+			// ((productFormValues) => {
+			// 	console.log(productFormValues);
+			// })(productFormValues);
 		});
 	};
 
@@ -218,7 +246,7 @@ export default function AdminProductForm({
 
 					<div className="flex flex-col md:flex-row gap-5 w-full">
 						{/* IMAGES */}
-						<div className="flex flex-col gap-5 w-full">
+						{/* <div className="flex flex-col gap-5 w-full">
 							<FormField
 								control={form.control}
 								name="images"
@@ -232,7 +260,7 @@ export default function AdminProductForm({
 									</FormItem>
 								)}
 							/>
-						</div>
+						</div> */}
 					</div>
 
 					<div className="flex flex-col md:flex-row gap-5 w-full">

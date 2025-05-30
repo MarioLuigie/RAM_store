@@ -23,7 +23,7 @@ export default function ProductCard({ product }: { product: Product }) {
 				</div>
 				<Link href={`${ROUTES.PRODUCT}/${product.slug}`} className='w-full flex-center'>
 					<Image
-						src={product.images[0]}
+						src={product.images[0].url}
 						alt={product.name}
 						width={300}
 						height={300}

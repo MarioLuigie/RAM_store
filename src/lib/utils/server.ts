@@ -1,11 +1,15 @@
-import { Product } from '@/lib/types/products.types';
+import { Product, ProductImage } from '@/lib/types/products.types';
 import { ProductSchema } from '@/lib/utils/validators';
 import { formatNumberWithDecimalToString } from '@/lib/utils/utils';
 import { ZodError } from 'zod';
 import { Prisma } from '@prisma/client';
 
+type DbProductWithoutImages = Omit<Product, 'images'> & {
+  images: unknown; // ponieważ Prisma zapisuje to jako Json
+};
+
 // Normalize Products from db into JS object
-export function safeNormalizeProducts(data: Product[]): Product[] {
+export function safeNormalizeProducts(data: DbProductWithoutImages[]): Product[] {
 	const parsedData = data.flatMap((product) => {
 		// Validate datas from db on backend side and prepare for client
 		// Checking whether the data fits the validation zod schema
@@ -14,6 +18,7 @@ export function safeNormalizeProducts(data: Product[]): Product[] {
 			price: formatNumberWithDecimalToString(product.price),
 			rating: product.rating.toString(),
 			numReviews: product.numReviews.toString(),
+			images: product.images as ProductImage[],
 		});
 
 		if (!parsed.success) {
@@ -34,7 +39,7 @@ export function safeNormalizeProducts(data: Product[]): Product[] {
 }
 
 // Normalize Product from db into JS object
-export function safeNormalizeProduct(product: Product): Product {
+export function safeNormalizeProduct(product: DbProductWithoutImages): Product {
 	// Validate data from DB on backend side and prepare for client
 	// Checking whether the data fits the validation zod schema
 	const parsed = ProductSchema.safeParse({

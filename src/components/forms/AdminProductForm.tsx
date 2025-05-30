@@ -8,7 +8,11 @@ import { useTransition, useState } from 'react';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 // lib
 import { ActionTypes } from '@/lib/constants/enums';
-import { Product, UpdateProduct } from '@/lib/types/products.types';
+import {
+	Product,
+	ProductImage,
+	UpdateProduct,
+} from '@/lib/types/products.types';
 import { useCustomToast } from '@/lib/hooks/useCustomToast';
 import {
 	getProductFormDefaultValues,
@@ -266,13 +270,16 @@ export default function AdminProductForm({
 											<CardContent className="space-y-2 mt-2 min-h-48">
 												<div className="flex-center space-x-2">
 													{images.map(
-														(image: string, index: number) => (
+														(
+															image: ProductImage,
+															index: number
+														) => (
 															<div
-																key={image}
+																key={image.url}
 																className="relative group w-20 h-20 rounded-sm overflow-hidden"
 															>
 																<Image
-																	src={image}
+																	src={image.url}
 																	alt="product image"
 																	className="w-full h-full object-cover object-center rounded-sm transition duration-300"
 																	width={100}
@@ -284,8 +291,9 @@ export default function AdminProductForm({
 																	className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition duration-300 bg-black/70 text-white rounded-full p-1 cursor-pointer"
 																	onClick={async () => {
 																		const removedUrl =
-																			images[index];
+																			images[index].url;
 
+																		// Usuń obrazek z tablicy
 																		const newImages =
 																			images.filter(
 																				(_, i) =>
@@ -296,11 +304,11 @@ export default function AdminProductForm({
 																			newImages
 																		);
 
+																		// Usuń plik z uploadedFiles i API
 																		const key =
 																			uploadedFiles[
 																				removedUrl
 																			];
-
 																		if (key) {
 																			await fetch(
 																				'/api/uploadthing/delete',
@@ -359,9 +367,18 @@ export default function AdminProductForm({
 																	key: string;
 																}[]
 															) => {
-																const newUrls = res.map(
-																	(file) => file.url
+																const newImages = res.map(
+																	(file) => ({
+																		url: file.url,
+																		key: file.key,
+																	})
 																);
+
+																form.setValue('images', [
+																	...images,
+																	...newImages,
+																]);
+
 																const newMap =
 																	Object.fromEntries(
 																		res.map((file) => [
@@ -369,12 +386,6 @@ export default function AdminProductForm({
 																			file.key,
 																		])
 																	);
-
-																form.setValue('images', [
-																	...images,
-																	...newUrls,
-																]);
-
 																setUploadedFiles((prev) => ({
 																	...prev,
 																	...newMap,
@@ -400,29 +411,11 @@ export default function AdminProductForm({
 																		: 'bg-zinc-800 dark:bg-zinc-100 text-white dark:text-zinc-900 px-4 py-2 cursor-pointer',
 															}}
 														/>
-
-														{/* <UploadButton
-															className="p-4 border-2 rounded-md dark:text-red-400 text-blue-300"
-															endpoint="imageUploader"
-															onClientUploadComplete={(
-																res: { url: string }[]
-															) => {
-																form.setValue('images', [
-																	...images,
-																	res[0].url,
-																]);
-															}}
-															onUploadError={(error: Error) => {
-																showCustomToast(
-																	`ERROR! ${error.message}`,
-																	false
-																);
-															}}
-														/> */}
 													</FormControl>
 												</div>
 											</CardContent>
 										</Card>
+
 										<FormMessage />
 									</FormItem>
 								)}

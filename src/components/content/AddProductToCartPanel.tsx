@@ -52,7 +52,7 @@ export default function AddProductToCartPanel({
 									name: product.name,
 									slug: product.slug,
 									qty: 1,
-									image: product.images![0],
+									image: product.images![0].url,
 									price: product.price,
 								}}
 								productStock={product.stock}

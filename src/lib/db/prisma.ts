@@ -36,6 +36,29 @@ export const prisma = new PrismaClient({ adapter }).$extends({
 					return product.numReviews.toString();
 				},
 			},
+			images: {
+				compute(product) {
+					if (!Array.isArray(product.images)) return []; // fallback defensywny
+					return product.images
+						.map((img) => {
+							if (
+								typeof img === 'object' &&
+								img !== null &&
+								'url' in img &&
+								'key' in img
+							) {
+								return {
+									url: String((img).url),
+									key: String((img).key),
+								};
+							}
+							return null;
+						})
+						.filter(
+							(img): img is { url: string; key: string } => img !== null
+						); 
+				},
+			},
 		},
 		cart: {
 			itemsPrice: {
@@ -93,9 +116,9 @@ export const prisma = new PrismaClient({ adapter }).$extends({
 			price: {
 				compute(cart) {
 					return cart.price.toString();
-				}
-			}
-		}
+				},
+			},
+		},
 	},
 });
 

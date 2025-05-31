@@ -10,7 +10,12 @@ import {
 	safeNormalizeProduct,
 	formatErrorMessages,
 } from '@/lib/utils/server';
-import { CreateProduct, Product, UpdateProduct } from '@/lib/types/products.types';
+import {
+	CreateProduct,
+	Product,
+	ProductImage,
+	UpdateProduct,
+} from '@/lib/types/products.types';
 import { revalidatePath } from 'next/cache';
 import { ROUTES } from '@/lib/constants/paths';
 import { CreateProductSchema, UpdateProductSchema } from '../utils/validators';
@@ -135,7 +140,7 @@ export async function getProducts({
 		console.log(page, query, category, limit);
 
 		const products = await prisma.product.findMany({
-			orderBy: { createdAt: 'desc'},
+			orderBy: { createdAt: 'desc' },
 			skip: (page - 1) * limit,
 			take: limit,
 		});
@@ -169,13 +174,24 @@ export async function deleteProduct(productId: string) {
 
 		if (!productToDelete) throw new Error('Product not found');
 
-		
-
 		await prisma.product.delete({
 			where: { id: productId },
 		});
 
 		revalidatePath(ROUTES.ADMIN_PRODUCTS);
+
+		const deleteRequests = (productToDelete.images as ProductImage[]).map(
+			(image) =>
+				fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/uploadthing/delete`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ key: image.key }),
+				})
+		);
+
+		await Promise.all(deleteRequests);
 
 		return {
 			success: true,
@@ -217,7 +233,7 @@ export async function updateProduct(data: UpdateProduct) {
 		const product = UpdateProductSchema.parse(data);
 
 		const productExists = await prisma.product.findFirst({
-			where: { id: product.id}
+			where: { id: product.id },
 		});
 
 		if (!productExists) throw new Error('Product not found');

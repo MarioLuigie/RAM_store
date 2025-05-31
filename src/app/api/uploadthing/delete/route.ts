@@ -2,10 +2,17 @@
 
 import { UTApi } from 'uploadthing/server';
 import { NextResponse } from 'next/server';
+import { checkIsAdmin } from '@/lib/utils/auth-guard';
 
 export async function POST(req: Request) {
 	try {
-    const utapi = new UTApi();
+		const { isAdmin } = await checkIsAdmin();
+
+		if (!isAdmin) {
+			return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
+		}
+
+		const utapi = new UTApi();
 		const { key } = await req.json();
 
 		if (!key) {

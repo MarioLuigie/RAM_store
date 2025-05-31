@@ -311,11 +311,11 @@ export default function AdminProductForm({
 																			];
 																		if (key) {
 																			await fetch(
-																				'/api/uploadthing/delete',
+																				`${process.env.NEXT_PUBLIC_SERVER_URL}/api/uploadthing/delete`,
 																				{
 																					method: 'POST',
 																					body: JSON.stringify(
-																						{ key }
+																						{ key: [key] } // value as string || string[] possible
 																					),
 																				}
 																			);

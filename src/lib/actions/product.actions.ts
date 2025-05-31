@@ -13,7 +13,6 @@ import {
 import {
 	CreateProduct,
 	Product,
-	ProductImage,
 	UpdateProduct,
 } from '@/lib/types/products.types';
 import { revalidatePath } from 'next/cache';
@@ -137,7 +136,7 @@ export async function getProducts({
 	limit?: number;
 }) {
 	try {
-		console.log(page, query, category, limit);
+		console.log('getProducts params', page, query, category, limit);
 
 		const products = await prisma.product.findMany({
 			orderBy: { createdAt: 'desc' },
@@ -180,18 +179,22 @@ export async function deleteProduct(productId: string) {
 
 		revalidatePath(ROUTES.ADMIN_PRODUCTS);
 
-		const deleteRequests = (productToDelete.images as ProductImage[]).map(
-			(image) =>
-				fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/uploadthing/delete`, {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({ key: image.key }),
-				})
-		);
+		const imagesToDelete = productToDelete.images;
+		const keysToDelete = imagesToDelete.map((image) => image.key);
 
-		await Promise.all(deleteRequests);
+		// console.log('IMAGES TO DELETE', imagesToDelete);
+		// console.log('KEYS TO DELETE', keysToDelete);
+
+		await fetch(
+			`${process.env.NEXT_PUBLIC_SERVER_URL}/api/uploadthing/delete`,
+			{
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ key: keysToDelete }),
+			}
+		);
 
 		return {
 			success: true,

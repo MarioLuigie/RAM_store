@@ -2,18 +2,13 @@
 
 import { UTApi } from 'uploadthing/server';
 import { NextResponse } from 'next/server';
-import { checkIsAdmin } from '@/lib/utils/auth-guard';
 
 export async function POST(req: Request) {
 	try {
-		const { isAdmin } = await checkIsAdmin();
-
-		if (!isAdmin) {
-			return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
-		}
-
 		const utapi = new UTApi();
-		const { key } = await req.json();
+		const { key } = await req.json(); // returned array of keys or key
+
+		console.log("KEY ARRAY FROM POST API ROUTE", key)
 
 		if (!key) {
 			return NextResponse.json(

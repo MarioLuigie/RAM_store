@@ -21,7 +21,7 @@ export const APP_ROUTE_NAME_OVERVIEW = 'Admin Dashboard';
 export const APP_ROUTE_NAME_UNAUTHORIZED_ACCESS = 'Unauthorized Access';
 export const APP_ROUTE_NAME_CREATE_PRODUCT = 'Create Product';
 
-export const PAGE_SIZE = Number(process.env.PAGE_SIZE) || 6;
+export const PAGE_SIZE = Number(process.env.LATEST_PRODUCTS_LIMIT) || 8;
 
 export const LOCALE_CODES = {
 	main: 'de-DE',

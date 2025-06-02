@@ -1,5 +1,6 @@
 'use server';
 // modules
+import { UTApi } from 'uploadthing/server';
 // import { PrismaClient, Prisma } from '@prisma/client'
 import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/db/prisma'; // global app prisma client
@@ -185,16 +186,19 @@ export async function deleteProduct(productId: string) {
 		// console.log('IMAGES TO DELETE', imagesToDelete);
 		// console.log('KEYS TO DELETE', keysToDelete);
 
-		await fetch(
-			`${process.env.NEXT_PUBLIC_SERVER_URL}/api/uploadthing/delete`,
-			{
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({ key: keysToDelete }),
-			}
-		);
+		// await fetch(
+		// 	`${process.env.NEXT_PUBLIC_SERVER_URL}/api/uploadthing/delete`,
+		// 	{
+		// 		method: 'POST',
+		// 		headers: {
+		// 			'Content-Type': 'application/json',
+		// 		},
+		// 		body: JSON.stringify({ key: keysToDelete }),
+		// 	}
+		// );
+
+		const utapi = new UTApi();
+		await utapi.deleteFiles(keysToDelete);
 
 		return {
 			success: true,

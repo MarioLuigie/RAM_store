@@ -41,6 +41,7 @@ import { UploadDropzone } from '@/lib/uploads/uploadthing';
 import { Card, CardContent } from '../ui/card';
 import Image from 'next/image';
 import { XIcon } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
 
 type AdminProductFormProps = {
 	actionType: ActionTypes;
@@ -74,6 +75,8 @@ export default function AdminProductForm({
 	});
 
 	const images = form.watch('images');
+	const isFeatured = form.watch('isFeatured');
+	const banner = form.watch('banner');
 
 	// ON SUBMIT HANDLER
 	const onSubmit: SubmitHandler<z.infer<typeof ProductFormSchema>> = async (
@@ -415,7 +418,6 @@ export default function AdminProductForm({
 												</div>
 											</CardContent>
 										</Card>
-
 										<FormMessage />
 									</FormItem>
 								)}
@@ -425,21 +427,41 @@ export default function AdminProductForm({
 
 					<div className="flex flex-col md:flex-row gap-5 w-full">
 						{/* IS FEATURED */}
-						{/* <div className="flex flex-col gap-5 w-full">
+						<div className="flex flex-col gap-5 w-full">
 							<FormField
 								control={form.control}
 								name="isFeatured"
 								render={({ field }) => (
 									<FormItem className="w-full">
-										<FormLabel>Featured</FormLabel>
-										<FormControl>
-											<Input placeholder="Featured" {...field} />
-										</FormControl>
+										<FormLabel>Featured Products</FormLabel>
+										<Card>
+											<CardContent className="flex items-center gap-2">
+												<FormControl>
+													<Checkbox
+														checked={field.value}
+														onCheckedChange={field.onChange}
+													/>
+												</FormControl>
+												<FormLabel>Is Featured?</FormLabel>
+												{
+													isFeatured && banner && (
+														<Image 
+															src={banner}
+															alt='Banner image'
+															className='w-full object-cover object-center rounded-sm'
+															width={1920}
+															height={680}
+														/>
+													)
+												}
+												
+											</CardContent>
+										</Card>
 										<FormMessage />
 									</FormItem>
 								)}
 							/>
-						</div> */}
+						</div>
 					</div>
 
 					<div className="flex flex-col md:flex-row gap-5 w-full">

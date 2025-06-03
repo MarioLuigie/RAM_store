@@ -85,6 +85,39 @@ export async function getProductBySlug(
 	}
 }
 
+// GET SINGLE PRODUCT BY SLUG
+export async function getProductById(
+	productId: string
+): Promise<IDataResult<Product>> {
+	try {
+		const data = await prisma.product.findFirst({
+			where: { id: productId },
+		});
+
+		if (!data) {
+			throw new Error(`Product with slug "${productId}" not found`);
+		}
+
+		return {
+			success: true,
+			data: safeNormalizeProduct(data),
+		};
+	} catch (error: unknown) {
+		if (error instanceof Prisma.PrismaClientKnownRequestError) {
+			console.error('Prisma error:', error.message, error.code);
+		} else if (error instanceof Error) {
+			console.error('General error:', error.message);
+		} else {
+			console.error('Unknown error:', error);
+		}
+
+		return {
+			success: false,
+			data: {} as Product,
+		}; // DONT RETURN EMPTY OBJECT FORCED AS Product type!
+	}
+}
+
 // GET PRODUCTS BY SLUG
 export async function getProductsBySlugs(
 	slugs: string[]

@@ -443,18 +443,150 @@ export default function AdminProductForm({
 													/>
 												</FormControl>
 												<FormLabel>Is Featured?</FormLabel>
-												{
-													isFeatured && banner && (
-														<Image 
-															src={banner}
-															alt='Banner image'
-															className='w-full object-cover object-center rounded-sm'
-															width={1920}
-															height={680}
-														/>
+												{isFeatured && banner && (
+													<Image
+														src={banner[0].url}
+														alt="Banner image"
+														className="object-cover object-center rounded-sm w-40 h-40"
+														width={100}
+														height={100}
+													/>
+												)}
+												{banner !== null  && banner.map(
+													(bannerItem: ProductImage, index: number) => (
+														<div
+															key={bannerItem.url}
+															className="relative group w-20 h-20 rounded-sm overflow-hidden"
+														>
+															<Image
+																src={bannerItem.url}
+																alt="product image"
+																className="w-full h-full object-cover object-center rounded-sm transition duration-300"
+																width={100}
+																height={100}
+															/>
+															<div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300" />
+															<button
+																type="button"
+																className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition duration-300 bg-black/70 text-white rounded-full p-1 cursor-pointer"
+																onClick={async () => {
+																	const removedUrl =
+																		banner[index].url;
+
+																	// Usuń obrazek z tablicy
+																	const newImages =
+																		banner.filter(
+																			(_, i) => i !== index
+																		);
+																	form.setValue(
+																		'banner',
+																		newImages
+																	);
+
+																	// Usuń plik z uploadedFiles i API
+																	const key =
+																		uploadedFiles[removedUrl];
+																	if (key) {
+																		await fetch(
+																			`${process.env.NEXT_PUBLIC_SERVER_URL}/api/uploadthing/delete`,
+																			{
+																				method: 'POST',
+																				body: JSON.stringify(
+																					{ key: [key] } // value as string || string[] possible
+																				),
+																			}
+																		);
+
+																		setUploadedFiles(
+																			(prev) => {
+																				const newMap = {
+																					...prev,
+																				};
+																				delete newMap[
+																					removedUrl
+																				];
+																				return newMap;
+																			}
+																		);
+																	}
+																}}
+																aria-label="Remove image"
+															>
+																<XIcon className="w-4 h-4" />
+															</button>
+														</div>
 													)
-												}
-												
+												)}
+
+												{isFeatured && !banner && (
+													<UploadDropzone
+														className="cursor-pointer"
+														onBeforeUploadBegin={(files) =>
+															files.map((file) => {
+																const extension = file.name
+																	.split('.')
+																	.pop();
+																const uniqueName = `${Date.now()}-${Math.random()
+																	.toString(36)
+																	.substring(2)}.${extension}`;
+																return new File(
+																	[file],
+																	uniqueName,
+																	{ type: file.type }
+																);
+															})
+														}
+														endpoint="imageUploader"
+														onClientUploadComplete={(
+															res: {
+																url: string;
+																key: string;
+															}[]
+														) => {
+															const newImages = res.map(
+																(file) => ({
+																	url: file.url,
+																	key: file.key,
+																})
+															);
+
+															form.setValue('banner', [
+																...(banner ?? []),
+																...newImages,
+															]);
+
+															const newMap = Object.fromEntries(
+																res.map((file) => [
+																	file.url,
+																	file.key,
+																])
+															);
+															setUploadedFiles((prev) => ({
+																...prev,
+																...newMap,
+															}));
+														}}
+														onUploadError={(error) => {
+															showCustomToast(
+																`ERROR! ${error.message}`,
+																false
+															);
+														}}
+														appearance={{
+															container:
+																'bg-zinc-100 dark:bg-zinc-800 p-4 border rounded w-[270px] aspect-square',
+															uploadIcon:
+																'text-zinc-800 dark:text-zinc-600 w-[100px]',
+															label: 'text-black dark:text-white',
+															allowedContent:
+																'text-sm text-gray-400',
+															button: ({ isUploading }) =>
+																isUploading
+																	? 'opacity-50 cursor-not-allowed'
+																	: 'bg-zinc-800 dark:bg-zinc-100 text-white dark:text-zinc-900 px-4 py-2 cursor-pointer',
+														}}
+													/>
+												)}
 											</CardContent>
 										</Card>
 										<FormMessage />

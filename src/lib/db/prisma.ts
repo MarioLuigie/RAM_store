@@ -48,15 +48,38 @@ export const prisma = new PrismaClient({ adapter }).$extends({
 								'key' in img
 							) {
 								return {
-									url: String((img).url),
-									key: String((img).key),
+									url: String(img.url),
+									key: String(img.key),
 								};
 							}
 							return null;
 						})
 						.filter(
 							(img): img is { url: string; key: string } => img !== null
-						); 
+						);
+				},
+			},
+			banner: {
+				compute(product) {
+					if (!Array.isArray(product.banner)) return []; // fallback defensywny
+					return product.banner
+						.map((img) => {
+							if (
+								typeof img === 'object' &&
+								img !== null &&
+								'url' in img &&
+								'key' in img
+							) {
+								return {
+									url: String(img.url),
+									key: String(img.key),
+								};
+							}
+							return null;
+						})
+						.filter(
+							(img): img is { url: string; key: string } => img !== null
+						);
 				},
 			},
 		},

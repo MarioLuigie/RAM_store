@@ -66,7 +66,7 @@ export const ProductSchema = z.object({
 	images: z.array(ProductImageSchema).min(1, 'Products must have at least 1 image'),
 	isFeatured: z.boolean(),
 	// banner: z.string().nullable(),
-	banner: z.array(ProductImageSchema).min(1, 'Banner must have at least 1 image').nullable(),
+	banner: z.array(ProductImageSchema),
 	price: currency,
 	rating: z.string(),
 	numReviews: z.string(),
@@ -165,7 +165,7 @@ export const CreateProductSchema = z.object({
 	images: z.array(ProductImageSchema).min(1, 'Products must have at least 1 image'),
 	isFeatured: z.boolean(),
 	// banner: z.string().nullable(),
-	banner: z.array(ProductImageSchema).min(1, 'Banner must have at least 1 image').nullable(),
+	banner: z.array(ProductImageSchema),
 	price: currency,
 });
 

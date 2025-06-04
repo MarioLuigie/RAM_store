@@ -443,7 +443,7 @@ export default function AdminProductForm({
 													/>
 												</FormControl>
 												<FormLabel>Is Featured?</FormLabel>
-												{isFeatured && banner && (
+												{isFeatured && banner.length > 0 && (
 													<Image
 														src={banner[0].url}
 														alt="Banner image"
@@ -452,7 +452,8 @@ export default function AdminProductForm({
 														height={100}
 													/>
 												)}
-												{banner !== null  && banner.map(
+
+												{banner.length > 0  && banner.map(
 													(bannerItem: ProductImage, index: number) => (
 														<div
 															key={bannerItem.url}
@@ -518,7 +519,7 @@ export default function AdminProductForm({
 													)
 												)}
 
-												{isFeatured && !banner && (
+												{isFeatured && banner.length === 0 && (
 													<UploadDropzone
 														className="cursor-pointer"
 														onBeforeUploadBegin={(files) =>

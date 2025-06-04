@@ -214,7 +214,9 @@ export async function deleteProduct(productId: string) {
 		revalidatePath(ROUTES.ADMIN_PRODUCTS);
 
 		const imagesToDelete = productToDelete.images;
-		const keysToDelete = imagesToDelete.map((image) => image.key);
+		const keysImagesToDelete = imagesToDelete.map((image) => image.key);
+		const bannerToDelete = productToDelete.banner;
+		const keysBannerToDelete = bannerToDelete.map((image) => image.key);
 
 		// console.log('IMAGES TO DELETE', imagesToDelete);
 		// console.log('KEYS TO DELETE', keysToDelete);
@@ -231,7 +233,8 @@ export async function deleteProduct(productId: string) {
 		// );
 
 		const utapi = new UTApi();
-		await utapi.deleteFiles(keysToDelete);
+		await utapi.deleteFiles(keysImagesToDelete);
+		await utapi.deleteFiles(keysBannerToDelete);
 
 		return {
 			success: true,

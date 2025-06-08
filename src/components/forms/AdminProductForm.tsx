@@ -435,89 +435,105 @@ export default function AdminProductForm({
 									<FormItem className="w-full">
 										<FormLabel>Featured Products</FormLabel>
 										<Card>
-											<CardContent className="flex items-center gap-2">
-												<FormControl>
-													<Checkbox
-														checked={field.value}
-														onCheckedChange={field.onChange}
-													/>
-												</FormControl>
-												<FormLabel>Is Featured?</FormLabel>
+											<CardContent className="flex flex-col justify-center gap-2">
+												<div className="flex gap-2 mb-2">
+													<FormControl>
+														<Checkbox
+															checked={field.value}
+															onCheckedChange={field.onChange}
+														/>
+													</FormControl>
+													<FormLabel>Is Featured?</FormLabel>
+												</div>
 												{isFeatured && banner.length > 0 && (
 													<Image
 														src={banner[0].url}
 														alt="Banner image"
-														className="object-cover object-center rounded-sm w-40 h-40"
-														width={100}
-														height={100}
+														className="w-full object-cover object-center rounded-sm"
+														width={1920}
+														height={680}
 													/>
 												)}
+												<div className="flex gap-2">
+													{isFeatured && banner.length > 0 &&
+														banner.map(
+															(
+																bannerItem: ProductImage,
+																index: number
+															) => (
+																<div
+																	key={bannerItem.url}
+																	className="relative group w-20 h-20 rounded-sm overflow-hidden"
+																>
+																	<Image
+																		src={bannerItem.url}
+																		alt="product image"
+																		className="w-full h-full object-cover object-center rounded-sm transition duration-300"
+																		width={100}
+																		height={100}
+																	/>
+																	<div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300" />
+																	<button
+																		type="button"
+																		className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition duration-300 bg-black/70 text-white rounded-full p-1 cursor-pointer"
+																		onClick={async () => {
+																			const removedUrl =
+																				banner[index].url;
 
-												{banner.length > 0  && banner.map(
-													(bannerItem: ProductImage, index: number) => (
-														<div
-															key={bannerItem.url}
-															className="relative group w-20 h-20 rounded-sm overflow-hidden"
-														>
-															<Image
-																src={bannerItem.url}
-																alt="product image"
-																className="w-full h-full object-cover object-center rounded-sm transition duration-300"
-																width={100}
-																height={100}
-															/>
-															<div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300" />
-															<button
-																type="button"
-																className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition duration-300 bg-black/70 text-white rounded-full p-1 cursor-pointer"
-																onClick={async () => {
-																	const removedUrl =
-																		banner[index].url;
+																			// Usuń obrazek z tablicy
+																			const newImages =
+																				banner.filter(
+																					(_, i) =>
+																						i !== index
+																				);
+																			form.setValue(
+																				'banner',
+																				newImages
+																			);
 
-																	// Usuń obrazek z tablicy
-																	const newImages =
-																		banner.filter(
-																			(_, i) => i !== index
-																		);
-																	form.setValue(
-																		'banner',
-																		newImages
-																	);
-
-																	// Usuń plik z uploadedFiles i API
-																	const key =
-																		uploadedFiles[removedUrl];
-																	if (key) {
-																		await fetch(
-																			`${process.env.NEXT_PUBLIC_SERVER_URL}/api/uploadthing/delete`,
-																			{
-																				method: 'POST',
-																				body: JSON.stringify(
-																					{ key: [key] } // value as string || string[] possible
-																				),
-																			}
-																		);
-
-																		setUploadedFiles(
-																			(prev) => {
-																				const newMap = {
-																					...prev,
-																				};
-																				delete newMap[
+																			// Usuń plik z uploadedFiles i API
+																			const key =
+																				uploadedFiles[
 																					removedUrl
 																				];
-																				return newMap;
+																			if (key) {
+																				await fetch(
+																					`${process.env.NEXT_PUBLIC_SERVER_URL}/api/uploadthing/delete`,
+																					{
+																						method:
+																							'POST',
+																						body: JSON.stringify(
+																							{
+																								key: [
+																									key,
+																								],
+																							} // value as string || string[] possible
+																						),
+																					}
+																				);
+
+																				setUploadedFiles(
+																					(prev) => {
+																						const newMap =
+																							{
+																								...prev,
+																							};
+																						delete newMap[
+																							removedUrl
+																						];
+																						return newMap;
+																					}
+																				);
 																			}
-																		);
-																	}
-																}}
-																aria-label="Remove image"
-															>
-																<XIcon className="w-4 h-4" />
-															</button>
-														</div>
-													)
-												)}
+																		}}
+																		aria-label="Remove image"
+																	>
+																		<XIcon className="w-4 h-4" />
+																	</button>
+																</div>
+															)
+														)}
+												</div>
 
 												{isFeatured && banner.length === 0 && (
 													<UploadDropzone

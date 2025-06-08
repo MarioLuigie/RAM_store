@@ -20,6 +20,7 @@ export const APP_ROUTE_NAME_USERS = 'Users';
 export const APP_ROUTE_NAME_OVERVIEW = 'Admin Dashboard';
 export const APP_ROUTE_NAME_UNAUTHORIZED_ACCESS = 'Unauthorized Access';
 export const APP_ROUTE_NAME_CREATE_PRODUCT = 'Create Product';
+export const APP_ROUTE_NAME_UPDATE_PRODUCT = 'Update Product';
 
 export const PAGE_SIZE = Number(process.env.LATEST_PRODUCTS_LIMIT) || 8;
 

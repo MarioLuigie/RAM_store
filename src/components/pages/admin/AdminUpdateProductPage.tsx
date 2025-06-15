@@ -2,6 +2,7 @@
 import AdminProductForm from '@/components/forms/AdminProductForm';
 import { ActionTypes } from '@/lib/constants/enums';
 import { getProductById } from '@/lib/actions/product.actions';
+import { notFound } from 'next/navigation';
 
 export default async function AdminUpdateProductPage({
 	productId,
@@ -9,6 +10,8 @@ export default async function AdminUpdateProductPage({
 	productId: string;
 }) {
 	const { data: product } = await getProductById(productId);
+
+	if (!product) notFound();
 
 	return (
 		<>

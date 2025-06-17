@@ -1,7 +1,7 @@
 // lib
 import { requireAdmin } from '@/lib/utils/auth-guard';
 
-export default async function AdminUserPage({ userId }: { userId: string }) {
+export default async function AdminUpdateUserPage({ userId }: { userId: string }) {
   await requireAdmin();
 
   return (

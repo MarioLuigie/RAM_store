@@ -1,7 +1,7 @@
 // modules
 import { Metadata } from 'next';
 // components
-import AdminUserPage from "@/components/pages/admin/AdminUserPage";
+import AdminUpdateUserPage from "@/components/pages/admin/AdminUpdateUserPage";
 import { APP_ROUTE_NAME_UPDATE_USER } from '@/lib/constants';
 
 export const metadata: Metadata = {
@@ -18,7 +18,7 @@ export default async function Page({
 
   return (
     <div>
-      <AdminUserPage userId={id} />
+      <AdminUpdateUserPage userId={id} />
     </div>
   )
 }

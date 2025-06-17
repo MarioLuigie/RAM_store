@@ -11,7 +11,7 @@ import Link from 'next/link';
 import DeleteDialog from '../dialogs/DeleteDialog';
 import { formatDateTime, formatId } from '@/lib/utils/utils';
 import { ROUTES } from '@/lib/constants/paths';
-import { deleteOrder } from '@/lib/actions/order.actions';
+import { deleteUser } from '@/lib/actions/user.actions';
 
 export default function AdminUsersTable({ users }: { users: any[] }) {
 	return (
@@ -49,7 +49,7 @@ export default function AdminUsersTable({ users }: { users: any[] }) {
 										Edit
 									</Link>
 								</Button>
-								<DeleteDialog id={user.id} action={deleteOrder} />
+								<DeleteDialog id={user.id} item='user' action={deleteUser} />
 							</TableCell>
 						</TableRow>
 					))}

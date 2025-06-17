@@ -18,10 +18,11 @@ import { formatId } from '@/lib/utils/utils';
 
 type DeleteDialogProps = {
 	id: string;
+	item?: string;
 	action: (id: string) => Promise<{ success: boolean; message: string }>;
 };
 
-export default function DeleteDialog({ id, action }: DeleteDialogProps) {
+export default function DeleteDialog({ id, item = 'item', action }: DeleteDialogProps) {
 	const { showCustomToast } = useCustomToast();
 	const [isPending, startTransition] = useTransition();
 
@@ -46,8 +47,8 @@ export default function DeleteDialog({ id, action }: DeleteDialogProps) {
 				<AlertDialogHeader>
 					<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
 					<AlertDialogDescription>
-						This action cannot be undone. This will permanently delete
-						item <span className='font-medium'>{formatId(id)}</span> and remove from our servers.
+						This action cannot be undone. This will permanently delete{' '}
+						{item} with id <span className='font-medium'>{formatId(id)}</span> and remove from our servers.
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 				<AlertDialogFooter>

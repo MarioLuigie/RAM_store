@@ -15,6 +15,8 @@ import { formatErrorMessages } from '@/lib/utils/server';
 import { ShippingAddress } from '@/lib/types/shipping.types';
 import { PaymentMethod } from '@/lib/types/payment.types';
 import { PAGE_SIZE } from '../constants';
+import { revalidatePath } from 'next/cache';
+import { ROUTES } from '../constants/paths';
 
 // SIGN IN THE USER WITH CREDENTIALS
 export async function signInUserWithCredentials(
@@ -279,6 +281,33 @@ export async function getUsers({
 				totalPages,
 			},
 			message: 'Users found successfully',
+		};
+	} catch (error) {
+		return {
+			success: false,
+			message: formatErrorMessages(error),
+		};
+	}
+}
+
+// DELETE USER
+export async function deleteUser(userId: string) {
+	try {
+		const userToDelete = await prisma.user.findFirst({
+			where: { id: userId },
+		});
+
+		if (!userToDelete) throw new Error('User not found');
+		
+		await prisma.user.delete({
+			where: { id: userId },
+		});
+
+		revalidatePath(ROUTES.ADMIN_USERS);
+
+		return {
+			success: true,
+			message: 'User deleted successfully',
 		};
 	} catch (error) {
 		return {

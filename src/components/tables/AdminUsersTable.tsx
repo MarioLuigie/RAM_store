@@ -12,25 +12,10 @@ import DeleteDialog from '../dialogs/DeleteDialog';
 import { formatDateTime, formatId } from '@/lib/utils/utils';
 import { ROUTES } from '@/lib/constants/paths';
 import { deleteUser } from '@/lib/actions/user.actions';
-import { AuthRole } from '@/lib/constants/enums';
-import { Badge } from '../ui/badge';
 import { User } from '@/lib/types/user.types';
+import UserRoleBadge from '../shared/UserRoleBadge';
 
 export default function AdminUsersTable({ users }: { users: User[] }) {
-	const createBadgeVar = (
-		role: AuthRole
-	): { variant: 'default' | 'outline' | 'secondary' } => {
-		if (role === AuthRole.ADMIN) {
-			return {
-				variant: 'secondary',
-			};
-		} else {
-			return {
-				variant: 'outline',
-			};
-		}
-	};
-
 	return (
 		<div className="overflow-x-auto">
 			<Table>
@@ -53,12 +38,7 @@ export default function AdminUsersTable({ users }: { users: User[] }) {
 							<TableCell>{user.name}</TableCell>
 							<TableCell>{user.email}</TableCell>
 							<TableCell>
-								<Badge
-									variant={createBadgeVar(user.role).variant}
-									className="min-w-[60px] h-[24px]"
-								>
-									{user.role}
-								</Badge>
+								<UserRoleBadge userRole={user.role} />
 							</TableCell>
 							<TableCell>
 								{formatDateTime(user.createdAt).dateTime}

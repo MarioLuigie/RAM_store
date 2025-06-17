@@ -5,7 +5,7 @@ import { ActionTypes } from '@/lib/constants/enums';
 import { Product } from '../types/products.types';
 import { AuthRole } from '@/lib/constants/enums';
 
-export const UserFromDbAddressSchema = z.object({
+export const UserAddressSchema = z.object({
   fullName: z.string(),
   streetAddress: z.string(),
   city: z.string(),
@@ -14,7 +14,7 @@ export const UserFromDbAddressSchema = z.object({
 });
 
 // SCHEMA FOR USER FROM DB
-export const UserFromDbSchema = z.object({
+export const UserSchema = z.object({
 	id: z.string(),
 	email: z.string().email(),
 	password: z.string().nullable(),
@@ -25,7 +25,7 @@ export const UserFromDbSchema = z.object({
 	image: z.string().nullable(),
 	emailVerified: z.coerce.date().nullable(),
 	role: z.nativeEnum(AuthRole),
-	address: UserFromDbAddressSchema.nullable(),
+	address: UserAddressSchema.nullable(),
 });
 
 // SCHEMA FOR SIGN IN FORM
@@ -175,6 +175,10 @@ export const PaymentResultSchema = z.object({
 export const UpdateProfileSchema = z.object({
 	name: z.string().min(3, 'Name must be at least 3 characters'),
 	email: z.string().min(3, 'E-mail must be at least 3 characters'),
+});
+
+export const UpdateUserSchema = UpdateProfileSchema.extend({
+
 });
 
 // SCHEMA FOR INSERTING/ADDING PRODUCTS

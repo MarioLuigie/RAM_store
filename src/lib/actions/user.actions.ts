@@ -8,7 +8,7 @@ import {
 	ShippingAddressSchema,
 	SignInFormSchema,
 	SignUpFormSchema,
-	UserFromDbSchema,
+	UserSchema,
 } from '@/lib/utils/validators';
 import { auth, signIn, signOut } from '@/config/auth';
 import { prisma } from '@/lib/db/prisma';
@@ -19,7 +19,7 @@ import { PAGE_SIZE } from '../constants';
 import { revalidatePath } from 'next/cache';
 import { ROUTES } from '../constants/paths';
 import { AuthRole } from '../constants/enums';
-import { UserFromDb } from '../types/user.types';
+import { User } from '../types/user.types';
 
 // SIGN IN THE USER WITH CREDENTIALS
 export async function signInUserWithCredentials(
@@ -273,8 +273,8 @@ export async function getUsers({
 			skip: (page - 1) * limit,
 		});
 
-		const users: UserFromDb[] = usersRaw.map((user) => {
-			const parsed = UserFromDbSchema.parse({
+		const users: User[] = usersRaw.map((user) => {
+			const parsed = UserSchema.parse({
 				...user,
 				role: user.role as AuthRole,
 				address:

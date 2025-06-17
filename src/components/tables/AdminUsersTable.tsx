@@ -14,9 +14,9 @@ import { ROUTES } from '@/lib/constants/paths';
 import { deleteUser } from '@/lib/actions/user.actions';
 import { AuthRole } from '@/lib/constants/enums';
 import { Badge } from '../ui/badge';
-import { UserFromDb } from '@/lib/types/user.types';
+import { User } from '@/lib/types/user.types';
 
-export default function AdminUsersTable({ users }: { users: UserFromDb[] }) {
+export default function AdminUsersTable({ users }: { users: User[] }) {
 	const createBadgeVar = (
 		role: AuthRole
 	): { variant: 'default' | 'outline' | 'secondary' } => {
@@ -30,7 +30,7 @@ export default function AdminUsersTable({ users }: { users: UserFromDb[] }) {
 			};
 		}
 	};
-	
+
 	return (
 		<div className="overflow-x-auto">
 			<Table>

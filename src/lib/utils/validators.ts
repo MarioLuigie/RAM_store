@@ -178,7 +178,8 @@ export const UpdateProfileSchema = z.object({
 });
 
 export const UpdateUserSchema = UpdateProfileSchema.extend({
-
+	id: z.string().min(1, 'Id is required'),
+	role: z.nativeEnum(AuthRole, { errorMap: () => ({ message: 'Invalid role' }) }),
 });
 
 // SCHEMA FOR INSERTING/ADDING PRODUCTS

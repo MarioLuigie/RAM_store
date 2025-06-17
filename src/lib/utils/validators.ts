@@ -3,6 +3,30 @@ import { formatNumberWithDecimalToString } from '@/lib/utils/utils';
 import { PAYMENT_METHODS, PRODUCT_DEFAULT_VALUES } from '../constants';
 import { ActionTypes } from '@/lib/constants/enums';
 import { Product } from '../types/products.types';
+import { AuthRole } from '@/lib/constants/enums';
+
+export const UserFromDbAddressSchema = z.object({
+  fullName: z.string(),
+  streetAddress: z.string(),
+  city: z.string(),
+  postalCode: z.string(),
+  country: z.string(),
+});
+
+// SCHEMA FOR USER FROM DB
+export const UserFromDbSchema = z.object({
+	id: z.string(),
+	email: z.string().email(),
+	password: z.string().nullable(),
+	name: z.string(),
+	createdAt: z.coerce.date(),
+	updatedAt: z.coerce.date(),
+	paymentMethod: z.string().nullable(),
+	image: z.string().nullable(),
+	emailVerified: z.coerce.date().nullable(),
+	role: z.nativeEnum(AuthRole),
+	address: UserFromDbAddressSchema.nullable(),
+});
 
 // SCHEMA FOR SIGN IN FORM
 export const SignInFormSchema = z

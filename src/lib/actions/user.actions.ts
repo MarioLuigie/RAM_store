@@ -8,6 +8,7 @@ import {
 	ShippingAddressSchema,
 	SignInFormSchema,
 	SignUpFormSchema,
+	UserFromDbSchema,
 } from '@/lib/utils/validators';
 import { auth, signIn, signOut } from '@/config/auth';
 import { prisma } from '@/lib/db/prisma';
@@ -17,6 +18,8 @@ import { PaymentMethod } from '@/lib/types/payment.types';
 import { PAGE_SIZE } from '../constants';
 import { revalidatePath } from 'next/cache';
 import { ROUTES } from '../constants/paths';
+import { AuthRole } from '../constants/enums';
+import { UserFromDb } from '../types/user.types';
 
 // SIGN IN THE USER WITH CREDENTIALS
 export async function signInUserWithCredentials(
@@ -264,10 +267,22 @@ export async function getUsers({
 			throw new Error('User is not authenticated');
 		}
 
-		const users = await prisma.user.findMany({
+		const usersRaw = await prisma.user.findMany({
 			orderBy: { createdAt: 'desc' },
 			take: limit,
 			skip: (page - 1) * limit,
+		});
+
+		const users: UserFromDb[] = usersRaw.map((user) => {
+			const parsed = UserFromDbSchema.parse({
+				...user,
+				role: user.role as AuthRole,
+				address:
+					typeof user.address === 'string'
+						? JSON.parse(user.address)
+						: user.address ?? null,
+			});
+			return parsed;
 		});
 
 		const dataCount = await prisma.user.count();
@@ -298,7 +313,7 @@ export async function deleteUser(userId: string) {
 		});
 
 		if (!userToDelete) throw new Error('User not found');
-		
+
 		await prisma.user.delete({
 			where: { id: userId },
 		});

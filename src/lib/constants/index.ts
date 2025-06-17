@@ -17,6 +17,7 @@ export const APP_ROUTE_NAME_CART = 'Cart';
 export const APP_ROUTE_NAME_PROFILE = 'Profile';
 export const APP_ROUTE_NAME_PRODUCTS = 'Products';
 export const APP_ROUTE_NAME_USERS = 'Users';
+export const APP_ROUTE_NAME_UPDATE_USER = 'Update User';
 export const APP_ROUTE_NAME_OVERVIEW = 'Admin Dashboard';
 export const APP_ROUTE_NAME_UNAUTHORIZED_ACCESS = 'Unauthorized Access';
 export const APP_ROUTE_NAME_CREATE_PRODUCT = 'Create Product';

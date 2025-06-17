@@ -12,8 +12,24 @@ import DeleteDialog from '../dialogs/DeleteDialog';
 import { formatDateTime, formatId } from '@/lib/utils/utils';
 import { ROUTES } from '@/lib/constants/paths';
 import { deleteUser } from '@/lib/actions/user.actions';
+import { AuthRole } from '@/lib/constants/enums';
+import { Badge } from '../ui/badge';
 
 export default function AdminUsersTable({ users }: { users: any[] }) {
+	const createBadgeVar = (
+		role: AuthRole
+	): { variant: 'default' | 'outline' | 'secondary' } => {
+		if (role === AuthRole.ADMIN) {
+			return {
+				variant: 'secondary',
+			};
+		} else {
+			return {
+				variant: 'outline',
+			};
+		}
+	};
+
 	return (
 		<div className="overflow-x-auto">
 			<Table>
@@ -24,6 +40,8 @@ export default function AdminUsersTable({ users }: { users: any[] }) {
 						<TableHead>E-mail</TableHead>
 						<TableHead>Role</TableHead>
 						<TableHead>Created at</TableHead>
+						<TableHead>Updated at</TableHead>
+						<TableHead>Verified</TableHead>
 						<TableHead className="text-center">Actions</TableHead>
 					</TableRow>
 				</TableHeader>
@@ -33,9 +51,24 @@ export default function AdminUsersTable({ users }: { users: any[] }) {
 							<TableCell>{formatId(user.id)}</TableCell>
 							<TableCell>{user.name}</TableCell>
 							<TableCell>{user.email}</TableCell>
-							<TableCell>{user.role}</TableCell>
+							<TableCell>
+								<Badge
+									variant={createBadgeVar(user.role).variant}
+									className="min-w-[60px] h-[24px]"
+								>
+									{user.role}
+								</Badge>
+							</TableCell>
 							<TableCell>
 								{formatDateTime(user.createdAt).dateTime}
+							</TableCell>
+							<TableCell>
+								{formatDateTime(user.updatedAt).dateTime}
+							</TableCell>
+							<TableCell>
+								{user.emailVerified === null
+									? 'Not verified!'
+									: formatDateTime(user.emailVerified).dateTime}
 							</TableCell>
 							<TableCell className="flex-center gap-2">
 								<Button
@@ -43,13 +76,15 @@ export default function AdminUsersTable({ users }: { users: any[] }) {
 									className="cursor-pointer"
 									variant="outline"
 								>
-									<Link
-										href={`${ROUTES.ADMIN_USERS}/${user.id}`}
-									>
+									<Link href={`${ROUTES.ADMIN_USERS}/${user.id}`}>
 										Edit
 									</Link>
 								</Button>
-								<DeleteDialog id={user.id} item='user' action={deleteUser} />
+								<DeleteDialog
+									id={user.id}
+									item="user"
+									action={deleteUser}
+								/>
 							</TableCell>
 						</TableRow>
 					))}

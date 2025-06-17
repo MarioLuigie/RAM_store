@@ -40,6 +40,14 @@ export async function createOrder() {
 			};
 		}
 
+		if (!user) {
+			return {
+				success: false,
+				message: 'User not found',
+				redirectTo: ROUTES.SHIPPING_ADDRESS,
+			};
+		}
+
 		if (!user.address) {
 			return {
 				success: false,
@@ -377,7 +385,7 @@ export async function deleteOrder(orderId: string) {
 		});
 
 		if (!orderToDelete) throw new Error('Order not found');
-		
+
 		await prisma.order.delete({
 			where: { id: orderId },
 		});

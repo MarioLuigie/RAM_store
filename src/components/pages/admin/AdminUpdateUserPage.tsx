@@ -14,7 +14,7 @@ export default async function AdminUpdateUserPage({ userId }: { userId: string }
 
   return (
     <div className='flex gap-2 items-center mb-3'>
-      <h2 className="text-xl ">{data.name}</h2>
+      <h2 className="text-xl ">Updating {data.name}</h2>
       {/* <dev>CHANGE AUTHROLE TYPE FORCE - DANGEROUS - TEMPORARY SOLUTION ! */}
       <UserRoleBadge userRole={data.role as AuthRole} />
     </div>

@@ -14,6 +14,7 @@ import { prisma } from '@/lib/db/prisma';
 import { formatErrorMessages } from '@/lib/utils/server';
 import { ShippingAddress } from '@/lib/types/shipping.types';
 import { PaymentMethod } from '@/lib/types/payment.types';
+import { PAGE_SIZE } from '../constants';
 
 // SIGN IN THE USER WITH CREDENTIALS
 export async function signInUserWithCredentials(
@@ -237,6 +238,47 @@ export async function updateProfile(user: { name: string; email: string }) {
 				email: updatedUser.email,
 			},
 			message: 'User profile updated successfully',
+		};
+	} catch (error) {
+		return {
+			success: false,
+			message: formatErrorMessages(error),
+		};
+	}
+}
+
+// GET ALL THE USERS
+export async function getUsers({
+	limit = PAGE_SIZE,
+	page,
+}: {
+	limit?: number;
+	page: number;
+}) {
+	try {
+		const session = await auth();
+
+		if (!session || !session.user?.id) {
+			throw new Error('User is not authenticated');
+		}
+
+		const users = await prisma.user.findMany({
+			orderBy: { createdAt: 'desc' },
+			take: limit,
+			skip: (page - 1) * limit,
+		});
+
+		const dataCount = await prisma.user.count();
+
+		const totalPages = Math.ceil(dataCount / limit);
+
+		return {
+			success: true,
+			data: {
+				users,
+				totalPages,
+			},
+			message: 'Users found successfully',
 		};
 	} catch (error) {
 		return {

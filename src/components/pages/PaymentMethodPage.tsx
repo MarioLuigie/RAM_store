@@ -4,6 +4,7 @@ import { getUserById } from '@/lib/actions/user.actions';
 // components
 import CheckoutSteps from '@/components/shared/CheckoutSteps';
 import PaymentMethodForm from '@/components/forms/PaymentMethodForm';
+import { notFound } from 'next/navigation';
 
 export default async function PaymentMethodPage() {
 	const session = await auth();
@@ -11,7 +12,9 @@ export default async function PaymentMethodPage() {
 
 	if (!userId) throw new Error('User not found');
 
-	const { data: user } = await getUserById(userId);
+	const { success, data: user } = await getUserById(userId);
+
+	if (!user || !success) notFound();
 
 	return (
 		<>

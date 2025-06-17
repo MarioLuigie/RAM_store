@@ -1,5 +1,5 @@
 // modules
-import { redirect } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 // lib
 import { auth } from '@/config/auth';
 import { getCart } from '@/lib/actions/cart.actions';
@@ -22,6 +22,8 @@ export default async function ShippingAddressPage() {
 	if (!userId) throw new Error('Not found user id');
 
 	const { success, data: user } = await getUserById(userId);
+
+	if (!user || !success) notFound();
 
   console.log("ShippingAddressPage:", success)
 

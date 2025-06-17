@@ -124,25 +124,19 @@ export async function getUserById(userId: string) {
 
 		return {
 			success: true,
-			data: user,
+			data: {
+				...user,
+				role: user.role as AuthRole,
+				address:
+					typeof user.address === 'string'
+						? JSON.parse(user.address)
+						: user.address ?? null,
+			},
 			message: 'User founded successfully',
 		};
 	} catch (error) {
 		return {
 			success: false,
-			data: {
-				id: '',
-				name: '',
-				email: '',
-				emailVerified: '',
-				password: '',
-				role: '',
-				address: {},
-				paymentMethod: '',
-				image: '',
-				createdAt: '',
-				updatedAt: '',
-			},
 			message: formatErrorMessages(error),
 		};
 	}

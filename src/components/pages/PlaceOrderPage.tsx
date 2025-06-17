@@ -1,5 +1,5 @@
 // modules
-import { redirect } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 // lib
 import { getCart } from '@/lib/actions/cart.actions';
 import { auth } from '@/config/auth';
@@ -22,7 +22,9 @@ export default async function PlaceOrderPage() {
 
 	if (!userId) throw new Error('User not found');
 
-	const { data: user } = await getUserById(userId);
+	const { success, data: user } = await getUserById(userId);
+
+	if (!user || !success) notFound();
 
 	if (!cart || cart.items.length === 0) redirect(ROUTES.CART);
 	if (!user.address) redirect(ROUTES.SHIPPING_ADDRESS);

@@ -13,20 +13,20 @@ export default async function AdminUpdateUserPage({
 }) {
 	await requireAdmin();
 
-	const { success, data } = await getUserById(userId);
+	const { success, data: user } = await getUserById(userId);
 
-	if (!success || !data) notFound();
+	if (!success || !user) notFound();
 
 	return (
 		<>
 			<div className="flex gap-2 items-center mb-3">
-				<h2 className="text-xl ">Update {data.name}</h2>
+				<h2 className="text-xl ">Update {user.name}</h2>
 				{/* <dev>CHANGE AUTHROLE TYPE FORCE - DANGEROUS - TEMPORARY SOLUTION ! */}
-				<UserRoleBadge userRole={data.role as AuthRole} />
+				<UserRoleBadge userRole={user.role as AuthRole} />
 			</div>
 
 			<div className='w-full flex justify-center'>
-        <UpdateUserForm />
+        <UpdateUserForm user={user} />
       </div>
 		</>
 	);

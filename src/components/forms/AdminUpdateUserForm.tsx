@@ -48,7 +48,7 @@ export default function AdminUpdateUserForm({ user }: { user: User }) {
 		startTransition(async () => {
 			console.log(updateUserValues);
 			console.log(router);
-			await handleUpdateUser(updateUserValues)
+			await handleUpdateUser(updateUserValues);
 		});
 	};
 
@@ -58,23 +58,6 @@ export default function AdminUpdateUserForm({ user }: { user: User }) {
 				className="flex flex-col gap-5 w-full min-w-[280px] max-w-[380px]"
 				onSubmit={form.handleSubmit(onSubmit)}
 			>
-				{/* NAME */}
-				<div className="flex flex-col gap-5 w-full">
-					<FormField
-						control={form.control}
-						name="name"
-						render={({ field }) => (
-							<FormItem className="w-full">
-								<FormLabel>Name</FormLabel>
-								<FormControl>
-									<Input placeholder="Enter product name" {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-				</div>
-
 				{/* EMAIL */}
 				<div className="flex flex-col gap-5 w-full">
 					<FormField
@@ -85,10 +68,27 @@ export default function AdminUpdateUserForm({ user }: { user: User }) {
 								<FormLabel>E-mail</FormLabel>
 								<FormControl>
 									<Input
-										placeholder="Enter email"
+										placeholder="Enter user e-mail"
 										{...field}
 										disabled
 									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				</div>
+
+				{/* NAME */}
+				<div className="flex flex-col gap-5 w-full">
+					<FormField
+						control={form.control}
+						name="name"
+						render={({ field }) => (
+							<FormItem className="w-full">
+								<FormLabel>Name</FormLabel>
+								<FormControl>
+									<Input placeholder="Enter user name" {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -102,30 +102,23 @@ export default function AdminUpdateUserForm({ user }: { user: User }) {
 						control={form.control}
 						name="role"
 						render={({ field }) => (
-							<FormItem className='w-full'>
+							<FormItem className="w-full">
 								<FormLabel>Role</FormLabel>
 								<Select
 									onValueChange={field.onChange}
 									defaultValue={field.value}
 								>
 									<FormControl>
-										<SelectTrigger className='w-full'>
-											<SelectValue placeholder="Select a role" />
+										<SelectTrigger className="w-full">
+											<SelectValue placeholder="Select user role" />
 										</SelectTrigger>
 									</FormControl>
 									<SelectContent>
-										<SelectItem value={AuthRole.ADMIN}>
-											{AuthRole.ADMIN}
-										</SelectItem>
-										<SelectItem value={AuthRole.MODERATOR}>
-											{AuthRole.MODERATOR}
-										</SelectItem>
-										<SelectItem value={AuthRole.USER}>
-											{AuthRole.USER}
-										</SelectItem>
-										<SelectItem value={AuthRole.GUEST}>
-											{AuthRole.GUEST}
-										</SelectItem>
+										{Object.values(AuthRole).map((role) => (
+											<SelectItem value={role} key={role}>
+												{role}
+											</SelectItem>
+										))}
 									</SelectContent>
 								</Select>
 								<FormDescription>

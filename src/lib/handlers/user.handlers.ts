@@ -30,13 +30,33 @@ export async function handleUpdateUserAddress(
 // ADMIN UPDATE USER HANDLER
 export async function handleUpdateUser(
 	user: UpdateUser,
+	session: Session | null,
+	update: (data?: Session) => Promise<Session | null>,
+	router: AppRouterInstance
 ) {
-	const result = await updateUser(user);
-	const { success, message } = result;
+	if (!session || !session.user) {
+		toast.error('You must be logged in to update user datas.');
+		return;
+	}
 
-	console.log("Updated User from client")
+	const result = await updateUser(user);
+	const { success, data, message } = result;
+
+	console.log('Updated User from client');
 
 	if (success) {
+		if (user.id === data?.id) {
+			const sessionToUpdate = {
+				...session,
+				user: {
+					...session?.user,
+					name: data?.name,
+				},
+			};
+
+			await update(sessionToUpdate);
+			router.refresh();
+		}
 		toast.success(message);
 	} else {
 		toast.error(message);

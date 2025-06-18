@@ -344,7 +344,7 @@ export async function updateUser(user: UpdateUser) {
 
 		const userOldRole = existingUser.role;
 
-		await prisma.user.update({
+		const updatedUser = await prisma.user.update({
 			where: { id: user.id },
 			data: {
 				name: user.name,
@@ -363,8 +363,11 @@ export async function updateUser(user: UpdateUser) {
 			});
 		}
 
+		revalidatePath(`${ROUTES.ADMIN_USERS}/${user.id}`)
+
 		return {
 			success: true,
+			data: updatedUser,
 			message: 'User updated successfully',
 		};
 	} catch (error) {

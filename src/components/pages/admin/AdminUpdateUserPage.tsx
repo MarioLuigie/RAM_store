@@ -5,6 +5,8 @@ import { getUserById } from '@/lib/actions/user.actions';
 import UserRoleBadge from '@/components/shared/UserRoleBadge';
 import { AuthRole } from '@/lib/constants/enums';
 import AdminUpdateUserForm from '@/components/forms/AdminUpdateUserForm';
+import { SessionProvider } from 'next-auth/react';
+import { auth } from '@/config/auth';
 
 export default async function AdminUpdateUserPage({
 	userId,
@@ -12,6 +14,8 @@ export default async function AdminUpdateUserPage({
 	userId: string;
 }) {
 	await requireAdmin();
+
+	const session = await auth();
 
 	const { success, data: user } = await getUserById(userId);
 
@@ -24,10 +28,11 @@ export default async function AdminUpdateUserPage({
 				{/* <dev>CHANGE AUTHROLE TYPE FORCE - DANGEROUS - TEMPORARY SOLUTION ! */}
 				<UserRoleBadge userRole={user.role as AuthRole} />
 			</div>
-
-			<div className='w-full flex justify-center mt-12'>
-        <AdminUpdateUserForm user={user} />
-      </div>
+			<SessionProvider session={session}>
+				<div className="w-full flex justify-center mt-12">
+					<AdminUpdateUserForm user={user} />
+				</div>
+			</SessionProvider>
 		</>
 	);
 }

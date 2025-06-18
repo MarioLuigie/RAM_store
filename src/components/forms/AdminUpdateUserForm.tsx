@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { useTransition } from 'react';
 import { ArrowRight } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 // lib
 import { UpdateUser, User } from '@/lib/types/user.types';
 import { UpdateUserSchema } from '@/lib/utils/validators';
@@ -35,6 +36,7 @@ import { handleUpdateUser } from '@/lib/handlers/user.handlers';
 export default function AdminUpdateUserForm({ user }: { user: User }) {
 	const router: AppRouterInstance = useRouter();
 	const [isPending, startTransition] = useTransition();
+	const { data: session, update } = useSession();
 
 	const form = useForm<UpdateUser>({
 		resolver: zodResolver(UpdateUserSchema),
@@ -47,8 +49,7 @@ export default function AdminUpdateUserForm({ user }: { user: User }) {
 	) => {
 		startTransition(async () => {
 			console.log(updateUserValues);
-			console.log(router);
-			await handleUpdateUser(updateUserValues);
+			await handleUpdateUser(updateUserValues, session, update, router);
 		});
 	};
 
@@ -143,7 +144,7 @@ export default function AdminUpdateUserForm({ user }: { user: User }) {
 						) : (
 							<ArrowRight />
 						)}
-						Update User
+						{isPending ? 'Updating User' : 'Update User'}
 					</Button>
 				</div>
 			</form>

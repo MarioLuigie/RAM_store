@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { getUserById } from '@/lib/actions/user.actions';
 import UserRoleBadge from '@/components/shared/UserRoleBadge';
 import { AuthRole } from '@/lib/constants/enums';
-import UpdateUserForm from '@/components/forms/UpdateUserForm';
+import AdminUpdateUserForm from '@/components/forms/AdminUpdateUserForm';
 
 export default async function AdminUpdateUserPage({
 	userId,
@@ -26,7 +26,7 @@ export default async function AdminUpdateUserPage({
 			</div>
 
 			<div className='w-full flex justify-center'>
-        <UpdateUserForm user={user} />
+        <AdminUpdateUserForm user={user} />
       </div>
 		</>
 	);

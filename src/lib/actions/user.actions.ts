@@ -327,9 +327,42 @@ export async function deleteUser(userId: string) {
 }
 
 export async function updateUser(user: UpdateUser) {
-	// <dev>REMEMBER IF ROLE WAS CHANGED SAVE IT IN ROLECHANGELOG ON DB!
 	try {
-		console.log("Updated User from server", user)
+		console.log('Updated User from server', user);
+
+		const existingUser = await prisma.user.findUnique({
+			where: { id: user.id },
+			select: { role: true },
+		});
+
+		if (!existingUser) {
+			return {
+				success: false,
+				message: 'User not found',
+			};
+		}
+
+		const userOldRole = existingUser.role;
+
+		await prisma.user.update({
+			where: { id: user.id },
+			data: {
+				name: user.name,
+				role: user.role,
+			},
+		});
+
+		if (userOldRole !== user.role) {
+			await prisma.roleChangeLog.create({
+				data: {
+					userId: user.id,
+					email: user.email,
+					oldRole: userOldRole,
+					newRole: user.role,
+				},
+			});
+		}
+
 		return {
 			success: true,
 			message: 'User updated successfully',

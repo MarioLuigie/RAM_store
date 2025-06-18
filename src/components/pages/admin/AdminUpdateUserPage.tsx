@@ -25,7 +25,7 @@ export default async function AdminUpdateUserPage({
 				<UserRoleBadge userRole={user.role as AuthRole} />
 			</div>
 
-			<div className='w-full flex justify-center'>
+			<div className='w-full flex justify-center mt-12'>
         <AdminUpdateUserForm user={user} />
       </div>
 		</>

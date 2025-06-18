@@ -6,10 +6,9 @@ import {
 } from '@/lib/actions/user.actions';
 import { toast } from 'sonner';
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import { UpdateProfile } from '@/lib/types/user.types';
-import { updateProfile } from '@/lib/actions/user.actions';
+import { UpdateProfile, UpdateUser } from '@/lib/types/user.types';
+import { updateProfile, updateUser } from '@/lib/actions/user.actions';
 import { Session } from 'next-auth';
-
 
 // USER UPDATE ADDRESS HANDLER
 export async function handleUpdateUserAddress(
@@ -23,6 +22,22 @@ export async function handleUpdateUserAddress(
 	if (success) {
 		toast.success(message);
 		router.push(redirectPath);
+	} else {
+		toast.error(message);
+	}
+}
+
+// ADMIN UPDATE USER HANDLER
+export async function handleUpdateUser(
+	user: UpdateUser,
+) {
+	const result = await updateUser(user);
+	const { success, message } = result;
+
+	console.log("Updated User from client")
+
+	if (success) {
+		toast.success(message);
 	} else {
 		toast.error(message);
 	}
@@ -57,11 +72,7 @@ export async function handleUpdateProfile(
 		return;
 	}
 
-	const {
-		success,
-		data,
-		message,
-	} = await updateProfile(updateProfileValues);
+	const { success, data, message } = await updateProfile(updateProfileValues);
 
 	if (success) {
 		const sessionToUpdate = {

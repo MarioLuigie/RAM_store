@@ -19,7 +19,7 @@ import { PAGE_SIZE } from '../constants';
 import { revalidatePath } from 'next/cache';
 import { ROUTES } from '../constants/paths';
 import { AuthRole } from '../constants/enums';
-import { User } from '../types/user.types';
+import { UpdateUser, User } from '../types/user.types';
 
 // SIGN IN THE USER WITH CREDENTIALS
 export async function signInUserWithCredentials(
@@ -317,6 +317,22 @@ export async function deleteUser(userId: string) {
 		return {
 			success: true,
 			message: 'User deleted successfully',
+		};
+	} catch (error) {
+		return {
+			success: false,
+			message: formatErrorMessages(error),
+		};
+	}
+}
+
+export async function updateUser(user: UpdateUser) {
+	// <dev>REMEMBER IF ROLE WAS CHANGED SAVE IT IN ROLECHANGELOG ON DB!
+	try {
+		console.log("Updated User from server", user)
+		return {
+			success: true,
+			message: 'User updated successfully',
 		};
 	} catch (error) {
 		return {

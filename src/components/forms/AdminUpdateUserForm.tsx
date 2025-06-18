@@ -25,7 +25,7 @@ import Loader from '@/components/shared/Loader';
 export default function AdminUpdateUserForm({ user }: { user: User }) {
 	const router: AppRouterInstance = useRouter();
 	const [isPending, startTransition] = useTransition();
-  
+
 	const form = useForm<UpdateUser>({
 		resolver: zodResolver(UpdateUserSchema),
 		defaultValues: user,
@@ -53,7 +53,7 @@ export default function AdminUpdateUserForm({ user }: { user: User }) {
 						type="submit"
 						disabled={isPending}
 						className="cursor-pointer min-w-40"
-						aria-label="Continue"
+						aria-label="Update user"
 					>
 						{isPending ? (
 							<Loader width={16} height={16} />

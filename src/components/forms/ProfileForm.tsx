@@ -99,7 +99,7 @@ export default function ProfileForm() {
 						type="submit"
 						disabled={isPending}
 						className="cursor-pointer min-w-40"
-						aria-label="Continue"
+						aria-label="Update profile"
 					>
 						{isPending ? (
 							<Loader width={16} height={16} />

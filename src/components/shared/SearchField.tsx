@@ -1,11 +1,28 @@
+'use client';
 // components
 import { Input } from '@/components/ui/input';
 
-export default function SearchField() {
+type SearchFieldProps = {
+	name: string;
+	value: string;
+	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
 
-  return (
-    <div className='px-10 w-full'>
-      <Input type='search' placeholder='Search...' className='w-full md:min-w-[100px] lg:min-w-[300px]' />
-    </div>
-  )
+export default function SearchField({
+	name,
+	value,
+	onChange,
+}: SearchFieldProps) {
+	return (
+		<div className="px-10 w-full">
+			<Input
+				type="search"
+				name={name}
+				value={value}
+				onChange={onChange}
+				className="w-full md:min-w-[100px] lg:min-w-[300px]"
+				placeholder="Search..."
+			/>
+		</div>
+	);
 }

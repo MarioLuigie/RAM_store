@@ -6,6 +6,7 @@ import { ROUTES } from '@/lib/constants/paths';
 import { Plus } from 'lucide-react';
 import AdminProductsTable from '@/components/tables/AdminProductsTable';
 import Pagination from '@/components/shared/Pagination';
+import FilteredBy from '@/components/content/FilteredBy';
 
 type AdminProductsPageProps = {
 	page: number;
@@ -30,7 +31,10 @@ export default async function AdminProductsPage({
 	return (
 		<div className="space-y-2">
 			<div className="flex-between">
-				<h1 className="text-xl  mb-3">Products</h1>
+				<div className='flex items-end gap-2 mb-3'>
+					<h1 className="text-xl">Products</h1>
+					{query && <FilteredBy query={query} />}
+				</div>
 				<Button asChild variant="default">
 					<Link href={ROUTES.ADMIN_PRODUCTS_CREATE}>
 						<Plus />

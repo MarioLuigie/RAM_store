@@ -17,7 +17,7 @@ export default function AdminSearch() {
 		: ROUTES.ADMIN_PRODUCTS;
 
 	const searchParams = useSearchParams();
-  
+
 	const [queryValue, setQueryValue] = useState(
 		searchParams.get('query') || ''
 	);
@@ -33,6 +33,9 @@ export default function AdminSearch() {
 	return (
 		<form action={formActionUrl} method="GET">
 			<SearchField name="query" value={queryValue} onChange={handleChange} />
+      <button className='sr-only' type='submit'>
+        Search
+      </button>
 		</form>
 	);
 }

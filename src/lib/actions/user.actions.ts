@@ -20,6 +20,7 @@ import { revalidatePath } from 'next/cache';
 import { ROUTES } from '../constants/paths';
 import { AuthRole } from '../constants/enums';
 import { UpdateUser, User } from '../types/user.types';
+import { Prisma } from '@prisma/client';
 
 // SIGN IN THE USER WITH CREDENTIALS
 export async function signInUserWithCredentials(
@@ -250,10 +251,22 @@ export async function updateProfile(user: { name: string; email: string }) {
 export async function getUsers({
 	limit = PAGE_SIZE,
 	page,
+	query,
 }: {
 	limit?: number;
 	page: number;
+	query: string;
 }) {
+	const queryFilter: Prisma.UserWhereInput =
+		query && query !== 'all'
+			? {
+					name: {
+						contains: query,
+						mode: 'insensitive',
+					} as Prisma.StringFilter,
+			  }
+			: {};
+
 	try {
 		const session = await auth();
 
@@ -262,6 +275,9 @@ export async function getUsers({
 		}
 
 		const usersRaw = await prisma.user.findMany({
+			where: {
+				...queryFilter,
+			},
 			orderBy: { createdAt: 'desc' },
 			take: limit,
 			skip: (page - 1) * limit,
@@ -363,7 +379,7 @@ export async function updateUser(user: UpdateUser) {
 			});
 		}
 
-		revalidatePath(`${ROUTES.ADMIN_USERS}/${user.id}`)
+		revalidatePath(`${ROUTES.ADMIN_USERS}/${user.id}`);
 
 		return {
 			success: true,

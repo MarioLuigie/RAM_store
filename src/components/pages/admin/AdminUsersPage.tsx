@@ -5,10 +5,16 @@ import { getUsers } from '@/lib/actions/user.actions';
 import AdminUsersTable from '@/components/tables/AdminUsersTable';
 import Pagination from '@/components/shared/Pagination';
 
-export default async function AdminUsersPage({ page = '1' }: { page: string }) {
+export default async function AdminUsersPage({
+	page = '1',
+	query,
+}: {
+	page: string;
+	query: string;
+}) {
 	await requireAdmin();
 
-	const { success, data } = await getUsers({ page: Number(page) });
+	const { success, data } = await getUsers({ page: Number(page), query });
 
 	if (!success || !data || !data.users) {
 		return (

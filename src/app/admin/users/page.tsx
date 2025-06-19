@@ -11,10 +11,10 @@ export const metadata: Metadata = {
 export default async function Page({
   searchParams
 }: {
-  searchParams: Promise<{page: string}>
+  searchParams: Promise<{page: string, query: string}>
 }) {
-  const { page } = await searchParams;
+  const { page, query } = await searchParams;
   return (
-    <AdminUsersPage page={page} />
+    <AdminUsersPage page={page} query={query} />
   )
 }

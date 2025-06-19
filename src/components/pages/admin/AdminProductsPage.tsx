@@ -33,7 +33,7 @@ export default async function AdminProductsPage({
 			<div className="flex-between">
 				<div className='flex items-end gap-2 mb-3'>
 					<h1 className="text-xl">Products</h1>
-					{query && <FilteredBy query={query} />}
+					{query && <FilteredBy query={query} redirect={ROUTES.ADMIN_PRODUCTS} />}
 				</div>
 				<Button asChild variant="default">
 					<Link href={ROUTES.ADMIN_PRODUCTS_CREATE}>

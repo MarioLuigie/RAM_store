@@ -29,6 +29,7 @@ export default function AdminOrdersTable({
 					<TableRow>
 						<TableHead>Order Id</TableHead>
 						<TableHead>Created at</TableHead>
+						<TableHead>Buyer</TableHead>
 						<TableHead>Total Price</TableHead>
 						<TableHead>Paid at</TableHead>
 						<TableHead>Delivered at</TableHead>
@@ -42,6 +43,7 @@ export default function AdminOrdersTable({
 							<TableCell>
 								{formatDateTime(order.createdAt).dateTime}
 							</TableCell>
+							<TableCell>{order.user.name}</TableCell>
 							<TableCell>{formatCurrency(order.totalPrice)}</TableCell>
 							<TableCell>
 								{order.isPaid && order.paidAt ? (

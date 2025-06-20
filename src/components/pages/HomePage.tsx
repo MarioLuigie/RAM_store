@@ -1,8 +1,10 @@
 import NewestArrivalsProducts from '@/components/content/NewestArrivalsProducts'
+import ProductCarousel from '../content/ProductCarousel'
 
 export default function HomePage() {
 	return (
-		<div className="flex justify-center">
+		<div className="flex flex-col items-center">
+			<ProductCarousel />
 			<NewestArrivalsProducts />
 		</div>
 	)

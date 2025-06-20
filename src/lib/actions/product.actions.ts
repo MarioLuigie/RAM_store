@@ -19,6 +19,7 @@ import {
 import { revalidatePath } from 'next/cache';
 import { ROUTES } from '@/lib/constants/paths';
 import { CreateProductSchema, UpdateProductSchema } from '../utils/validators';
+import { convertToPlainObject } from '../utils/utils';
 
 // CREATE PRISMA CLIENT
 // const prisma = new PrismaClient()
@@ -290,6 +291,28 @@ export async function updateProduct(data: UpdateProduct) {
 		return {
 			success: true,
 			message: 'Product updated successfully',
+		};
+	} catch (error) {
+		return {
+			success: false,
+			message: formatErrorMessages(error),
+		};
+	}
+}
+
+// GET FEATURED PRODUCTS
+export async function getFeaturedProducts() {
+	try {
+		const data = await prisma.product.findMany({
+			where: { isFeatured: true },
+			orderBy: { createdAt: 'desc' },
+			take: 4,
+		});
+
+		return {
+			success: true,
+			data: convertToPlainObject(data),
+			message: 'Products found successfully',
 		};
 	} catch (error) {
 		return {

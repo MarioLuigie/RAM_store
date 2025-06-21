@@ -59,6 +59,24 @@ export default function CustomCarousel({ data }: { data: ImageProps[] }) {
 						/>
 					</video>
 				</CarouselItem>
+								<CarouselItem>
+					{' '}
+					<video autoPlay loop muted className="">
+						<source
+							src="https://seris5q0p8.ufs.sh/f/AfznK49DWwCXDhSqfwu3ZObsfoXc2M7iUQprx4z5nYFIAawS"
+							type="video/mp4"
+						/>
+					</video>
+				</CarouselItem>
+								<CarouselItem>
+					{' '}
+					<video autoPlay loop muted className="">
+						<source
+							src="https://seris5q0p8.ufs.sh/f/AfznK49DWwCXa8U5QNHC4I0qncXP3wuAg7kyS1a9DeKpGWmE"
+							type="video/mp4"
+						/>
+					</video>
+				</CarouselItem>
 			</CarouselContent>
 			<CarouselPrevious />
 			<CarouselNext />

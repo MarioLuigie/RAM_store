@@ -321,3 +321,24 @@ export async function getFeaturedProducts() {
 		};
 	}
 }
+
+// GET ALL CATEGORIES
+export async function getAllCategories() {
+	try {
+		const data = await prisma.product.groupBy({
+			by: ['category'],
+			_count: true,
+		});
+
+		return {
+			success: true,
+			data,
+			message: 'Categories found successfully'
+		}
+	} catch (error) {
+		return {
+			success: false,
+			message: formatErrorMessages(error),
+		};
+	}
+}

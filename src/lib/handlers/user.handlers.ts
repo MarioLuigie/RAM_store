@@ -45,7 +45,7 @@ export async function handleUpdateUser(
 	console.log('Updated User from client');
 
 	if (success) {
-		if (user.id === data?.id) {
+		if (session.user.id === data?.id) {
 			const sessionToUpdate = {
 				...session,
 				user: {

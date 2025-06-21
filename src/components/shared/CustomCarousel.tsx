@@ -11,7 +11,7 @@ import {
 import Autoplay from 'embla-carousel-autoplay';
 
 export default function CustomCarousel({ data }: { data: ImageProps[] }) {
-	console.log('$$$d', data);
+	console.log('$$$d', data[0]);
 	return (
 		<Carousel
 			className="w-full"

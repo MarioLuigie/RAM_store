@@ -3,7 +3,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import Main from '@/components/layout/Main';
 import AdminMenu from '@/components/navigations/AdminMenu';
-import AdminSearch from '@/components/content/AdminSearch';
+import AdminSearch from '@/components/content/Admin/AdminSearch';
 
 export default function AdminLayout({
 	children,

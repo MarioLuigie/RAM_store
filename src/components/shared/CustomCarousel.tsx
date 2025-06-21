@@ -51,7 +51,6 @@ export default function CustomCarousel({ data }: { data: ImageProps[] }) {
 					</video>
 				</CarouselItem>
 				<CarouselItem>
-					{' '}
 					<video autoPlay loop muted className="">
 						<source
 							src="https://seris5q0p8.ufs.sh/f/AfznK49DWwCXDOm7lCu3ZObsfoXc2M7iUQprx4z5nYFIAawS"

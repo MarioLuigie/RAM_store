@@ -1,14 +1,26 @@
-import { getFeaturedProducts } from "@/lib/actions/product.actions"
+// lib
+import { getFeaturedProducts } from '@/lib/actions/product.actions';
+// components
+import CustomCarousel from '@/components/shared/CustomCarousel';
 
 export default async function ProductCarousel() {
-  const { success, data: featuredProducts } = await getFeaturedProducts();
+	const { success, data: featuredProducts } = await getFeaturedProducts();
 
-  console.log("SUCCESS:", success)
-  console.log("FEATURED PRODUCTS:", featuredProducts)
+	if (!success || !featuredProducts)
+		throw new Error('Featured products not found');
 
-  return (
-    <div className="bg-red-300 w-full flex-center">
-      PRODUCT CAROUSEL
-    </div>
-  )
+	console.log('SUCCESS:', success);
+	console.log('FEATURED PRODUCTS:', featuredProducts);
+
+	const preparedBannerItems = featuredProducts?.map(
+		(product) => product.banner[0]
+	);
+
+	console.log('BANNER ITEMS:', preparedBannerItems);
+
+	return (
+		<div className="w-full flex-center mt-8">
+			<CustomCarousel data={preparedBannerItems} />
+		</div>
+	);
 }

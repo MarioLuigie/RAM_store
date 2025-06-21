@@ -38,6 +38,11 @@ declare type PageProps = {
 	searchParams: SearchParams
 }
 
+declare type ImageProps = {
+	url: string
+	key: string
+}
+
 // declare type SessionUser = {
 // 	name: string
 // 	email: string

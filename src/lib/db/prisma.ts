@@ -23,17 +23,20 @@ export const prisma = new PrismaClient({ adapter }).$extends({
 			price: {
 				// Zmieniamy Decimal → string, aby uniknąć problemów z JSON-em
 				compute(product) {
-					return product.price.toString();
+					// return product.price.toString();
+					return product.price?.toString() ?? null;
 				},
 			},
 			rating: {
 				compute(product) {
-					return product.rating.toString();
+					// return product.rating.toString();
+					return product.rating?.toString() ?? null;
 				},
 			},
 			numReviews: {
 				compute(product) {
-					return product.numReviews.toString();
+					// return product.numReviews.toString();
+					return product.numReviews?.toString() ?? null;
 				},
 			},
 			images: {

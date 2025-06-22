@@ -20,10 +20,13 @@ export default async function SearchPage({
 		category: queries.category,
 		query: queries.query,
 		page: Number(queries.page),
+    price: queries.price,
+    rating: queries.rating,
+    sort: queries.sort,
 	});
 
 	if (!success || !data) throw new Error('Products not found');
-  
+
 	return (
 		<div>
 			SEARCH PAGE{' '}

@@ -164,14 +164,20 @@ export async function getProducts({
 	query,
 	category,
 	limit = PAGE_SIZE,
+	price,
+	rating,
+	sort,
 }: {
 	page: number;
 	query: string;
 	category: string;
 	limit?: number;
+	price?: string;
+	rating?: string;
+	sort?: string;
 }) {
 	try {
-		console.log('getProducts params', page, query, category, limit);
+		console.log('getProducts params', page, query, category, limit, price, rating, sort);
 
 		const products = await prisma.product.findMany({
 			orderBy: { createdAt: 'desc' },

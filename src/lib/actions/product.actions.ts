@@ -330,11 +330,16 @@ export async function getAllCategories() {
 			_count: true,
 		});
 
+		const categories = data.map((category) => ({
+			category: category.category,
+			_count: category._count,
+		}));
+
 		return {
 			success: true,
-			data,
-			message: 'Categories found successfully'
-		}
+			data: categories,
+			message: 'Categories found successfully',
+		};
 	} catch (error) {
 		return {
 			success: false,

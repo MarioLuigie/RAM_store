@@ -20,7 +20,7 @@ export default async function SearchProduct() {
 
 	return (
 		<form action="/search" method="GET">
-			<div className="flex items-center gap-2">
+			<div className="flex items-center gap-2 ml-3">
 				<Select name='category' defaultValue='all'>
 					<SelectTrigger className="w-[100px] cursor-pointer">
 						<SelectValue />

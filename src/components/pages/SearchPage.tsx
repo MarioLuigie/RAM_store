@@ -1,9 +1,9 @@
 export default function SearchPage({
 	category,
-	q,
+	query,
 }: {
 	category: string;
-	q: string;
+	query: string;
 }) {
-	return <div>SEARCH PAGE{' '}{category}{' '}{q}</div>;
+	return <div>SEARCH PAGE{' '}{category}{' '}{query}</div>;
 }

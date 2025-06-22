@@ -46,7 +46,7 @@ export default async function SearchProduct() {
 				</Select>
 				<Input
 					type="text"
-					name="q"
+					name="query"
 					placeholder="Search..."
 					className="md:w-[100px] lg:w-[300px]"
 				/>

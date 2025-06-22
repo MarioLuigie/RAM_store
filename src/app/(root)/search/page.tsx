@@ -3,9 +3,9 @@ import SearchPage from '@/components/pages/SearchPage';
 export default async function Page({
 	searchParams,
 }: {
-	searchParams: Promise<{ category: string; q: string }>;
+	searchParams: Promise<{ category: string; query: string }>;
 }) {
-	const { category, q } = await searchParams;
-  
-	return <SearchPage category={category} q={q} />;
+	const { category, query } = await searchParams;
+
+	return <SearchPage category={category} query={query} />;
 }

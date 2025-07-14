@@ -1,6 +1,6 @@
 // lib
 import { getProducts } from '@/lib/actions/product.actions';
-import ProductCard from '../content/ProductCard';
+import ProductCard from '@/components/content/ProductCard';
 
 type QueriesProps = {
 	category: string;

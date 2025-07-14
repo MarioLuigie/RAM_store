@@ -9,6 +9,7 @@ export const ROUTES = {
 	SHIPPING_ADDRESS: '/shipping-address',
 	PAYMENT_METHOD: '/payment-method',
 	PLACE_ORDER: '/place-order',
+	SEARCH: '/search',
 	USER_ORDERS: '/user/orders',
 	USER_PROFILE: '/user/profile',
 	ADMIN_OVERVIEW: '/admin/overview',

@@ -10,7 +10,7 @@ import {
 	DrawerDescription,
 } from '@/components/ui/drawer';
 import { Button } from '@/components/ui/button';
-import { VenusAndMars } from 'lucide-react';
+import { VenusAndMars, X } from 'lucide-react';
 // lib
 import { getAllCategories } from '@/lib/actions/product.actions';
 import Link from 'next/link';
@@ -19,7 +19,7 @@ import { ROUTES } from '@/lib/constants/paths';
 export default async function CategoryDrawer() {
 	const { success, data } = await getAllCategories();
 
-	if (!success || !data) {
+	if (!success || !data || !data) {
 		return <div className="text-sm ml-4">Categories not found.</div>;
 	}
 
@@ -30,19 +30,30 @@ export default async function CategoryDrawer() {
 			</DrawerTrigger>
 			<DrawerContent>
 				<DrawerHeader>
-					<DrawerTitle>Select a category</DrawerTitle>
-					<DrawerDescription>You can choose category below</DrawerDescription>
-					<div className="flex flex-col space-y-2 mt-4">
-						{data.map(({ category }) => (
+					<div className="flex justify-between items-center mb-6">
+						<DrawerTitle>Select a category</DrawerTitle>
+						<DrawerClose className="cursor-pointer" autoFocus>
+							<X />
+						</DrawerClose>
+					</div>
+					<DrawerDescription className="mb-4">
+						You can choose category below
+					</DrawerDescription>
+					<div className="flex flex-col space-y-2">
+						{data.map((item) => (
 							<Button
-								key={category}
+								key={item.category}
 								variant="outline"
 								className="cursor-pointer"
 								asChild
 							>
 								<DrawerClose asChild>
-									<Link href={`${ROUTES.SEARCH}?category=${category}`}>
-										{category}
+									<Link
+										href={`${ROUTES.SEARCH}?category=${item.category}`}
+										className="flex justify-between items-center"
+									>
+										<p>{item.category}</p> 
+										<p>{`(${item._count} ${item._count > 1 ? 'pcs' : 'pc'})`}</p>
 									</Link>
 								</DrawerClose>
 							</Button>
@@ -50,7 +61,7 @@ export default async function CategoryDrawer() {
 					</div>
 				</DrawerHeader>
 				<DrawerFooter>
-					<Button autoFocus>Submit</Button>
+					<div>store categories</div>
 				</DrawerFooter>
 			</DrawerContent>
 		</Drawer>

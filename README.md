@@ -4,17 +4,19 @@
 
 ## Introduction
 
-**HealthCare** is a modern medical application that gives clinic patients full control over their health. With this app, users have access to their account, where they can quickly and conveniently schedule, edit, and cancel appointments with their doctors. The app also offers a clear dashboard where patients can monitor their health status, check test results, and sign up for additional consultations or diagnostic tests. HealthCare is the perfect solution for those who value easy access to essential medical information and want to actively manage their health.
+**RAM_store** E-commerce Platform
+Developed a full-featured e-commerce application with user authentication, shopping cart, checkout flow, and an admin dashboard. Integrated PayPal and Stripe payments, implemented unit tests with Jest, and wrote test cases in Jira to ensure reliability of key features.
+Technologies: Next.js, React, TypeScript, PostgreSQL (Prisma), NextAuth, Tailwind CSS, Shadcn/UI.
 
-You can try it out here: **[https://healthcare-clinic.vercel.app/](https://healthcare-clinic.vercel.app/)**
+You can try it out here: **[https://ram-store.vercel.app/](https://ram-store.vercel.app/)**
 
 ## Technologies
 
 This project is built using modern full-stack web development technologies to ensure high performance, maintainability, and scalability. Below is a list of the key technologies and libraries used:
 
-- **[Next.js](https://nextjs.org/)**: A powerful React-based framework for building server-rendered and statically generated web applications. Version `14.2.7` is used for optimized performance and features like dynamic routing, SSR (Server-Side Rendering), and API routes.
+- **[Next.js 15](https://nextjs.org/)**: A powerful React-based framework for building server-rendered and statically generated web applications. Version `14.2.7` is used for optimized performance and features like dynamic routing, SSR (Server-Side Rendering), and API routes.
 
-- **[React](https://reactjs.org/)**: A JavaScript library for building user interfaces, focusing on component-based architecture and efficient updates. This project uses React version `18` for features such as Concurrent Mode and Suspense.
+- **[React 19](https://reactjs.org/)**: A JavaScript library for building user interfaces, focusing on component-based architecture and efficient updates. This project uses React version `18` for features such as Concurrent Mode and Suspense.
 
 - **[TypeScript](https://www.typescriptlang.org/)**: A statically typed superset of JavaScript that enhances code quality and maintainability by catching errors at compile time. The project uses TypeScript for improved developer experience and scalability.
 
@@ -23,8 +25,6 @@ This project is built using modern full-stack web development technologies to en
 - **[React Hook Form](https://react-hook-form.com/)**: A flexible and efficient form management library. Paired with `Zod` for schema-based form validation, it simplifies handling forms and validation in React.
 
 - **[Radix UI](https://www.radix-ui.com/)**: A collection of unstyled, accessible components such as checkboxes, radio buttons, and select dropdowns, used to build a customized and accessible UI.
-
-- **[Appwrite](https://appwrite.io/)**: A backend-as-a-service platform used for managing databases, authentication, and storage in this project. The `node-appwrite` SDK simplifies integration with Appwrite’s API.
 
 - **[Lucide Icons](https://lucide.dev/)**: A collection of beautiful, customizable icons used for enhancing the user interface.
 
@@ -138,8 +138,7 @@ Make sure you have the following installed on your machine:
 **Cloning the repository**
 
 ```bash
-git clone https://github.com/MarioLuigie/HealthCare.git
-cd healthcare
+git clone https://github.com/MarioLuigie/RAM_store.git
 ```
 
 **Installation**
@@ -155,15 +154,41 @@ npm install
 Create a new file named `.env.local` in the main catalog and add the following content:
 
 ```env
-#GENERAL
-APPWRITE_PROJECT_ID=
-APPWRITE_API_KEY=
-APPWRITE_DB_ID=
-APPWRITE_DB_PATIENT_COLLECTION_ID=
-APPWRITE_DB_DOCTOR_COLLECTION_ID=
-APPWRITE_DB_APPOINTMENT_COLLECTION_ID=
-APPWRITE_PUBLIC_BUCKET_ID=
-NEXT_PUBLIC_APPWRITE_ENDPOINT=
+# APP
+NEXT_PUBLIC_APP_NAME="RAM"
+NEXT_PUBLIC_APP_DESC="RAM. Interpret as you wish."
+
+#SERVER
+NEXT_PUBLIC_SERVER_URL="http://localhost:3000"
+
+DATABASE_URL=
+
+# PRODUCTS
+LATEST_PRODUCTS_LIMIT=8
+
+# AUTH
+NEXTAUTH_SECRET=
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_URL_INTERNAL="http://localhost:3000"
+AUTH_TRUST_HOST=true
+
+
+# PAYMENT METHODS
+PAYMENT_METHODS="PayPal, Stripe, CashOnDelivery"
+DEFAULT_PAYMENT_METHOD="PayPal"
+
+# PAYPAL CLIENT 
+PAYPAL_API_URL="https://api-m.sandbox.paypal.com"
+PAYPAL_CLIENT_ID=
+PAYPAL_APP_SECRET=
+
+# ADMIN WHITE LIST
+USER_WHITE_LIST=founder@example.com,moderator@example.com,admin@example.com
+
+# UPLOADTHING
+UPLOADTHING_TOKEN=
+APLOADTHING_SECRET=
+APLOADTHING_APPID=
 ```
 
 Fill in the environmental variable values with your actual credentials.

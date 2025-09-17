@@ -2,7 +2,7 @@
 
 [![Application intro](https://raw.githubusercontent.com/MarioLuigie/RAM_store/main/public/assets/images/readme-intro.jpg)](https://ram-store.vercel.app/)
 
-## REACT | NEXT.JS | NODE.JS | POSTGRESQL | PRISMA ORM | TAILWIND
+**REACT | NEXT.JS | NODE.JS | POSTGRESQL | PRISMA ORM | TAILWIND**
 
 ## Introduction
 
